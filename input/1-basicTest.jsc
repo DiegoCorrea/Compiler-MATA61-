@@ -1,0 +1,11 @@
+function main()
+
+{
+
+  var a;
+
+  a = 4 + 5;
+
+  return a;
+
+}
