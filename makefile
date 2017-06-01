@@ -17,4 +17,7 @@ lex:
 
 run:
 	$(MAKE) all
-	./bin/a.out < input/1-basicTest.jsc
+	./bin/a.out < input/1.jsc
+	./bin/a.out < input/2.jsc
+	./bin/a.out < input/3.jsc
+	./bin/a.out < input/4.jsc

@@ -8,8 +8,6 @@ extern "C" {
 extern int yylineno;
 extern char* yytext;
 
-char *names[] = {NULL, "KEY", "DEC", "SYM", "ID"};
-
 int main(){
   int ntoken, vtoken;
 

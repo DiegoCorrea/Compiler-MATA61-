@@ -1,0 +1,1 @@
+function main() { print(4+5); }
