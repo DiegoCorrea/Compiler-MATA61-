@@ -1,18 +1,35 @@
 #include <iostream>
-
+#include "tokens.h"
 extern "C" {
   int yyparse();
   void yyerror(const char *);
   int yylex();
 }
+extern int yylineno;
+extern char* yytext;
+
+char *names[] = {NULL, "KEY", "DEC", "SYM", "ID"};
 
 int main(){
-  int result = yyparse();
-  if(result == 0){
-    std::cout << "Entrada valida" << std::endl;
-  } else {
-    std::cout << "Entrada invalida" << std::endl;
-  }
+  int ntoken, vtoken;
 
-  return result;
+  ntoken = yylex();
+  while(ntoken){
+    switch(ntoken){
+      case KEY:
+        printf("KEY\t\"%s\"\n",yytext);
+      break;
+      case DEC:
+        printf("DEC\t\"%s\"\n",yytext);
+      break;
+      case SYM:
+        printf("SYM\t\"%s\"\n",yytext);
+      break;
+      case ID:
+        printf("ID\t\"%s\"\n",yytext);
+      break;
+    }
+
+    ntoken = yylex();
+  }
 }

@@ -8,14 +8,14 @@
 
 %define api.value.type{double}
 
-%token FUNCTION ID LPARENT RPARENT LEFT_BRACE RIGHT_BRACE
+%token KEY ID SYM DEC
 
 %start input
 
 %%
 
 input:
-  FUNCTION ID LPARENT RPARENT LEFT_BRACE RIGHT_BRACE
+  KEY ID SYM SYM SYM SYM
   | %empty
 %%
 

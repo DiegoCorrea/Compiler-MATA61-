@@ -45,12 +45,10 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    FUNCTION = 258,
+    KEY = 258,
     ID = 259,
-    LPARENT = 260,
-    RPARENT = 261,
-    LEFT_BRACE = 262,
-    RIGHT_BRACE = 263
+    SYM = 260,
+    DEC = 261
   };
 #endif
 
