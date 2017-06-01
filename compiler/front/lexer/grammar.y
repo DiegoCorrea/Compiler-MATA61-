@@ -3,19 +3,20 @@
   #include <stdio.h>
   #include <stdlib.h>
   int yylex(void);
-  int yyerror(char const *);
+  void yyerror(char const *);
 %}
 
 %define api.value.type{double}
 
-%token KEY ID SYM SYM SYM SYM
+%token FUNCTION ID LPARENT RPARENT LEFT_BRACE RIGHT_BRACE
 
 %start input
 
 %%
 
-input
-
+input:
+  FUNCTION ID LPARENT RPARENT LEFT_BRACE RIGHT_BRACE
+  | %empty
 %%
 
 void yyerror(char const *err){
