@@ -4,30 +4,38 @@ extern "C" {
   int yyparse();
   void yyerror(const char *);
   int yylex();
+  void lexicalInput(int argc, char** argv);
 }
 extern int yylineno;
 extern char* yytext;
 
-int main(){
-  int ntoken, vtoken;
+int main(int argc, char** argv){
+  int ntoken;
+
+  lexicalInput(argc,argv);
+  FILE *fl_entrada = fopen(argv[2], "w+" );
 
   ntoken = yylex();
   while(ntoken){
     switch(ntoken){
       case KEY:
-        printf("KEY\t\"%s\"\n",yytext);
+        fprintf(fl_entrada,"KEY\t\t\"%s\"\n", yytext);
       break;
       case DEC:
-        printf("DEC\t\"%s\"\n",yytext);
+        fprintf(fl_entrada,"DEC\t\t\"%s\"\n", yytext);
       break;
       case SYM:
-        printf("SYM\t\"%s\"\n",yytext);
+        fprintf(fl_entrada,"SYM\t\t\"%s\"\n", yytext);
       break;
       case ID:
-        printf("ID\t\"%s\"\n",yytext);
+        fprintf(fl_entrada,"ID\t\t\"%s\"\n", yytext);
       break;
     }
 
     ntoken = yylex();
   }
+
+  fclose( fl_entrada );
+
+  return 0;
 }
