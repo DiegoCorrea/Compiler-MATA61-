@@ -13,29 +13,29 @@ int main(int argc, char** argv){
   int ntoken;
 
   lexicalInput(argc,argv);
-  FILE *fl_entrada = fopen(argv[2], "w+" );
+  FILE *fl_output = fopen(argv[2], "w+" );
 
   ntoken = yylex();
   while(ntoken){
     switch(ntoken){
       case KEY:
-        fprintf(fl_entrada,"KEY\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"KEY\t\t\"%s\"\n", yytext);
       break;
       case DEC:
-        fprintf(fl_entrada,"DEC\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"DEC\t\t\"%s\"\n", yytext);
       break;
       case SYM:
-        fprintf(fl_entrada,"SYM\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"SYM\t\t\"%s\"\n", yytext);
       break;
       case ID:
-        fprintf(fl_entrada,"ID\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"ID\t\t\"%s\"\n", yytext);
       break;
     }
 
     ntoken = yylex();
   }
 
-  fclose( fl_entrada );
+  fclose( fl_output );
 
   return 0;
 }

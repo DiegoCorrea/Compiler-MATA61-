@@ -5,13 +5,13 @@
 	#include "tokens.h"
 %}
 
-letter			[a-zA-Z]
-number			[0-9]
+letter				[a-zA-Z]
+number				[0-9]
 id					{letter}({number}*{letter}*[_]*)*
 dec					[1-9]{number}*
 sym					([(]|[)]|[{]|[}]|[[]|[]]|[,]|[;]|[=]|[+]|[-]|[*]|[/]|[<]|[>]|[<=]|[>=]|[==]|[!=]|[&&]|[||]|[!])
 key					(var|function|if|else|while|return|break|continue)
-whitespace	[ \n\t]
+whitespace			[ \n\t]
 
 %%
 

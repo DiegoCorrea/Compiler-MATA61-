@@ -11,7 +11,9 @@ Compiler writen in c/c++, to a small langague when is a mix from C and JS.
 If you want configure the compiler, follow the steps:  
 `sudo apt install flex`  
 `sudo apt install bison`  
+`sudo apt install gcc` 
+`sudo apt install g++` 
   
 Go to project folder and type:  
  * Just make the compiler: `make`  
- * Make and run test case: `make run`  
+ * Make and run test cases: `make run`  

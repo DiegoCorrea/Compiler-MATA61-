@@ -2,7 +2,7 @@ function add(x, y)
 
 {
 
-    return x + y;
+    return xaaa1111qqqHKHDGHDGHGHDFGHDFGHDFGHDFGHDFGH\ + y______!111111aaaa;
 
 }
 
@@ -13,7 +13,7 @@ function main()
 
     var a;
 
-    a = 3;
+    a = 3000000;
 
     return add(a, 2);
 
