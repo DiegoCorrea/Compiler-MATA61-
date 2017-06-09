@@ -1,7 +1,8 @@
 # Compiler a discipline from UFBA(Federal University of Bahia)  
-# Compiler writen in c/c++  
+### About  
+Compiler writen in c/c++, to a small langague when is a mix from C and JS.  
   
-*** Compiler from a mix of C/JS ***  
+### Inside the Compiler  
 
 1. Lexical: Using Flex tool to generate a lexical approach  
 2. Parser: Using Bison tool to verificate if the program is valid or not  
@@ -12,5 +13,5 @@ If you want configure the compiler, follow the steps:
 `sudo apt install bison`  
   
 Go to project folder and type:  
-  Just make the compiler: `make`  
-  Make and run test case: `make run`  
+ * Just make the compiler: `make`  
+ * Make and run test case: `make run`  
