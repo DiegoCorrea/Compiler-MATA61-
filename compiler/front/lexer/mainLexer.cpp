@@ -19,16 +19,16 @@ int main(int argc, char** argv){
   while(ntoken){
     switch(ntoken){
       case KEY:
-        fprintf(fl_output,"KEY \"%s\" 0\n", yytext);
+        fprintf(fl_output,"KEY \"%s\" %d\n", yytext, yylineno);
       break;
       case DEC:
-        fprintf(fl_output,"DEC \"%s\" 0\n", yytext);
+        fprintf(fl_output,"DEC \"%s\" %d\n", yytext, yylineno);
       break;
       case SYM:
-        fprintf(fl_output,"SYM \"%s\" 0\n", yytext);
+        fprintf(fl_output,"SYM \"%s\" %d\n", yytext, yylineno);
       break;
       case ID:
-        fprintf(fl_output,"ID \"%s\" 0\n", yytext);
+        fprintf(fl_output,"ID \"%s\" %d\n", yytext, yylineno);
       break;
       case ERROR:
         fprintf(fl_output,"SAINDO------------------\n");
