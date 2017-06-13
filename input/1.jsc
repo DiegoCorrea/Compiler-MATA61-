@@ -1,20 +1,12 @@
-/TA VENDO AQUI O MAIN?
 def main()
-
 {
-
   let a;
-
   a = 4 + 5;
-
   return a;
-
 }
+/TA VENDO AQUI O MAIN?
 //comentario aui
-def ssssss()
-
-{
-
+def ssssss(){
   let a;
   let ***aa;
 
