@@ -1,8 +1,22 @@
-function main()
+/TA VENDO AQUI O MAIN?
+def main()
 
 {
 
-  var a;
+  let a;
+
+  a = 4 + 5;
+
+  return a;
+
+}
+//comentario aui
+def ssssss()
+
+{
+
+  let a;
+  let ***aa;
 
   a = 4 + 5;
 

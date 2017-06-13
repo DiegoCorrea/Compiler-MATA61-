@@ -1,38 +1,38 @@
-KEY		"function"
-ID		"add"
-SYM		"("
-ID		"x"
-SYM		","
-ID		"y"
-SYM		")"
-SYM		"{"
-KEY		"return"
-ID		"xaaa1111qqqHKHDGHDGHGHDFGHDFGHDFGHDFGHDFGH"
-SYM		"+"
-ID		"y______"
-SYM		"!"
-DEC		"111111"
-ID		"aaaa"
-SYM		";"
-SYM		"}"
-KEY		"function"
-ID		"main"
-SYM		"("
-SYM		")"
-SYM		"{"
-KEY		"var"
-ID		"a"
-SYM		";"
-ID		"a"
-SYM		"="
-DEC		"3000000"
-SYM		";"
-KEY		"return"
-ID		"add"
-SYM		"("
-ID		"a"
-SYM		","
-DEC		"2"
-SYM		")"
-SYM		";"
-SYM		"}"
+KEY "def" 0
+ID "add" 0
+SYM "(" 0
+ID "x" 0
+SYM "," 0
+ID "y" 0
+SYM ")" 0
+SYM "{" 0
+KEY "return" 0
+ID "xaaa1111qqqHKHDGHDGHGHDFGHDFGHDFGHDFGHDFGH" 0
+SYM "+" 0
+ID "y______" 0
+SYM "!" 0
+DEC "111111" 0
+ID "aaaa" 0
+SYM ";" 0
+SYM "}" 0
+KEY "def" 0
+ID "main" 0
+SYM "(" 0
+SYM ")" 0
+SYM "{" 0
+KEY "let" 0
+ID "a" 0
+SYM ";" 0
+ID "a" 0
+SYM "=" 0
+DEC "3000000" 0
+SYM ";" 0
+KEY "return" 0
+ID "add" 0
+SYM "(" 0
+ID "a" 0
+SYM "," 0
+DEC "2" 0
+SYM ")" 0
+SYM ";" 0
+SYM "}" 0

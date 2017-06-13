@@ -1,18 +1,48 @@
-KEY		"function"
-ID		"main"
-SYM		"("
-SYM		")"
-SYM		"{"
-KEY		"var"
-ID		"a"
-SYM		";"
-ID		"a"
-SYM		"="
-DEC		"4"
-SYM		"+"
-DEC		"5"
-SYM		";"
-KEY		"return"
-ID		"a"
-SYM		";"
-SYM		"}"
+SYM "/" 0
+ID "TA" 0
+ID "VENDO" 0
+ID "AQUI" 0
+ID "O" 0
+ID "MAIN" 0
+KEY "def" 0
+ID "main" 0
+SYM "(" 0
+SYM ")" 0
+SYM "{" 0
+KEY "let" 0
+ID "a" 0
+SYM ";" 0
+ID "a" 0
+SYM "=" 0
+DEC "4" 0
+SYM "+" 0
+DEC "5" 0
+SYM ";" 0
+KEY "return" 0
+ID "a" 0
+SYM ";" 0
+SYM "}" 0
+KEY "def" 0
+ID "ssssss" 0
+SYM "(" 0
+SYM ")" 0
+SYM "{" 0
+KEY "let" 0
+ID "a" 0
+SYM ";" 0
+KEY "let" 0
+SYM "*" 0
+SYM "*" 0
+SYM "*" 0
+ID "aa" 0
+SYM ";" 0
+ID "a" 0
+SYM "=" 0
+DEC "4" 0
+SYM "+" 0
+DEC "5" 0
+SYM ";" 0
+KEY "return" 0
+ID "a" 0
+SYM ";" 0
+SYM "}" 0

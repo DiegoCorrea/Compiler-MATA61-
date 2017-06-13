@@ -1,13 +1,13 @@
-KEY		"function"
-ID		"main"
-SYM		"("
-SYM		")"
-SYM		"{"
-ID		"print"
-SYM		"("
-DEC		"4"
-SYM		"+"
-DEC		"5"
-SYM		")"
-SYM		";"
-SYM		"}"
+KEY "def" 0
+ID "main" 0
+SYM "(" 0
+SYM ")" 0
+SYM "{" 0
+ID "print" 0
+SYM "(" 0
+DEC "4" 0
+SYM "+" 0
+DEC "5" 0
+SYM ")" 0
+SYM ";" 0
+SYM "}" 0

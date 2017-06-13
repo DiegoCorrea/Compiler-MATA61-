@@ -1,16 +1,16 @@
-KEY		"function"
-ID		"main"
-SYM		"("
-SYM		")"
-SYM		"{"
-KEY		"var"
-ID		"a"
-SYM		"="
-DEC		"3"
-SYM		"+"
-DEC		"5"
-SYM		";"
-KEY		"var"
-ID		"b"
-SYM		";"
-SYM		"}"
+KEY "def" 0
+ID "main" 0
+SYM "(" 0
+SYM ")" 0
+SYM "{" 0
+KEY "let" 0
+ID "a" 0
+SYM "=" 0
+DEC "3" 0
+SYM "+" 0
+DEC "5" 0
+SYM ";" 0
+ID "var" 0
+ID "b" 0
+SYM ";" 0
+SYM "}" 0

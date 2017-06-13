@@ -19,23 +19,24 @@ int main(int argc, char** argv){
   while(ntoken){
     switch(ntoken){
       case KEY:
-        fprintf(fl_output,"KEY\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"KEY \"%s\" 0\n", yytext);
       break;
       case DEC:
-        fprintf(fl_output,"DEC\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"DEC \"%s\" 0\n", yytext);
       break;
       case SYM:
-        fprintf(fl_output,"SYM\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"SYM \"%s\" 0\n", yytext);
       break;
       case ID:
-        fprintf(fl_output,"ID\t\t\"%s\"\n", yytext);
+        fprintf(fl_output,"ID \"%s\" 0\n", yytext);
+      break;
+      case ERROR:
+        fprintf(fl_output,"SAINDO------------------\n");
+        exit(1);
       break;
     }
-
     ntoken = yylex();
   }
-
   fclose( fl_output );
-
   return 0;
 }

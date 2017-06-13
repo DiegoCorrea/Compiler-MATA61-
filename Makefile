@@ -4,7 +4,7 @@ all:
 	gcc -c compiler/front/lexer/grammar.tab.c compiler/front/lexer/lex.yy.c
 	mv *.o compiler/front/lexer/
 	ar rvs compiler/front/lexer/lexgram.a compiler/front/lexer/grammar.tab.o compiler/front/lexer/lex.yy.o
-	g++ -std=c++11 -Wall -Wextra -o lexico compiler/front/lexer/mainLexer.cpp compiler/front/lexer/lexgram.a 
+	g++ -std=c++11 -Wall -Wextra -o compilador compiler/front/lexer/mainLexer.cpp compiler/front/lexer/lexgram.a 
 
 grammar:
 	bison -d compiler/front/lexer/grammar.y
@@ -16,7 +16,7 @@ lex:
 
 run:
 	$(MAKE) all
-	./lexico input/1.jsc output/out1.lex
-	./lexico input/2.jsc output/out2.lex
-	./lexico input/3.jsc output/out3.lex
-	./lexico input/4.jsc output/out4.lex
+	./compilador input/1.jsc output/out1.lex
+	./compilador input/2.jsc output/out2.lex
+	./compilador input/3.jsc output/out3.lex
+	./compilador input/4.jsc output/out4.lex
