@@ -8,24 +8,24 @@
 
 letter      [a-zA-Z]
 number      [0-9]
-id          {letter}({number}*{letter}*[_]*)*
-dec         [1-9]{number}*
-sym         ([(]|[)]|[{]|[}]|[[]|[]]|[,]|[;]|[=]|[+]|[-]|[*]|[/]|[<]|[>]|[<=]|[>=]|[==]|[!=]|[&&]|[||]|[!])
+id          [A-Za-z][A-Za-z0-9_]*
+dec         [0-9]{number}*
+sym         ([(]|[)]|[{]|[}]|[[]|[]]|[,]|[;]|[=]|[+]|[-]|[*]|[/]|[<]|[>]|<=|>=|==|!=|&&|"||"|[!])
 key         (let|def|if|else|while|return|break|continue)
 whitespace  [ \n\t]
 comment     "//".*
-error       (^key|^sym|^id|^number|^whitespace)
+error       (^{key}|^{sym}|^{id}|^{number}|^{whitespace})
 
 %%
 
-{key}       { return KEY; }
-{dec}       { return DEC; }
-{error}     { return ERROR; } 
-{sym}       { return SYM; }
-{id}        { return ID; }
-{comment}
-{whitespace}
-
+{key}         { return KEY; }
+{dec}         { return DEC; }
+{sym}         { return SYM; }
+{id}          { return ID; }
+{error}       { return ERROR; } 
+{comment}	    
+{whitespace}  
+.             { return ERROR;}
 
 %%
 lexicalInput( argc, argv )

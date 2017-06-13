@@ -1,17 +1,18 @@
 def main()
 {
-  let a;
+  let a:;
   a = 4 + 5;
   return a;
 }
-/TA VENDO AQUI O MAIN?
 //comentario aui
 def ssssss(){
   let a;
-  let ***aa;
+  let b;
 
   a = 4 + 5;
-
+  if(a | b){
+    b = 9 + 0;
+  }
   return a;
 
 }
