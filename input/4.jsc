@@ -1,1 +1,1 @@
-function main() { print(4+5); }
+def main() { print(4+5); }

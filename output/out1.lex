@@ -1,18 +1,8 @@
-KEY		"function"
-ID		"main"
-SYM		"("
-SYM		")"
-SYM		"{"
-KEY		"var"
-ID		"a"
-SYM		";"
-ID		"a"
-SYM		"="
-DEC		"4"
-SYM		"+"
-DEC		"5"
-SYM		";"
-KEY		"return"
-ID		"a"
-SYM		";"
-SYM		"}"
+KEY	"def"	1
+ID	"main"	1
+SYM	"("	1
+SYM	")"	1
+SYM	"{"	2
+KEY	"let"	3
+ID	"a"	3
+ERROR	":"	3

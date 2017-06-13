@@ -1,38 +1,10 @@
-KEY		"function"
-ID		"add"
-SYM		"("
-ID		"x"
-SYM		","
-ID		"y"
-SYM		")"
-SYM		"{"
-KEY		"return"
-ID		"xaaa1111qqqHKHDGHDGHGHDFGHDFGHDFGHDFGHDFGH"
-SYM		"+"
-ID		"y______"
-SYM		"!"
-DEC		"111111"
-ID		"aaaa"
-SYM		";"
-SYM		"}"
-KEY		"function"
-ID		"main"
-SYM		"("
-SYM		")"
-SYM		"{"
-KEY		"var"
-ID		"a"
-SYM		";"
-ID		"a"
-SYM		"="
-DEC		"3000000"
-SYM		";"
-KEY		"return"
-ID		"add"
-SYM		"("
-ID		"a"
-SYM		","
-DEC		"2"
-SYM		")"
-SYM		";"
-SYM		"}"
+KEY	"def"	1
+ID	"add"	1
+SYM	"("	1
+ID	"x"	1
+SYM	","	1
+ID	"y"	1
+SYM	")"	1
+SYM	"{"	3
+KEY	"return"	5
+ID	"xaaa1111qqqHKHDGHDGHGHDFGHDFGHDFGHDFGHDFGH"	5
