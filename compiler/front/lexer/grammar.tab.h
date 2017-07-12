@@ -48,7 +48,8 @@ extern int yydebug;
     KEY = 258,
     ID = 259,
     SYM = 260,
-    DEC = 261
+    DEC = 261,
+    OP = 262
   };
 #endif
 

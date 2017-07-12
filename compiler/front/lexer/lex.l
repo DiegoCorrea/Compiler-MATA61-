@@ -11,13 +11,14 @@ number      [0-9]
 id          [A-Za-z][A-Za-z0-9_]*
 dec         [0-9]{number}*
 sym         ([(]|[)]|[{]|[}]|[[]|[]]|[,]|[;]|[=]|[+]|[-]|[*]|[/]|[<]|[>]|<=|>=|==|!=|&&|"||"|[!])
-key         (let|def|if|else|while|return|break|continue)
+key         (let|if|else|while|return|break|continue)
 whitespace  [ \n\t]
 comment     "//".*
 error       (^{key}|^{sym}|^{id}|^{number}|^{whitespace})
 
 %%
 
+"def"         { return DEFFUNC; }
 {key}         { return KEY; }
 {dec}         { return DEC; }
 {sym}         { return SYM; }

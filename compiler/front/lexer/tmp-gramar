@@ -1,0 +1,44 @@
+%token PROGRAM
+%token DECVAR
+%token DECFUNC
+%token PARAMLIST
+%token BLOCK
+%token STMT
+%token ASSIGN
+%token FUNCCALL
+%token ARGLIST
+%token EXPR
+%token BINOP
+%token UNOP
+
+ParamList:    ID (',' ID)*
+        ;
+%%
+
+Block:        '{' DecVar* Stmt* '}'
+        ;
+%%
+Stmt:         Assign ';' |
+              FuncCall ';' |
+              if '(' Expr ')' Block (else Block)? |
+              while '(' Expr ')' Block |
+              return Expr? ';' |
+              break ';' |
+              continue ';'
+
+Assign:      ID '=' Expr
+
+FuncCall:    ID '(' ArgList? ')'
+
+ArgList:     Expr (',' Expr)*
+
+Expr:         Expr BinOp Expr |
+              UnOp Expr |
+              '(' Expr ')' |
+              FuncCall |
+              DEC |
+              ID
+BinOp:        '+' | '-' | '*' | '/' | '<' | '<=' |
+              '>' | '>=' | '==' | '!=' | '&&' | '||'
+
+UnOp:         '-'  | '!'

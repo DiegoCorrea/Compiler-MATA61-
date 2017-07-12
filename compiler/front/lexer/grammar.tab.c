@@ -108,7 +108,8 @@ extern int yydebug;
     KEY = 258,
     ID = 259,
     SYM = 260,
-    DEC = 261
+    DEC = 261,
+    OP = 262
   };
 #endif
 
@@ -128,7 +129,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 132 "grammar.tab.c" /* yacc.c:358  */
+#line 133 "grammar.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -370,10 +371,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   8
+#define YYLAST   7
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  7
+#define YYNTOKENS  8
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -384,7 +385,7 @@ union yyalloc
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   261
+#define YYMAXUTOK   262
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -419,7 +420,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6
+       5,     6,     7
 };
 
 #if YYDEBUG
@@ -435,8 +436,8 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "KEY", "ID", "SYM", "DEC", "$accept",
-  "input", YY_NULLPTR
+  "$end", "error", "$undefined", "KEY", "ID", "SYM", "DEC", "OP",
+  "$accept", "main", YY_NULLPTR
 };
 #endif
 
@@ -445,7 +446,7 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261
+       0,   256,   257,   258,   259,   260,   261,   262
 };
 # endif
 
@@ -463,7 +464,7 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,    -2,     1,    -1,    -4,     0,     2,     3,    -4
+      -3,    -3,     1,    -2,    -4,    -1,     0,     2,    -4
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -471,13 +472,13 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       3,     0,     0,     0,     1,     0,     0,     0,     2
+       3,     3,     0,     0,     1,     0,     0,     0,     2
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4
+      -4,     5
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -491,25 +492,25 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     4,     3,     0,     5,     6,     0,     7,     8
+       1,     4,     0,     5,     6,     7,     3,     8
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     0,     4,    -1,     5,     5,    -1,     5,     5
+       3,     0,    -1,     5,     5,     5,     1,     5
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     8,     4,     0,     5,     5,     5,     5
+       0,     3,     9,     9,     0,     5,     5,     5,     5
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     7,     8,     8
+       0,     8,     9,     9
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1192,7 +1193,7 @@ yyreduce:
   switch (yyn)
     {
       
-#line 1196 "grammar.tab.c" /* yacc.c:1646  */
+#line 1197 "grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
