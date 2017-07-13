@@ -1,8 +1,8 @@
-DEFFUNC	"def"	1
-ID	"main"	1
-SYM	"("	1
-SYM	")"	1
-SYM	"{"	2
-KEY	"let"	3
-ID	"a"	3
+Token:	"def"	201	1
+Token:	"main"	4	1
+Token:	"("	1000	1
+Token:	")"	1001	1
+Token:	"{"	1002	2
+Token:	"let"	200	3
+Token:	"a"	4	3
 ERROR	":"	3

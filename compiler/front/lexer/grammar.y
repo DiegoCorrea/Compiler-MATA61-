@@ -8,14 +8,23 @@
 
 %define api.value.type{double}
 
-%token KEY ID SYM DEC DEFFUNC
-
+%token KEY ID SYM DEC DEF
+%token LPARENT
+%token RPARENT
+%token LBRACE
+%token RBRACE
 
 %start program
 
 %%
 
-program: 'let' ID ';'
+program:
+    decfunc                              
+    | %empty
+;
+decfunc:
+    DEF ID LPARENT RPARENT LBRACE RBRACE 
+    | %empty
 ;
 %%
 

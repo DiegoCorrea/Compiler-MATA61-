@@ -9,15 +9,16 @@ extern "C" {
 extern int yylineno;
 extern char* yytext;
 
-void lexinal(int argc, char** argv);
+void lexical(int argc, char** argv);
 void parser();
 
 int main(int argc, char** argv){
-  parser();
+  lexical(argc, argv);
+  //parser();
   return 0;
 }
 
-void lexinal(int argc, char** argv){
+void lexical(int argc, char** argv){
   int ntoken;
 
   lexicalInput(argc,argv);
@@ -25,29 +26,24 @@ void lexinal(int argc, char** argv){
 
   ntoken = yylex();
   while(ntoken){
-    switch(ntoken){
-      case KEY:
-        fprintf(fl_output,"KEY\t\"%s\"\t%d\n", yytext, yylineno);
-      break;
-      case DEC:
-        fprintf(fl_output,"DEC\t\"%s\"\t%d\n", yytext, yylineno);
-      break;
-      case SYM:
-        fprintf(fl_output,"SYM\t\"%s\"\t%d\n", yytext, yylineno);
-      break;
-      case ID:
-        fprintf(fl_output,"ID\t\"%s\"\t%d\n", yytext, yylineno);
-      break;
-      case DEFFUNC:
-        fprintf(fl_output,"DEFFUNC\t\"%s\"\t%d\n", yytext, yylineno);
-      break;
-      case ERROR:
-        fprintf(fl_output,"ERROR\t\"%s\"\t%d\n", yytext, yylineno);
-        fclose( fl_output );
-        exit(1);
-      break;
+    if(ntoken != ERROR){
+      fprintf(fl_output,"Token:\t\"%s\"\t%d\t%d\n", yytext, ntoken, yylineno);
+    } else{
+      fprintf(fl_output,"ERROR\t\"%s\"\t%d\n", yytext, yylineno);
+      fclose( fl_output );
+      exit(1);
     }
     ntoken = yylex();
   }
   fclose( fl_output );
+}
+
+void parser(){
+  int parser_result = yyparse();
+  if(parser_result == 0){
+    printf("Eh Valida\n");
+  } else{
+    printf("Invalida!\n");
+  }
+  printf("Total de linhas: %d", yylineno);
 }

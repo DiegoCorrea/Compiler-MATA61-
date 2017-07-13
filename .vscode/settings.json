@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "grammar.tab.c": "cpp",
-        "lex.yy.c": "cpp"
-    }
-}

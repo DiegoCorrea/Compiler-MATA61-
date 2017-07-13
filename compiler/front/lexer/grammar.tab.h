@@ -49,7 +49,11 @@ extern int yydebug;
     ID = 259,
     SYM = 260,
     DEC = 261,
-    DEFFUNC = 262
+    DEF = 262,
+    LPARENT = 263,
+    RPARENT = 264,
+    LBRACE = 265,
+    RBRACE = 266
   };
 #endif
 
