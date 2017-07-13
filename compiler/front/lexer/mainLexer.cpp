@@ -9,7 +9,15 @@ extern "C" {
 extern int yylineno;
 extern char* yytext;
 
+void lexinal(int argc, char** argv);
+void parser();
+
 int main(int argc, char** argv){
+  parser();
+  return 0;
+}
+
+void lexinal(int argc, char** argv){
   int ntoken;
 
   lexicalInput(argc,argv);
@@ -38,17 +46,8 @@ int main(int argc, char** argv){
         fclose( fl_output );
         exit(1);
       break;
-      /*
-      case COMMENT:
-        fprintf(fl_output,"COMMENT \"%s\" %d\n", yytext, yylineno);
-      break;
-      case WHITESPACE:
-        fprintf(fl_output,"WHITESPACE \"%s\" %d\n", yytext, yylineno);
-      break;
-      */
     }
     ntoken = yylex();
   }
   fclose( fl_output );
-  return 0;
 }
