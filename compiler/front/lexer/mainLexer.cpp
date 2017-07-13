@@ -30,6 +30,9 @@ int main(int argc, char** argv){
       case ID:
         fprintf(fl_output,"ID\t\"%s\"\t%d\n", yytext, yylineno);
       break;
+      case DEFFUNC:
+        fprintf(fl_output,"DEFFUNC\t\"%s\"\t%d\n", yytext, yylineno);
+      break;
       case ERROR:
         fprintf(fl_output,"ERROR\t\"%s\"\t%d\n", yytext, yylineno);
         fclose( fl_output );

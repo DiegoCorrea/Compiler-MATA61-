@@ -49,7 +49,7 @@ extern int yydebug;
     ID = 259,
     SYM = 260,
     DEC = 261,
-    OP = 262
+    DEFFUNC = 262
   };
 #endif
 

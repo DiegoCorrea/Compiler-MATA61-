@@ -1,4 +1,4 @@
-KEY	"def"	1
+DEFFUNC	"def"	1
 ID	"main"	1
 SYM	"("	1
 SYM	")"	1

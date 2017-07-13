@@ -8,19 +8,15 @@
 
 %define api.value.type{double}
 
-%token KEY ID SYM DEC DEF
+%token KEY ID SYM DEC DEFFUNC
 
 
 %start program
 
 %%
 
-program: decfunc
+program: 'let' ID ';'
 ;
-%%
-
-decfunc:      DEF ID '(' ')'
-        ;
 %%
 
 void yyerror(char const *err){
