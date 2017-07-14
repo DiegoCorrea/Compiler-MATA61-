@@ -91,7 +91,12 @@ assigner:
 statement:
     assigner SEMICOLON                               {printf("\t statement assigner SEMICOLON] \n");}
     | funccall SEMICOLON                             {printf("\t statement funccall SEMICOLON] \n");}
+    | conditional                                    {printf("\t statement conditional] \n");}
     | %empty                                         {printf("\t statement EMPTY] \n");}
+;
+conditional:
+    IF_T LPARENT expr RPARENT block                  {printf("\t conditional IF_T LPARENT expr RPARENT block] \n");}
+    | IF_T LPARENT expr RPARENT block ELSE_T block  {printf("\t conditional IF_T LPARENT expr RPARENT block ELSE_T block] \n");}
 ;
 expr:
     expr binop expr                                  {printf("\t expr expr binop expr] \n");}

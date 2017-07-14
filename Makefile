@@ -14,9 +14,14 @@ lex:
 	flex compiler/front/lexer/lex.l
 	mv lex.yy.* compiler/front/lexer/
 
-run:
+runLex:
 	$(MAKE) all
 	./compilador input/1.jsc output/out1.lex
 	./compilador input/2.jsc output/out2.lex
 	./compilador input/3.jsc output/out3.lex
 	./compilador input/4.jsc output/out4.lex
+
+runParser:
+	$(MAKE) all
+	./compilador < input/parser/0.jsc > output/parser/out0.lex
+	./compilador < input/parser/1.jsc > output/parser/out1.lex
