@@ -1,2 +1,8 @@
-let a = b;
-def main (){}
+let a;
+def main (a){
+    let a = lara (a,b,c);
+}
+def lara (a,b,c){
+    let c = a + 10;
+
+}

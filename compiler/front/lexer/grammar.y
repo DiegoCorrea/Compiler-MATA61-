@@ -56,29 +56,77 @@
 %start start
 
 %%
-start: program                                      {printf("[program \n");}
-    | %empty                                        {printf("EMPTY] \n");}
+start: program                                       {printf("[start \n");}
+    | %empty                                         {printf("start] \n");}
 ;
 program:
-    program decvar                                  {printf("\t[decvar \n");}
-    | program decfunc                               {printf("\t[decfunc \n");}
-    | %empty                                        {printf("\tEMPTY] \n");}
+    program decvar                                   {printf("\4 [program decvar \n");}
+    | program decfunc                                {printf("\4 [program decfunc \n");}
+    | %empty                                         {printf("\4 program EMPTY] \n");}
 ;
-decvar: LET_T ID SEMICOLON                          {printf("\t\t[UNIQUE \n");}
-        | LET_T ID ASSIGN ID SEMICOLON              {printf("\t\t[ASSIGN \n");}
+decvar: 
+    LET_T ID SEMICOLON                               {printf("\t [decvar LET_T ID SEMICOLON \n");}
+    | LET_T ID ASSIGN expr SEMICOLON                 {printf("\t [decvar LET_T ID ASSIGN expr SEMICOLON \n");}
+    | %empty                                         {printf("\t decvar EMPTY] \n");}
 ;
 decfunc:
-    DEF_T ID LPARENT paramlist RPARENT block        {printf("\t\t[ID \n");}
-    | DEF_T MAIN_T LPARENT paramlist RPARENT block  {printf("\t\t[MAIN \n");}
+    DEF_T ID LPARENT paramlist RPARENT block         {printf("\t [decfunc DEF_T ID LPARENT paramlist RPARENT block \n");}
+    | DEF_T MAIN_T LPARENT paramlist RPARENT block   {printf("\t [decfunc EF_T MAIN_T LPARENT paramlist RPARENT block \n");}
 ;
 paramlist:
-    ID                                              {printf("\t\t\t[paramlist ID \n");}
-    | ID COMMA paramlist                            {printf("\t\t\t[paramlist COMMA \n");}
-    | %empty                                        {printf("\t\t\tEMPTY] \n");}
+    ID                                               {printf("\t [paramlist ID \n");}
+    | ID COMMA paramlist                             {printf("\t [paramlist ID COMMA paramlist \n");}
+    | %empty                                         {printf("\t paramlist EMPTY] \n");}
 ;
 block:
-    LBRACE RBRACE                                   {printf("\t\t\t[block:  \n");}
-    | %empty                                        {printf("\t\t\t\tEMPTY] \n");}
+    LBRACE decvar statement RBRACE                   {printf("\t [block LBRACE decvar statement RBRACE \n");}
+    | %empty                                         {printf("\t block EMPTY] \n");}
+;
+assigner:
+    ID ASSIGN ID                                     {printf("\t assigner ID ASSIGN ID] \n");}
+    | ID ASSIGN assigner                             {printf("\t assigner ID ASSIGN assigner \n");}
+    | ID ASSIGN expr                                 {printf("\t assigner ID ASSIGN expr] \n");}
+    | %empty                                         {printf("\t assigner EMPTY] \n");}
+;
+statement:
+    assigner SEMICOLON                               {printf("\t statement assigner SEMICOLON] \n");}
+    | funccall SEMICOLON                             {printf("\t statement funccall SEMICOLON] \n");}
+    | %empty                                         {printf("\t statement EMPTY] \n");}
+;
+expr:
+    expr binop expr                                  {printf("\t expr expr binop expr] \n");}
+    | unop expr                                      {printf("\t expr unop expr] \n");}
+    | LPARENT expr RPARENT                           {printf("\t expr LPARENT expr RPARENT] \n");}
+    | funccall                                       {printf("\t expr funccall] \n");}
+    | DEC                                            {printf("\t expr DEC] \n");}
+    | ID                                             {printf("\t expr ID] \n");}
+    | %empty                                         {printf("\t expr EMPTY] \n");}
+;
+funccall:
+    ID LPARENT RPARENT                               {printf("\t funccall ID LPARENT RPARENT] \n");}
+    | ID LPARENT arglist RPARENT                     {printf("\t funccall ID LPARENT arglist RPARENT] \n");}
+;
+arglist:
+    expr                                             {printf("\t arglist expr] \n");}
+    | expr COMMA arglist                             {printf("\t arglist expr COMMA arglist] \n");}
+;
+binop:
+    PLUS
+    | MINUS
+    | MULTIPLY
+    | DIVIDER
+    | LESSTHAN
+    | LESSOREQUAL
+    | BIGGERTHAN
+    | BIGGEROREQUAL
+    | EQUAL
+    | NOTEQUAL
+    | AND
+    | OR
+;
+unop:
+    MINUS
+    | NOT
 ;
 %%
 
