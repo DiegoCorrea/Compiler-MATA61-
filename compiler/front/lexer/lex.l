@@ -2,7 +2,7 @@
 %{
 	#include <stdio.h>
 	#include "grammar.tab.h"
-	#include "tokens.h"
+	//#include "tokens.h"
 %}
 %option yylineno
 
@@ -15,7 +15,8 @@ comment     "//".*
 error       (^{id}|^{number}|^{whitespace})
 
 %%
-
+{comment}	    
+{whitespace}  
 "let"         { return LET_T; }
 "def"         { return DEF_T; }
 "if"          { return IF_T; }
@@ -25,6 +26,7 @@ error       (^{id}|^{number}|^{whitespace})
 "break"       { return BREAK_T; }
 "continue"    { return CONTINUE_T; }
 "return"      { return RETURN_T; }
+"main"        { return MAIN_T; }
 
 "("           { return LPARENT ; }
 ")"           { return RPARENT ; }
@@ -59,10 +61,7 @@ error       (^{id}|^{number}|^{whitespace})
 
 {dec}         { return DEC; }
 {id}          { return ID; }
-{error}       { return ERROR; } 
-{comment}	    
-{whitespace}  
-.             { return ERROR;}
+
 
 %%
 lexicalInput( argc, argv )

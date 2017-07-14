@@ -1,5 +1,5 @@
 #include <iostream>
-#include "tokens.h"
+//#include "tokens.h"
 extern "C" {
   int yyparse();
   void yyerror(const char *);
@@ -12,9 +12,9 @@ extern char* yytext;
 void lexical(int argc, char** argv);
 void parser();
 
-int main(int argc, char** argv){
-  lexical(argc, argv);
-  //parser();
+int main(/*int argc, char** argv*/){
+  //lexical(argc, argv);
+  parser();
   return 0;
 }
 
@@ -26,13 +26,13 @@ void lexical(int argc, char** argv){
 
   ntoken = yylex();
   while(ntoken){
-    if(ntoken != ERROR){
+    //if(ntoken != ERROR){
       fprintf(fl_output,"Token:\t\"%s\"\t%d\t%d\n", yytext, ntoken, yylineno);
-    } else{
+   // } else{
       fprintf(fl_output,"ERROR\t\"%s\"\t%d\n", yytext, yylineno);
       fclose( fl_output );
       exit(1);
-    }
+   // }
     ntoken = yylex();
   }
   fclose( fl_output );
@@ -45,5 +45,5 @@ void parser(){
   } else{
     printf("Invalida!\n");
   }
-  printf("Total de linhas: %d", yylineno);
+  printf("Total de linhas: %d\n", yylineno);
 }

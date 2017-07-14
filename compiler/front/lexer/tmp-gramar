@@ -1,15 +1,8 @@
-%token PROGRAM
-%token DECVAR
-%token DECFUNC
-%token PARAMLIST
-%token BLOCK
-%token STMT
-%token ASSIGN
-%token FUNCCALL
-%token ARGLIST
-%token EXPR
-%token BINOP
-%token UNOP
+Program     = (DecVar | DecFunc)*
+
+DecVar      = let ID ('=' Expr)? ';'
+
+DecFunc     = def ID '(' ParamList? ')' Block
 
 ParamList:    ID (',' ID)*
         ;

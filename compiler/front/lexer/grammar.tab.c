@@ -109,11 +109,38 @@ extern int yydebug;
     ID = 259,
     SYM = 260,
     DEC = 261,
-    DEF = 262,
-    LPARENT = 263,
-    RPARENT = 264,
-    LBRACE = 265,
-    RBRACE = 266
+    LET_T = 262,
+    DEF_T = 263,
+    MAIN_T = 264,
+    IF_T = 265,
+    ELSE_T = 266,
+    WHILE_T = 267,
+    FOR_T = 268,
+    BREAK_T = 269,
+    CONTINUE_T = 270,
+    RETURN_T = 271,
+    LPARENT = 272,
+    RPARENT = 273,
+    LBRACE = 274,
+    RBRACE = 275,
+    LBRACKETS = 276,
+    RBRACKETS = 277,
+    COMMA = 278,
+    SEMICOLON = 279,
+    PLUS = 280,
+    MINUS = 281,
+    MULTIPLY = 282,
+    DIVIDER = 283,
+    LESSTHAN = 284,
+    BIGGERTHAN = 285,
+    LESSOREQUAL = 286,
+    BIGGEROREQUAL = 287,
+    EQUAL = 288,
+    ASSIGN = 289,
+    NOTEQUAL = 290,
+    AND = 291,
+    OR = 292,
+    NOT = 293
   };
 #endif
 
@@ -133,7 +160,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 137 "grammar.tab.c" /* yacc.c:358  */
+#line 164 "grammar.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -373,23 +400,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  5
+#define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   9
+#define YYLAST   26
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  12
+#define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  3
+#define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  5
+#define YYNRULES  15
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  10
+#define YYNSTATES  28
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   266
+#define YYMAXUTOK   293
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -424,14 +451,18 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    22,    22,    23,    26,    27
+       0,    59,    59,    60,    63,    64,    65,    67,    68,    71,
+      72,    75,    76,    77,    80,    81
 };
 #endif
 
@@ -440,9 +471,13 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "KEY", "ID", "SYM", "DEC", "DEF",
-  "LPARENT", "RPARENT", "LBRACE", "RBRACE", "$accept", "program",
-  "decfunc", YY_NULLPTR
+  "$end", "error", "$undefined", "KEY", "ID", "SYM", "DEC", "LET_T",
+  "DEF_T", "MAIN_T", "IF_T", "ELSE_T", "WHILE_T", "FOR_T", "BREAK_T",
+  "CONTINUE_T", "RETURN_T", "LPARENT", "RPARENT", "LBRACE", "RBRACE",
+  "LBRACKETS", "RBRACKETS", "COMMA", "SEMICOLON", "PLUS", "MINUS",
+  "MULTIPLY", "DIVIDER", "LESSTHAN", "BIGGERTHAN", "LESSOREQUAL",
+  "BIGGEROREQUAL", "EQUAL", "ASSIGN", "NOTEQUAL", "AND", "OR", "NOT",
+  "$accept", "start", "program", "decvar", "decfunc", "paramlist", "block", YY_NULLPTR
 };
 #endif
 
@@ -452,16 +487,18 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285,   286,   287,   288,   289,   290,   291,   292,   293
 };
 # endif
 
-#define YYPACT_NINF -8
+#define YYPACT_NINF -25
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-8)))
+  (!!((Yystate) == (-25)))
 
-#define YYTABLE_NINF -1
+#define YYTABLE_NINF -4
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -470,7 +507,9 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -7,    -3,     2,    -8,    -5,    -8,    -4,    -6,    -2,    -8
+       2,     6,    -3,   -25,     5,    -1,   -25,   -25,   -24,    -6,
+      -5,   -25,     9,    10,    10,    -9,    -7,     0,     1,   -25,
+      10,    -2,    -2,   -25,     3,   -25,   -25,   -25
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -478,51 +517,61 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       3,     0,     0,     2,     0,     1,     0,     0,     0,     4
+       6,     0,     2,     1,     0,     0,     4,     5,     0,     0,
+       0,     7,     0,    13,    13,     0,    11,     0,     0,     8,
+      13,    15,    15,    12,     0,     9,    10,    14
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -8,    -8,    -8
+     -25,   -25,   -25,   -25,   -25,   -13,     4
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3
+      -1,     1,     2,     6,     7,    17,    25
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_uint8 yytable[] =
+static const yytype_int8 yytable[] =
 {
-       1,     4,     5,     6,     8,     7,     0,     0,     0,     9
+      11,    18,    -3,     9,     4,     5,     3,    23,    10,     8,
+      12,    13,    14,    15,    16,    19,    20,    24,    21,    22,
+       0,     0,     0,    27,     0,     0,    26
 };
 
 static const yytype_int8 yycheck[] =
 {
-       7,     4,     0,     8,    10,     9,    -1,    -1,    -1,    11
+      24,    14,     0,     4,     7,     8,     0,    20,     9,     4,
+      34,    17,    17,     4,     4,    24,    23,    19,    18,    18,
+      -1,    -1,    -1,    20,    -1,    -1,    22
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     7,    13,    14,     4,     0,     8,     9,    10,    11
+       0,    40,    41,     0,     7,     8,    42,    43,     4,     4,
+       9,    24,    34,    17,    17,     4,     4,    44,    44,    24,
+      23,    18,    18,    44,    19,    45,    45,    20
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    12,    13,    13,    14,    14
+       0,    39,    40,    40,    41,    41,    41,    42,    42,    43,
+      43,    44,    44,    44,    45,    45
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     0,     6,     0
+       0,     2,     1,     0,     2,     2,     0,     3,     5,     6,
+       6,     1,     3,     0,     2,     0
 };
 
 
@@ -1198,8 +1247,92 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
-#line 1203 "grammar.tab.c" /* yacc.c:1646  */
+        case 2:
+#line 59 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("[program \n");}
+#line 1254 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 3:
+#line 60 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("EMPTY] \n");}
+#line 1260 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 63 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t[decvar \n");}
+#line 1266 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 64 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t[decfunc \n");}
+#line 1272 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 65 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\tEMPTY] \n");}
+#line 1278 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 67 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t[UNIQUE \n");}
+#line 1284 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 68 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t[ASSIGN \n");}
+#line 1290 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 71 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t[ID \n");}
+#line 1296 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 10:
+#line 72 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t[MAIN \n");}
+#line 1302 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 11:
+#line 75 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t\t[paramlist ID \n");}
+#line 1308 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 12:
+#line 76 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t\t[paramlist COMMA \n");}
+#line 1314 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 13:
+#line 77 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t\tEMPTY] \n");}
+#line 1320 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 14:
+#line 80 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t\t[block:  \n");}
+#line 1326 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 81 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t\t\tEMPTY] \n");}
+#line 1332 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1336 "grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1427,7 +1560,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 29 "compiler/front/lexer/grammar.y" /* yacc.c:1906  */
+#line 83 "compiler/front/lexer/grammar.y" /* yacc.c:1906  */
 
 
 void yyerror(char const *err){

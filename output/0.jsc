@@ -1,0 +1,6 @@
+Token:	"def"	201	1
+Token:	"main"	4	1
+Token:	"("	1000	1
+Token:	")"	1001	1
+Token:	"{"	1002	1
+Token:	"}"	1003	3
