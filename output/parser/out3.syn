@@ -1,0 +1,31 @@
+[program
+	[decfunc 
+		[FUNC NAME]
+		[Paramlist  [ ID ]  [ ID ] ]
+		[block
+			[return
+				 [ID]  +  [ID] 
+			]
+		]
+	]
+	[decfunc 
+		[main]
+		[Paramlist ]
+		[block
+	[decvar [ID]]
+ [DEC] 	 assigner: ID ASSIGN expr] 
+
+			[assign
+			[return
+				
+		[arglist  [ID]  [DEC] 	 [arglist: expr 
+	 [arglist: expr COMMA arglist] 
+		]
+ 	 [funccall: ID LPARENT arglist RPARENT] 
+
+			]
+	 statement: assigner SEMICOLON] 
+		]
+	]
+]Eh Valida
+Total de linhas: 20

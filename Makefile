@@ -23,5 +23,8 @@ runLex:
 
 runParser:
 	$(MAKE) all
-	./compilador < input/parser/0.jsc > output/parser/out0.lex
-	./compilador < input/parser/1.jsc > output/parser/out1.lex
+	./compilador < input/parser/0.jsc > output/parser/out0.syn
+	./compilador < input/parser/1.jsc > output/parser/out1.syn
+	./compilador < input/parser/2.jsc > output/parser/out2.syn
+	./compilador < input/parser/3.jsc > output/parser/out3.syn
+	./compilador < input/parser/4.jsc > output/parser/out4.syn

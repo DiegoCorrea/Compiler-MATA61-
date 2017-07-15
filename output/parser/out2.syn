@@ -1,0 +1,52 @@
+[program
+	[decvar  [DEC] 	]
+
+	[decfunc 
+		[main]
+		[Paramlist ]
+		[block
+	[decvar 
+		[arglist  [DEC]  +  [DEC]  [DEC]  [DEC]  -  [DEC]  -  [DEC] 	 [arglist: expr 
+	 [arglist: expr COMMA arglist] 
+	 [arglist: expr COMMA arglist] 
+		]
+ 	 [funccall: ID LPARENT arglist RPARENT] 
+	]
+		]
+	]
+	[decfunc 
+		[FUNC NAME]
+		[Paramlist  [ ID ]  [ ID ]  [ ID ] ]
+		[block
+	[decvar  [ID]  *  [DEC] 	]
+ [ID]  >=  [ID]  +  [ID]  +  [ID] 
+		[block
+			[return
+				
+		[arglist  [ID] 	 [arglist: expr 
+		]
+ 	 [funccall: ID LPARENT arglist RPARENT] 
+
+			]
+		]	 [conditional IF_T LPARENT expr RPARENT block] 
+	 statement: conditional] 
+		]
+	]
+	[decfunc 
+		[FUNC NAME]
+		[Paramlist  [ ID ] ]
+		[block
+			[Stmt [ID]  >   [ID] 
+		[block [ID]  -  [DEC] 	 assigner: ID ASSIGN expr] 
+
+			[assign	 statement: assigner SEMICOLON] 
+		]	 [loop WHILE_T LPARENT expr RPARENT block 
+
+			[return
+				 [ID]  *  [ID] 
+			]
+	 statement: loop] 
+		]
+	]
+]Eh Valida
+Total de linhas: 17

@@ -1,0 +1,16 @@
+[program
+	[decfunc 
+		[main]
+		[Paramlist ]
+		[block
+	[decvar  [DEC]  +  [DEC] 
+	[decvar  [ID] 
+	[decvar  [DEC] 	]
+	]
+
+	[decvar [ID]]
+	]
+		]
+	]
+]Eh Valida
+Total de linhas: 1

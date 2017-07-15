@@ -1,0 +1,25 @@
+[program
+	[decvar [ID]]
+
+	[decfunc 
+		[main]
+		[Paramlist  [ ID ] ]
+		[block
+	[decvar 
+		[arglist  [ID]  [ID]  [ID] 	 [arglist: expr 
+	 [arglist: expr COMMA arglist] 
+	 [arglist: expr COMMA arglist] 
+		]
+ 	 [funccall: ID LPARENT arglist RPARENT] 
+	]
+		]
+	]
+	[decfunc 
+		[FUNC NAME]
+		[Paramlist  [ ID ]  [ ID ]  [ ID ] ]
+		[block
+	[decvar  [ID]  +  [DEC] 	]
+		]
+	]
+]Eh Valida
+Total de linhas: 8

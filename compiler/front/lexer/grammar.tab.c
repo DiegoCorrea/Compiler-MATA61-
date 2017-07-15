@@ -402,16 +402,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   128
+#define YYLAST   189
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  15
+#define YYNNTS  38
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  51
+#define YYNRULES  78
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  78
+#define YYNSTATES  123
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -461,12 +461,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    59,    59,    60,    63,    64,    65,    68,    69,    70,
-      73,    74,    77,    78,    79,    82,    83,    86,    87,    88,
-      89,    92,    93,    94,    95,    98,    99,   102,   103,   104,
-     105,   106,   107,   108,   111,   112,   115,   116,   119,   120,
-     121,   122,   123,   124,   125,   126,   127,   128,   129,   130,
-     133,   134
+       0,    60,    60,    60,    61,    64,    65,    66,    69,    70,
+      70,    71,    74,    74,    74,    74,    74,    75,    75,    75,
+      75,    75,    78,    78,    79,    82,    83,    83,    84,    87,
+      87,    88,    88,    89,    90,    91,    92,    93,    94,    97,
+      98,    99,    99,   100,   103,   103,   106,   107,   110,   110,
+     113,   116,   119,   120,   121,   122,   123,   124,   125,   128,
+     129,   129,   129,   132,   133,   136,   137,   138,   139,   140,
+     141,   142,   143,   144,   145,   146,   147,   150,   151
 };
 #endif
 
@@ -481,9 +483,11 @@ static const char *const yytname[] =
   "LBRACKETS", "RBRACKETS", "COMMA", "SEMICOLON", "PLUS", "MINUS",
   "MULTIPLY", "DIVIDER", "LESSTHAN", "BIGGERTHAN", "LESSOREQUAL",
   "BIGGEROREQUAL", "EQUAL", "ASSIGN", "NOTEQUAL", "AND", "OR", "NOT",
-  "$accept", "start", "program", "decvar", "decfunc", "paramlist", "block",
-  "assigner", "statement", "conditional", "expr", "funccall", "arglist",
-  "binop", "unop", YY_NULLPTR
+  "$accept", "start", "$@1", "program", "decvar", "$@2", "decfunc", "$@3",
+  "$@4", "$@5", "$@6", "$@7", "$@8", "$@9", "$@10", "block", "$@11",
+  "paramlist", "$@12", "statement", "$@13", "$@14", "assigner", "$@15",
+  "return", "$@16", "conditional", "loop", "$@17", "break", "continue",
+  "expr", "funccall", "$@18", "$@19", "arglist", "binop", "unop", YY_NULLPTR
 };
 #endif
 
@@ -499,28 +503,33 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -38
+#define YYPACT_NINF -74
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-38)))
+  (!!((Yystate) == (-74)))
 
-#define YYTABLE_NINF -25
+#define YYTABLE_NINF -45
 
 #define yytable_value_is_error(Yytable_value) \
   0
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-static const yytype_int8 yypact[] =
+static const yytype_int16 yypact[] =
 {
-      27,    40,    25,   -38,    21,    12,   -38,   -38,    10,    24,
-      28,   -38,     5,    38,    38,    29,   -38,     5,   -38,   -38,
-      75,   -38,     5,    26,    32,    33,    -3,    30,   -38,   -38,
-     -38,   -38,   -38,   -38,   -38,   -38,   -38,   -38,   -38,   -38,
-     -38,     5,    88,    38,    49,    49,   -38,    61,    34,   -38,
-      88,   -38,    62,   -38,   -38,     5,   -38,     8,   -38,   -15,
-      53,    23,    60,   -38,    71,     0,     5,   -38,   -38,   -38,
-      -4,   -38,    88,    46,    49,    74,    49,   -38
+     -74,    27,    25,   -74,    30,    37,   -74,    25,    25,   -12,
+      32,    39,   -74,   -74,    38,   -74,   -74,   -74,   -74,     3,
+      22,    33,    34,   -74,     3,   -74,   -74,   125,   -74,     3,
+     -74,   -74,    40,    64,    38,   -74,   -74,   -74,   -74,   -74,
+     -74,   -74,   -74,   -74,   -74,   -74,   -74,     3,   152,    48,
+      48,   -74,     3,   -74,   -74,   152,    41,   -74,   -74,   111,
+     -74,   -74,    47,    49,     3,    50,    48,    44,    44,   -74,
+     -74,   -74,   -74,   -74,   -74,    38,    45,    -9,    53,   -74,
+      42,    51,    54,   -74,    45,    55,    45,    45,   -74,   -74,
+     -74,     0,     3,    59,   -74,   -74,   -74,    57,   -74,     3,
+     -74,   -74,    60,     6,    52,   152,    80,     3,    45,   139,
+      45,    43,   -74,    44,    96,   -74,   -74,   -74,    67,    44,
+      44,   -74,   -74
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -528,28 +537,37 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       6,     0,     2,     1,     0,     0,     4,     5,     0,     0,
-       0,     7,    33,    14,    14,    32,    31,    33,    50,    51,
-       0,    30,    33,    12,     0,     0,    33,     0,     8,    38,
-      39,    40,    41,    42,    44,    43,    45,    46,    47,    48,
-      49,    33,    28,    14,    16,    16,    34,    36,     0,    29,
-      27,    13,     9,    10,    11,    33,    35,    20,    37,     0,
-       0,     0,     0,    23,     0,    33,    33,    21,    15,    22,
-      32,    18,    19,     0,    16,    25,    16,    26
+       2,     0,     7,     1,     0,    12,     3,     7,     7,     0,
+       0,     0,     5,     6,    11,     9,    13,    18,     8,    58,
+       0,     0,    57,    56,    58,    77,    78,     0,    55,    58,
+      14,    19,    60,     0,    11,    65,    66,    67,    68,    69,
+      71,    70,    72,    73,    74,    75,    76,    58,    53,    28,
+      28,    59,    58,    54,    10,    52,    25,    15,    20,    63,
+      61,    26,     0,     0,    58,     0,    28,    24,    24,    64,
+      62,    27,    22,    16,    21,    11,    38,     0,     0,    48,
+       0,     0,     0,    29,    38,     0,    38,    38,    36,    37,
+      31,    58,    58,     0,    50,    51,    23,     0,    35,    58,
+      33,    34,     0,    57,    43,    40,     0,    58,    38,     0,
+      38,     0,    42,    24,     0,    30,    45,    32,    46,    24,
+      24,    49,    47
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -38,   -38,   -38,    57,   -38,    -7,   -37,    63,   -38,   -38,
-     -12,    65,    72,   -38,   -38
+     -74,   -74,   -74,    36,   -13,   -74,   -74,   -74,   -74,   -74,
+     -74,   -74,   -74,   -74,   -74,   -66,   -74,   -35,   -74,   -68,
+     -74,   -74,   -25,   -74,   -74,   -74,   -74,   -74,   -74,   -74,
+     -74,   -19,   -73,   -74,   -74,    19,   -74,   -74
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1,     2,     6,     7,    24,    53,    61,    62,    63,
-      47,    21,    48,    41,    22
+      -1,     1,     2,     6,     7,    19,     8,    10,    20,    49,
+      62,    11,    21,    50,    63,    73,    75,    57,    66,    82,
+      97,   102,    83,   104,    84,    85,    86,    87,    93,    88,
+      89,    59,    28,    52,    65,    60,    47,    29
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -557,72 +575,93 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      20,    15,    26,    16,    70,    27,    16,    25,    54,    15,
-      42,    16,    59,    26,    17,    46,     9,    17,    60,    65,
-     -17,    10,    17,    18,   -20,     8,    18,    -3,   -24,    50,
-      65,    18,     4,     5,    11,    19,    51,    75,    19,    77,
-       3,    13,    23,    19,    12,    14,    26,    67,    49,    43,
-      44,    45,    56,    72,    73,    29,    30,    31,    32,    33,
-      34,    35,    36,    37,    74,    38,    39,    40,    52,     4,
-      66,    29,    30,    31,    32,    33,    34,    35,    36,    37,
-      68,    38,    39,    40,    55,    76,    29,    30,    31,    32,
-      33,    34,    35,    36,    37,    69,    38,    39,    40,    28,
-      29,    30,    31,    32,    33,    34,    35,    36,    37,    57,
-      38,    39,    40,    29,    30,    31,    32,    33,    34,    35,
-      36,    37,    64,    38,    39,    40,     0,    58,    71
+      27,    18,    74,    90,   103,    33,    23,    22,    32,    23,
+      48,    90,    14,    90,    90,    58,    98,    24,   100,   101,
+      24,    54,    15,    32,   -41,    91,    25,     3,    55,    25,
+     -39,    71,     4,     5,     9,    90,    16,    90,    26,    30,
+     115,    26,   117,    12,    13,     4,   -17,   118,    17,    77,
+      31,    32,    56,   121,   122,    78,   111,    79,    51,    80,
+      81,   -44,    76,    72,    61,    67,    94,    68,    70,   -43,
+      92,    99,   105,   106,    96,    95,   107,    91,   120,   112,
+     109,   108,    53,    69,   110,     0,     0,     0,   114,    35,
+      36,    37,    38,    39,    40,    41,    42,    43,   113,    44,
+      45,    46,     0,     0,     0,    35,    36,    37,    38,    39,
+      40,    41,    42,    43,   119,    44,    45,    46,     0,     0,
+       0,    35,    36,    37,    38,    39,    40,    41,    42,    43,
+       0,    44,    45,    46,    64,     0,    35,    36,    37,    38,
+      39,    40,    41,    42,    43,     0,    44,    45,    46,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,     0,
+      44,    45,    46,   116,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,     0,    44,    45,    46,    35,    36,    37,
+      38,    39,    40,    41,    42,    43,     0,    44,    45,    46
 };
 
 static const yytype_int8 yycheck[] =
 {
-      12,     4,    17,     6,     4,    17,     6,    14,    45,     4,
-      22,     6,     4,    17,    17,    18,     4,    17,    10,    34,
-      24,     9,    17,    26,    24,     4,    26,     0,    20,    41,
-      34,    26,     7,     8,    24,    38,    43,    74,    38,    76,
-       0,    17,     4,    38,    34,    17,    17,    24,    18,    23,
-      18,    18,    18,    65,    66,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    18,    35,    36,    37,    19,     7,
-      17,    25,    26,    27,    28,    29,    30,    31,    32,    33,
-      20,    35,    36,    37,    23,    11,    25,    26,    27,    28,
-      29,    30,    31,    32,    33,    24,    35,    36,    37,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    52,
-      35,    36,    37,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    57,    35,    36,    37,    -1,    55,    65
+      19,    14,    68,    76,     4,    24,     6,     4,    17,     6,
+      29,    84,    24,    86,    87,    50,    84,    17,    86,    87,
+      17,    34,    34,    17,    24,    34,    26,     0,    47,    26,
+      24,    66,     7,     8,     4,   108,     4,   110,    38,    17,
+     108,    38,   110,     7,     8,     7,     9,   113,     9,     4,
+      17,    17,     4,   119,   120,    10,     4,    12,    18,    14,
+      15,    16,    75,    19,    23,    18,    24,    18,    18,    24,
+      17,    16,    91,    92,    20,    24,    17,    34,    11,   104,
+      99,    24,    18,    64,    24,    -1,    -1,    -1,   107,    25,
+      26,    27,    28,    29,    30,    31,    32,    33,    18,    35,
+      36,    37,    -1,    -1,    -1,    25,    26,    27,    28,    29,
+      30,    31,    32,    33,    18,    35,    36,    37,    -1,    -1,
+      -1,    25,    26,    27,    28,    29,    30,    31,    32,    33,
+      -1,    35,    36,    37,    23,    -1,    25,    26,    27,    28,
+      29,    30,    31,    32,    33,    -1,    35,    36,    37,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    -1,
+      35,    36,    37,    24,    25,    26,    27,    28,    29,    30,
+      31,    32,    33,    -1,    35,    36,    37,    25,    26,    27,
+      28,    29,    30,    31,    32,    33,    -1,    35,    36,    37
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    40,    41,     0,     7,     8,    42,    43,     4,     4,
-       9,    24,    34,    17,    17,     4,     6,    17,    26,    38,
-      49,    50,    53,     4,    44,    44,    17,    49,    24,    25,
-      26,    27,    28,    29,    30,    31,    32,    33,    35,    36,
-      37,    52,    49,    23,    18,    18,    18,    49,    51,    18,
-      49,    44,    19,    45,    45,    23,    18,    42,    51,     4,
-      10,    46,    47,    48,    50,    34,    17,    24,    20,    24,
-       4,    46,    49,    49,    18,    45,    11,    45
+       0,    40,    41,     0,     7,     8,    42,    43,    45,     4,
+      46,    50,    42,    42,    24,    34,     4,     9,    43,    44,
+      47,    51,     4,     6,    17,    26,    38,    70,    71,    76,
+      17,    17,    17,    70,    24,    25,    26,    27,    28,    29,
+      30,    31,    32,    33,    35,    36,    37,    75,    70,    48,
+      52,    18,    72,    18,    43,    70,     4,    56,    56,    70,
+      74,    23,    49,    53,    23,    73,    57,    18,    18,    74,
+      18,    56,    19,    54,    54,    55,    43,     4,    10,    12,
+      14,    15,    58,    61,    63,    64,    65,    66,    68,    69,
+      71,    34,    17,    67,    24,    24,    20,    59,    58,    16,
+      58,    58,    60,     4,    62,    70,    70,    17,    24,    70,
+      24,     4,    61,    18,    70,    58,    24,    58,    54,    18,
+      11,    54,    54
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    39,    40,    40,    41,    41,    41,    42,    42,    42,
-      43,    43,    44,    44,    44,    45,    45,    46,    46,    46,
-      46,    47,    47,    47,    47,    48,    48,    49,    49,    49,
-      49,    49,    49,    49,    50,    50,    51,    51,    52,    52,
-      52,    52,    52,    52,    52,    52,    52,    52,    52,    52,
-      53,    53
+       0,    39,    41,    40,    40,    42,    42,    42,    43,    44,
+      43,    43,    46,    47,    48,    49,    45,    50,    51,    52,
+      53,    45,    55,    54,    54,    56,    57,    56,    56,    59,
+      58,    60,    58,    58,    58,    58,    58,    58,    58,    61,
+      61,    62,    61,    61,    64,    63,    65,    65,    67,    66,
+      68,    69,    70,    70,    70,    70,    70,    70,    70,    71,
+      72,    73,    71,    74,    74,    75,    75,    75,    75,    75,
+      75,    75,    75,    75,    75,    75,    75,    76,    76
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     0,     2,     2,     0,     3,     5,     0,
-       6,     6,     1,     3,     0,     4,     0,     3,     3,     3,
-       0,     2,     2,     1,     0,     5,     7,     3,     2,     3,
-       1,     1,     1,     0,     3,     4,     1,     3,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1
+       0,     2,     0,     2,     0,     2,     2,     0,     4,     0,
+       7,     0,     0,     0,     0,     0,    10,     0,     0,     0,
+       0,    10,     0,     5,     0,     1,     0,     4,     0,     0,
+       4,     0,     4,     2,     2,     2,     1,     1,     0,     3,
+       3,     0,     4,     0,     0,     4,     5,     7,     0,     6,
+       2,     2,     3,     2,     3,     1,     1,     1,     0,     3,
+       0,     0,     6,     1,     3,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1
 };
 
 
@@ -1299,223 +1338,361 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 59 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("[start \n");}
-#line 1305 "grammar.tab.c" /* yacc.c:1646  */
+#line 60 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("[program");}
+#line 1344 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 60 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("start] \n");}
-#line 1311 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 4:
-#line 63 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\4 [program decvar \n");}
-#line 1317 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 5:
-#line 64 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\4 [program decfunc \n");}
-#line 1323 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 6:
-#line 65 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\4 program EMPTY] \n");}
-#line 1329 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 7:
-#line 68 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [decvar LET_T ID SEMICOLON \n");}
-#line 1335 "grammar.tab.c" /* yacc.c:1646  */
+    {printf("\n]");}
+#line 1350 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 69 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [decvar LET_T ID ASSIGN expr SEMICOLON \n");}
-#line 1341 "grammar.tab.c" /* yacc.c:1646  */
+    {printf("\n\t[decvar [ID]]\n");}
+#line 1356 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 70 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t decvar EMPTY] \n");}
-#line 1347 "grammar.tab.c" /* yacc.c:1646  */
+    {printf("\n\t[decvar ");}
+#line 1362 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 73 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [decfunc DEF_T ID LPARENT paramlist RPARENT block \n");}
-#line 1353 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 11:
-#line 74 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [decfunc EF_T MAIN_T LPARENT paramlist RPARENT block \n");}
-#line 1359 "grammar.tab.c" /* yacc.c:1646  */
+#line 70 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t]\n");}
+#line 1368 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 77 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [paramlist ID \n");}
-#line 1365 "grammar.tab.c" /* yacc.c:1646  */
+#line 74 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t[decfunc ");}
+#line 1374 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 78 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [paramlist ID COMMA paramlist \n");}
-#line 1371 "grammar.tab.c" /* yacc.c:1646  */
+#line 74 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t[FUNC NAME]");}
+#line 1380 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 79 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t paramlist EMPTY] \n");}
-#line 1377 "grammar.tab.c" /* yacc.c:1646  */
+#line 74 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t[Paramlist ");}
+#line 1386 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 82 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t [block LBRACE decvar statement RBRACE \n");}
-#line 1383 "grammar.tab.c" /* yacc.c:1646  */
+#line 74 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("]");}
+#line 1392 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 83 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t block EMPTY] \n");}
-#line 1389 "grammar.tab.c" /* yacc.c:1646  */
+#line 74 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t]");}
+#line 1398 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 86 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t assigner ID ASSIGN ID] \n");}
-#line 1395 "grammar.tab.c" /* yacc.c:1646  */
+#line 75 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t[decfunc ");}
+#line 1404 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 87 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t assigner ID ASSIGN assigner \n");}
-#line 1401 "grammar.tab.c" /* yacc.c:1646  */
+#line 75 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t[main]");}
+#line 1410 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 88 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t assigner ID ASSIGN expr] \n");}
-#line 1407 "grammar.tab.c" /* yacc.c:1646  */
+#line 75 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t[Paramlist ");}
+#line 1416 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 89 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t assigner EMPTY] \n");}
-#line 1413 "grammar.tab.c" /* yacc.c:1646  */
+#line 75 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("]");}
+#line 1422 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 92 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t statement assigner SEMICOLON] \n");}
-#line 1419 "grammar.tab.c" /* yacc.c:1646  */
+#line 75 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t]");}
+#line 1428 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 93 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t statement funccall SEMICOLON] \n");}
-#line 1425 "grammar.tab.c" /* yacc.c:1646  */
+#line 78 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t[block");}
+#line 1434 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 94 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t statement conditional] \n");}
-#line 1431 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 24:
-#line 95 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t statement EMPTY] \n");}
-#line 1437 "grammar.tab.c" /* yacc.c:1646  */
+#line 78 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t]");}
+#line 1440 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 98 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t conditional IF_T LPARENT expr RPARENT block] \n");}
-#line 1443 "grammar.tab.c" /* yacc.c:1646  */
+#line 82 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" [ ID ] ");}
+#line 1446 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 99 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t conditional IF_T LPARENT expr RPARENT block ELSE_T block] \n");}
-#line 1449 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 27:
-#line 102 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr expr binop expr] \n");}
-#line 1455 "grammar.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 28:
-#line 103 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr unop expr] \n");}
-#line 1461 "grammar.tab.c" /* yacc.c:1646  */
+#line 83 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" [ ID ] ");}
+#line 1452 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 104 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr LPARENT expr RPARENT] \n");}
-#line 1467 "grammar.tab.c" /* yacc.c:1646  */
+#line 87 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t\t[assign");}
+#line 1458 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 105 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr funccall] \n");}
-#line 1473 "grammar.tab.c" /* yacc.c:1646  */
+#line 87 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t statement: assigner SEMICOLON] \n");}
+#line 1464 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 106 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr DEC] \n");}
-#line 1479 "grammar.tab.c" /* yacc.c:1646  */
+#line 88 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t\t[funccall");}
+#line 1470 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 107 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr ID] \n");}
-#line 1485 "grammar.tab.c" /* yacc.c:1646  */
+#line 88 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t statement: funccall SEMICOLON] \n");}
+#line 1476 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 108 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t expr EMPTY] \n");}
-#line 1491 "grammar.tab.c" /* yacc.c:1646  */
+#line 89 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t statement: conditional] \n");}
+#line 1482 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 111 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t funccall ID LPARENT RPARENT] \n");}
-#line 1497 "grammar.tab.c" /* yacc.c:1646  */
+#line 90 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t statement: loop] \n");}
+#line 1488 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
-  case 35:
-#line 112 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t funccall ID LPARENT arglist RPARENT] \n");}
-#line 1503 "grammar.tab.c" /* yacc.c:1646  */
+  case 39:
+#line 97 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t assigner: ID ASSIGN ID] \n");}
+#line 1494 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
-  case 36:
-#line 115 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t arglist expr] \n");}
-#line 1509 "grammar.tab.c" /* yacc.c:1646  */
+  case 40:
+#line 98 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t assigner: ID ASSIGN expr] \n");}
+#line 1500 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
-  case 37:
+  case 41:
+#line 99 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n = ");}
+#line 1506 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 42:
+#line 99 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t assigner: ID ASSIGN assigner \n");}
+#line 1512 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 44:
+#line 103 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t\t[return\n\t\t\t\t");}
+#line 1518 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 45:
+#line 103 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t\t]\n");}
+#line 1524 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 46:
+#line 106 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [conditional IF_T LPARENT expr RPARENT block] \n");}
+#line 1530 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 47:
+#line 107 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [conditional IF_T LPARENT expr RPARENT block ELSE_T block] \n");}
+#line 1536 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 110 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t\t[Stmt");}
+#line 1542 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 49:
+#line 110 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [loop WHILE_T LPARENT expr RPARENT block \n");}
+#line 1548 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 113 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [break] \n");}
+#line 1554 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 51:
 #line 116 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
-    {printf("\t arglist expr COMMA arglist] \n");}
-#line 1515 "grammar.tab.c" /* yacc.c:1646  */
+    {printf("\t [continue] \n");}
+#line 1560 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 56:
+#line 123 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" [DEC] ");}
+#line 1566 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 57:
+#line 124 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" [ID] ");}
+#line 1572 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 128 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [funccall ] \n");}
+#line 1578 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 129 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\n\t\t[arglist ");}
+#line 1584 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 129 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t\t]\n ");}
+#line 1590 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 129 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [funccall: ID LPARENT arglist RPARENT] \n");}
+#line 1596 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 132 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [arglist: expr \n");}
+#line 1602 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 133 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf("\t [arglist: expr COMMA arglist] \n");}
+#line 1608 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 65:
+#line 136 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" + ");}
+#line 1614 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 66:
+#line 137 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" - ");}
+#line 1620 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 67:
+#line 138 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" * ");}
+#line 1626 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 68:
+#line 139 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" /  ");}
+#line 1632 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 69:
+#line 140 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" <  ");}
+#line 1638 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 70:
+#line 141 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" >= ");}
+#line 1644 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 71:
+#line 142 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" >  ");}
+#line 1650 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 72:
+#line 143 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" >= ");}
+#line 1656 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 73:
+#line 144 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" == ");}
+#line 1662 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 74:
+#line 145 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" != ");}
+#line 1668 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 75:
+#line 146 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" && ");}
+#line 1674 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 76:
+#line 147 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" || ");}
+#line 1680 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 77:
+#line 150 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" -");}
+#line 1686 "grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 78:
+#line 151 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+    {printf(" !");}
+#line 1692 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1519 "grammar.tab.c" /* yacc.c:1646  */
+#line 1696 "grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1743,7 +1920,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 136 "compiler/front/lexer/grammar.y" /* yacc.c:1906  */
+#line 153 "compiler/front/lexer/grammar.y" /* yacc.c:1906  */
 
 
 void yyerror(char const *err){
