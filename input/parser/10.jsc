@@ -1,0 +1,22 @@
+def main(){
+    let a, b, c, d, e;
+    if(a == b){
+        if(b < c){
+            e = c;
+            if(c < d){
+                e = d;
+            }
+        }else{
+            e = d;
+            if(b > d){
+                e = b;
+            }
+        }
+    } else{
+        if(a < d){
+            e = -d;
+        }else{
+            e = -a;
+        }
+    }
+}

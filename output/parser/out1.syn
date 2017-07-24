@@ -1,26 +1,26 @@
-[program
-	[decvar [ID]]
+[program[DecVar
 
 	[decfunc 
 		[main]
 		[Paramlist ]
 		[block
-	[decvar 
 		[arglist  [DEC]  +  [DEC]  [DEC]  [DEC]  -  [DEC]  -  [DEC] 	 [arglist: expr 
-	 [arglist: expr COMMA arglist] 
-	 [arglist: expr COMMA arglist] 
+	 [arglist: expr 
+	 [arglist: expr 
 		]
  	 [funccall: ID LPARENT arglist RPARENT] 
-	]
+	Assign Var
+[DecVar
 		]
 	]
 	[decfunc 
 		[FUNC NAME]
 		[Paramlist  [ ID ]  [ ID ]  [ ID ] ]
-		[block
-	[decvar  [ID]  *  [DEC] 	]
+		[block [ID]  *  [DEC] 	Assign Var
+[DecVar
  [ID]  >=  [ID]  +  [ID]  +  [ID] 
-		[block
+		[block[DecVar
+
 		[arglist  [ID] 	 [arglist: expr 
 		]
  	 [funccall: ID LPARENT arglist RPARENT] 
@@ -39,5 +39,6 @@
 	 statement: conditional] 
 		]
 	]
-]Eh Valida
+]
+Eh Valida
 Total de linhas: 18

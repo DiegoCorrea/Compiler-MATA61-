@@ -28,3 +28,6 @@ runParser:
 	./compilador < input/parser/2.jsc > output/parser/out2.syn
 	./compilador < input/parser/3.jsc > output/parser/out3.syn
 	./compilador < input/parser/4.jsc > output/parser/out4.syn
+
+report:
+	 bison -d -r all --report-file=compiler/front/front.log compiler/front/lexer/grammar.y

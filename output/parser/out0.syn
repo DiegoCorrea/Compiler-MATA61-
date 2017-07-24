@@ -1,25 +1,21 @@
-[program
-	[decvar [ID]]
-
-	[decfunc 
-		[main]
-		[Paramlist  [ ID ] ]
-		[block
-	[decvar 
-		[arglist  [ID]  [ID]  [ID] 	 [arglist: expr 
-	 [arglist: expr COMMA arglist] 
-	 [arglist: expr COMMA arglist] 
+[program	 [funccall ] 
+ +  [DEC] 	Assign Var
+[DecVar
+[DecVar
+ [ID]  +  [ID] 	Assign Var
+[DecVar
+	 [funccall ] 
+ +  [DEC]  /   [DEC] 	Assign Var
+[DecVar
+ - [DEC]  /   [DEC]  *  [DEC]  - 
+		[arglist  [DEC]  [DEC]  [ID]  -  [DEC] 	 [arglist: expr 
+	 [arglist: expr 
+	 [arglist: expr 
 		]
  	 [funccall: ID LPARENT arglist RPARENT] 
-	]
-		]
-	]
-	[decfunc 
-		[FUNC NAME]
-		[Paramlist  [ ID ]  [ ID ]  [ ID ] ]
-		[block
-	[decvar  [ID]  +  [DEC] 	]
-		]
-	]
-]Eh Valida
-Total de linhas: 8
+ /   [DEC]  +  [ID]  *  [DEC]  /   [DEC] 	Assign Var
+[DecVar
+
+]
+Eh Valida
+Total de linhas: 5

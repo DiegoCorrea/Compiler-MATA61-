@@ -7,8 +7,8 @@
 %}
 
 %define api.value.type{double}
-
-%token KEY ID SYM DEC
+%token ID
+%token DEC
 
 %token LET_T
 %token DEF_T
@@ -53,30 +53,45 @@
 %token OR
 %token NOT
 
+%token ERROR
+
+%left PLUS MINUS
+%left MULTIPLY DIVIDER 
+%left UMINUS 
+
+
 %start start
 
 %%
 start: 
-    {printf("[program");}        program          {printf("\n]");}
-    | %empty
+    {printf("[program");}        program            {printf("\n]\n");}
 ;
 program:
     decvar program
     | decfunc program
     | %empty
 ;
-decvar: 
-    LET_T ID SEMICOLON decvar                              {printf("\n\t[decvar [ID]]\n");}
-    | LET_T ID ASSIGN {printf("\n\t[decvar ");} expr SEMICOLON decvar                {printf("\t]\n");}
-    | %empty
+decvar:
+    LET_T ID decvarassign SEMICOLON          {printf("[DecVar\n");}
+;
+decvarassign:
+    %empty
+    | ASSIGN expr                                   {printf("\tAssign Var\n");}
 ;
 decfunc:
-    DEF_T {printf("\n\t[decfunc ");} ID {printf("\n\t\t[FUNC NAME]");} LPARENT {printf("\n\t\t[Paramlist ");} paramlist {printf("]");} RPARENT  block {printf("\n\t]");}
-    | DEF_T {printf("\n\t[decfunc ");} MAIN_T {printf("\n\t\t[main]");} LPARENT {printf("\n\t\t[Paramlist ");} paramlist {printf("]");} RPARENT block {printf("\n\t]");}
+    DEF_T {printf("\n\t[decfunc ");} decfuncids
+;
+decfuncids:
+    MAIN_T {printf("\n\t\t[main]");} LPARENT {printf("\n\t\t[Paramlist ");} paramlist {printf("]");} RPARENT block {printf("\n\t]");}
+    | ID {printf("\n\t\t[FUNC NAME]");} LPARENT {printf("\n\t\t[Paramlist ");} paramlist {printf("]");} RPARENT  block {printf("\n\t]");}
 ;
 block:
-    LBRACE {printf("\n\t\t[block");} decvar statement RBRACE                  {printf("\t\t]");}
-    | %empty
+    LBRACE {printf("\n\t\t[block");} blockstatements RBRACE                  {printf("\t\t]");}
+;
+blockstatements:
+     decvar blockstatements
+     | statement
+     | %empty
 ;
 paramlist: 
     ID                                              {printf(" [ ID ] ");}
@@ -86,34 +101,33 @@ paramlist:
 statement:
     assigner {printf("\n\t\t\t[assign");} SEMICOLON statement                    {printf("\t statement: assigner SEMICOLON] \n");}
     | funccall {printf("\n\t\t\t[funccall");} SEMICOLON statement                  {printf("\t statement: funccall SEMICOLON] \n");}
-    | conditional statement                         {printf("\t statement: conditional] \n");}
-    | loop statement                                {printf("\t statement: loop] \n");}
-    | return statement
+    | conditional statement                             {printf("\t statement: conditional] \n");}
+    | loop statement                                    {printf("\t statement: loop] \n");}
+    | return
     | break
     | continue
     | %empty
 ;
 assigner:
-    ID ASSIGN ID                                    {printf("\t assigner: ID ASSIGN ID] \n");}
-    | ID ASSIGN expr                                {printf("\t assigner: ID ASSIGN expr] \n");}
-    | ID ASSIGN {printf("\n = ");} assigner                            {printf("\t assigner: ID ASSIGN assigner \n");}
+    ID ASSIGN expr                                      {printf("\t assigner: ID ASSIGN expr] \n");}
     | %empty
 ;
-return:
-    {printf("\n\t\t\t[return\n\t\t\t\t");}   RETURN_T expr SEMICOLON                         {printf("\n\t\t\t]\n");}
-;
 conditional:
-    IF_T LPARENT expr RPARENT block                 {printf("\t [conditional IF_T LPARENT expr RPARENT block] \n");}
-    | IF_T LPARENT expr RPARENT block ELSE_T block  {printf("\t [conditional IF_T LPARENT expr RPARENT block ELSE_T block] \n");}
+    IF_T LPARENT expr RPARENT block ELSE_T block        {printf("\t [conditional IF_T LPARENT expr RPARENT block ELSE_T block] \n");}
+    | IF_T LPARENT expr RPARENT block                   {printf("\t [conditional IF_T LPARENT expr RPARENT block] \n");}
+    
 ;
 loop:
     WHILE_T {printf("\n\t\t\t[Stmt");} LPARENT expr RPARENT block              {printf("\t [loop WHILE_T LPARENT expr RPARENT block \n");}
 ;
 break:
-    BREAK_T SEMICOLON                               {printf("\t [break] \n");}
+    BREAK_T SEMICOLON                                   {printf("\t [break] \n");}
 ;
 continue:
-    CONTINUE_T SEMICOLON                            {printf("\t [continue] \n");}
+    CONTINUE_T SEMICOLON                                {printf("\t [continue] \n");}
+;
+return:
+    {printf("\n\t\t\t[return\n\t\t\t\t");}   RETURN_T expr SEMICOLON                         {printf("\n\t\t\t]\n");}
 ;
 expr:
     expr binop expr
@@ -123,14 +137,6 @@ expr:
     | DEC                                           {printf(" [DEC] ");}
     | ID                                            {printf(" [ID] ");}
     | %empty
-;
-funccall:
-    ID LPARENT RPARENT                              {printf("\t [funccall ] \n");}
-    | ID LPARENT {printf("\n\t\t[arglist ");} arglist {printf("\t\t]\n ");} RPARENT                    {printf("\t [funccall: ID LPARENT arglist RPARENT] \n");}
-;
-arglist:
-    expr                                            {printf("\t [arglist: expr \n");}
-    | expr COMMA arglist                            {printf("\t [arglist: expr COMMA arglist] \n");}
 ;
 binop:
     PLUS                                            {printf(" + ");}
@@ -149,6 +155,17 @@ binop:
 unop:
     MINUS                                           {printf(" -");}
     | NOT                                           {printf(" !");}
+;
+funccall:
+    ID LPARENT RPARENT                                  {printf("\t [funccall ] \n");}
+    | ID LPARENT {printf("\n\t\t[arglist ");} arglist   {printf("\t\t]\n ");} RPARENT                    {printf("\t [funccall: ID LPARENT arglist RPARENT] \n");}
+;
+arglist:
+    expr arglistparams                                  {printf("\t [arglist: expr \n");}
+;
+arglistparams:
+    %empty
+    | COMMA arglist
 ;
 %%
 

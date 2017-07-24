@@ -11,15 +11,14 @@
 	[decfunc 
 		[main]
 		[Paramlist ]
-		[block
-	[decvar [ID]]
+		[block[DecVar
  [DEC] 	 assigner: ID ASSIGN expr] 
 
 			[assign
 			[return
 				
 		[arglist  [ID]  [DEC] 	 [arglist: expr 
-	 [arglist: expr COMMA arglist] 
+	 [arglist: expr 
 		]
  	 [funccall: ID LPARENT arglist RPARENT] 
 
@@ -27,5 +26,6 @@
 	 statement: assigner SEMICOLON] 
 		]
 	]
-]Eh Valida
+]
+Eh Valida
 Total de linhas: 20

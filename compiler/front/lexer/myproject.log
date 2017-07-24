@@ -1,0 +1,1863 @@
+Não-terminais inúteis na gramática
+
+   start
+
+
+Terminais sem uso na gramática
+
+   KEY
+   SYM
+   FOR_T
+   LBRACKETS
+   RBRACKETS
+   ERROR
+   '+'
+   '-'
+   '*'
+   '/'
+
+
+Regras inúteis na gramática
+
+   60 start: program
+   61      | %empty
+
+
+Estado 0 conflitos: 2 de deslocamento/redução, 1 de redução/redução
+Estado 1 conflitos: 1 de redução/redução
+Estado 4 conflitos: 2 de deslocamento/redução, 1 de redução/redução
+Estado 5 conflitos: 2 de deslocamento/redução, 1 de redução/redução
+Estado 7 conflitos: 1 de deslocamento/redução
+Estado 15 conflitos: 1 de deslocamento/redução
+Estado 16 conflitos: 2 de deslocamento/redução, 3 de redução/redução
+Estado 18 conflitos: 1 de redução/redução
+Estado 19 conflitos: 1 de deslocamento/redução
+Estado 23 conflitos: 3 de redução/redução
+Estado 25 conflitos: 1 de deslocamento/redução
+Estado 31 conflitos: 2 de deslocamento/redução
+Estado 37 conflitos: 2 de deslocamento/redução
+Estado 52 conflitos: 2 de deslocamento/redução
+Estado 53 conflitos: 12 de deslocamento/redução
+Estado 61 conflitos: 12 de deslocamento/redução
+Estado 66 conflitos: 1 de deslocamento/redução
+Estado 75 conflitos: 1 de deslocamento/redução
+Estado 84 conflitos: 1 de deslocamento/redução
+Estado 85 conflitos: 1 de deslocamento/redução
+
+
+Gramática
+
+    0 $accept: program $end
+
+    1 program: decvar program
+    2        | decfunc program
+    3        | %empty
+
+    4 decvar: LET_T ID SEMICOLON decvar
+    5       | LET_T decvarassigner SEMICOLON decvar
+    6       | %empty
+
+    7 decvarassigner: %empty
+    8               | COMMA assigner decvarassigner
+    9               | assigner
+
+   10 decfunc: DEF_T ID LPARENT paramlist RPARENT block
+   11        | DEF_T MAIN_T LPARENT paramlist RPARENT block
+
+   12 block: LBRACE decvar statement RBRACE
+   13      | %empty
+
+   14 paramlist: ID
+   15          | ID COMMA paramlist
+   16          | %empty
+
+   17 statement: assigner SEMICOLON statement
+   18          | funccall SEMICOLON statement
+   19          | conditional statement
+   20          | loop statement
+   21          | return statement
+   22          | break
+   23          | continue
+   24          | %empty
+
+   25 assigner: ID ASSIGN ID
+   26         | ID ASSIGN expr
+   27         | ID ASSIGN assigner
+   28         | %empty
+
+   29 return: RETURN_T expr SEMICOLON
+
+   30 conditional: IF_T LPARENT expr RPARENT block
+   31            | IF_T LPARENT expr RPARENT block ELSE_T block
+
+   32 loop: WHILE_T LPARENT expr RPARENT block
+
+   33 break: BREAK_T SEMICOLON
+
+   34 continue: CONTINUE_T SEMICOLON
+
+   35 expr: %empty
+   36     | expr binop expr
+   37     | unop expr
+   38     | LPARENT expr RPARENT
+   39     | funccall
+   40     | DEC
+   41     | ID
+
+   42 funccall: ID LPARENT RPARENT
+   43         | ID LPARENT arglist RPARENT
+
+   44 arglist: expr
+   45        | expr COMMA arglist
+
+   46 binop: PLUS
+   47      | MINUS
+   48      | MULTIPLY
+   49      | DIVIDER
+   50      | LESSTHAN
+   51      | LESSOREQUAL
+   52      | BIGGERTHAN
+   53      | BIGGEROREQUAL
+   54      | EQUAL
+   55      | NOTEQUAL
+   56      | AND
+   57      | OR
+
+   58 unop: MINUS
+   59     | NOT
+
+
+Terminais, com as regras onde eles aparecem
+
+$end (0) 0
+'*' (42)
+'+' (43)
+'-' (45)
+'/' (47)
+error (256)
+KEY (258)
+ID (259) 4 10 14 15 25 26 27 41 42 43
+SYM (260)
+DEC (261) 40
+LET_T (262) 4 5
+DEF_T (263) 10 11
+MAIN_T (264) 11
+IF_T (265) 30 31
+ELSE_T (266) 31
+WHILE_T (267) 32
+FOR_T (268)
+BREAK_T (269) 33
+CONTINUE_T (270) 34
+RETURN_T (271) 29
+LPARENT (272) 10 11 30 31 32 38 42 43
+RPARENT (273) 10 11 30 31 32 38 42 43
+LBRACE (274) 12
+RBRACE (275) 12
+LBRACKETS (276)
+RBRACKETS (277)
+COMMA (278) 8 15 45
+SEMICOLON (279) 4 5 17 18 29 33 34
+PLUS (280) 46
+MINUS (281) 47 58
+MULTIPLY (282) 48
+DIVIDER (283) 49
+LESSTHAN (284) 50
+BIGGERTHAN (285) 52
+LESSOREQUAL (286) 51
+BIGGEROREQUAL (287) 53
+EQUAL (288) 54
+ASSIGN (289) 25 26 27
+NOTEQUAL (290) 55
+AND (291) 56
+OR (292) 57
+NOT (293) 59
+ERROR (294)
+
+
+Não terminais com as regras onde eles aparecem
+
+$accept (44)
+    à esquerda: 0
+program (45)
+    à esquerda: 1 2 3, à direita: 0 1 2
+decvar (46)
+    à esquerda: 4 5 6, à direita: 1 4 5 12
+decvarassigner (47)
+    à esquerda: 7 8 9, à direita: 5 8
+decfunc (48)
+    à esquerda: 10 11, à direita: 2
+block (49)
+    à esquerda: 12 13, à direita: 10 11 30 31 32
+paramlist (50)
+    à esquerda: 14 15 16, à direita: 10 11 15
+statement (51)
+    à esquerda: 17 18 19 20 21 22 23 24, à direita: 12 17 18 19 20
+    21
+assigner (52)
+    à esquerda: 25 26 27 28, à direita: 8 9 17 27
+return (53)
+    à esquerda: 29, à direita: 21
+conditional (54)
+    à esquerda: 30 31, à direita: 19
+loop (55)
+    à esquerda: 32, à direita: 20
+break (56)
+    à esquerda: 33, à direita: 22
+continue (57)
+    à esquerda: 34, à direita: 23
+expr (58)
+    à esquerda: 35 36 37 38 39 40 41, à direita: 26 29 30 31 32 36
+    37 38 44 45
+funccall (59)
+    à esquerda: 42 43, à direita: 18 39
+arglist (60)
+    à esquerda: 44 45, à direita: 43 45
+binop (61)
+    à esquerda: 46 47 48 49 50 51 52 53 54 55 56 57, à direita: 36
+unop (62)
+    à esquerda: 58 59, à direita: 37
+
+
+Estado 0
+
+    0 $accept: . program $end
+    1 program: . decvar program
+    2        | . decfunc program
+    3        | . %empty  [$end]
+    4 decvar: . LET_T ID SEMICOLON decvar
+    5       | . LET_T decvarassigner SEMICOLON decvar
+    6       | . %empty  [$end, LET_T, DEF_T]
+   10 decfunc: . DEF_T ID LPARENT paramlist RPARENT block
+   11        | . DEF_T MAIN_T LPARENT paramlist RPARENT block
+
+    LET_T  deslocar, e ir ao estado 1
+    DEF_T  deslocar, e ir ao estado 2
+
+    $end      reduzir usando a regra 3 (program)
+    $end      [reduzir usando a regra 6 (decvar)]
+    LET_T     [reduzir usando a regra 6 (decvar)]
+    DEF_T     [reduzir usando a regra 6 (decvar)]
+    $padrão  reduzir usando a regra 3 (program)
+
+    program  ir ao estado 3
+    decvar   ir ao estado 4
+    decfunc  ir ao estado 5
+
+
+Estado 1
+
+    4 decvar: LET_T . ID SEMICOLON decvar
+    5       | LET_T . decvarassigner SEMICOLON decvar
+    7 decvarassigner: . %empty  [SEMICOLON]
+    8               | . COMMA assigner decvarassigner
+    9               | . assigner
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+
+    ID     deslocar, e ir ao estado 6
+    COMMA  deslocar, e ir ao estado 7
+
+    SEMICOLON  reduzir usando a regra 7 (decvarassigner)
+    SEMICOLON  [reduzir usando a regra 28 (assigner)]
+    $padrão   reduzir usando a regra 7 (decvarassigner)
+
+    decvarassigner  ir ao estado 8
+    assigner        ir ao estado 9
+
+
+Estado 2
+
+   10 decfunc: DEF_T . ID LPARENT paramlist RPARENT block
+   11        | DEF_T . MAIN_T LPARENT paramlist RPARENT block
+
+    ID      deslocar, e ir ao estado 10
+    MAIN_T  deslocar, e ir ao estado 11
+
+
+Estado 3
+
+    0 $accept: program . $end
+
+    $end  deslocar, e ir ao estado 12
+
+
+Estado 4
+
+    1 program: . decvar program
+    1        | decvar . program
+    2        | . decfunc program
+    3        | . %empty  [$end]
+    4 decvar: . LET_T ID SEMICOLON decvar
+    5       | . LET_T decvarassigner SEMICOLON decvar
+    6       | . %empty  [$end, LET_T, DEF_T]
+   10 decfunc: . DEF_T ID LPARENT paramlist RPARENT block
+   11        | . DEF_T MAIN_T LPARENT paramlist RPARENT block
+
+    LET_T  deslocar, e ir ao estado 1
+    DEF_T  deslocar, e ir ao estado 2
+
+    $end      reduzir usando a regra 3 (program)
+    $end      [reduzir usando a regra 6 (decvar)]
+    LET_T     [reduzir usando a regra 6 (decvar)]
+    DEF_T     [reduzir usando a regra 6 (decvar)]
+    $padrão  reduzir usando a regra 3 (program)
+
+    program  ir ao estado 13
+    decvar   ir ao estado 4
+    decfunc  ir ao estado 5
+
+
+Estado 5
+
+    1 program: . decvar program
+    2        | . decfunc program
+    2        | decfunc . program
+    3        | . %empty  [$end]
+    4 decvar: . LET_T ID SEMICOLON decvar
+    5       | . LET_T decvarassigner SEMICOLON decvar
+    6       | . %empty  [$end, LET_T, DEF_T]
+   10 decfunc: . DEF_T ID LPARENT paramlist RPARENT block
+   11        | . DEF_T MAIN_T LPARENT paramlist RPARENT block
+
+    LET_T  deslocar, e ir ao estado 1
+    DEF_T  deslocar, e ir ao estado 2
+
+    $end      reduzir usando a regra 3 (program)
+    $end      [reduzir usando a regra 6 (decvar)]
+    LET_T     [reduzir usando a regra 6 (decvar)]
+    DEF_T     [reduzir usando a regra 6 (decvar)]
+    $padrão  reduzir usando a regra 3 (program)
+
+    program  ir ao estado 14
+    decvar   ir ao estado 4
+    decfunc  ir ao estado 5
+
+
+Estado 6
+
+    4 decvar: LET_T ID . SEMICOLON decvar
+   25 assigner: ID . ASSIGN ID
+   26         | ID . ASSIGN expr
+   27         | ID . ASSIGN assigner
+
+    SEMICOLON  deslocar, e ir ao estado 15
+    ASSIGN     deslocar, e ir ao estado 16
+
+
+Estado 7
+
+    8 decvarassigner: COMMA . assigner decvarassigner
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [ID, COMMA, SEMICOLON]
+
+    ID  deslocar, e ir ao estado 17
+
+    ID        [reduzir usando a regra 28 (assigner)]
+    $padrão  reduzir usando a regra 28 (assigner)
+
+    assigner  ir ao estado 18
+
+
+Estado 8
+
+    5 decvar: LET_T decvarassigner . SEMICOLON decvar
+
+    SEMICOLON  deslocar, e ir ao estado 19
+
+
+Estado 9
+
+    9 decvarassigner: assigner .
+
+    $padrão  reduzir usando a regra 9 (decvarassigner)
+
+
+Estado 10
+
+   10 decfunc: DEF_T ID . LPARENT paramlist RPARENT block
+
+    LPARENT  deslocar, e ir ao estado 20
+
+
+Estado 11
+
+   11 decfunc: DEF_T MAIN_T . LPARENT paramlist RPARENT block
+
+    LPARENT  deslocar, e ir ao estado 21
+
+
+Estado 12
+
+    0 $accept: program $end .
+
+    $padrão  aceitar
+
+
+Estado 13
+
+    1 program: decvar program .
+
+    $padrão  reduzir usando a regra 1 (program)
+
+
+Estado 14
+
+    2 program: decfunc program .
+
+    $padrão  reduzir usando a regra 2 (program)
+
+
+Estado 15
+
+    4 decvar: . LET_T ID SEMICOLON decvar
+    4       | LET_T ID SEMICOLON . decvar
+    5       | . LET_T decvarassigner SEMICOLON decvar
+    6       | . %empty  [$end, ID, LET_T, DEF_T, IF_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+
+    LET_T  deslocar, e ir ao estado 1
+
+    LET_T     [reduzir usando a regra 6 (decvar)]
+    $padrão  reduzir usando a regra 6 (decvar)
+
+    decvar  ir ao estado 22
+
+
+Estado 16
+
+   25 assigner: . ID ASSIGN ID
+   25         | ID ASSIGN . ID
+   26         | . ID ASSIGN expr
+   26         | ID ASSIGN . expr
+   27         | . ID ASSIGN assigner
+   27         | ID ASSIGN . assigner
+   28         | . %empty  [ID, COMMA, SEMICOLON]
+   35 expr: . %empty  [ID, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 23
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    ID         [reduzir usando a regra 28 (assigner)]
+    ID         [reduzir usando a regra 35 (expr)]
+    COMMA      reduzir usando a regra 28 (assigner)
+    COMMA      [reduzir usando a regra 35 (expr)]
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    SEMICOLON  [reduzir usando a regra 35 (expr)]
+    MINUS      [reduzir usando a regra 35 (expr)]
+    $padrão   reduzir usando a regra 35 (expr)
+
+    assigner  ir ao estado 28
+    expr      ir ao estado 29
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 17
+
+   25 assigner: ID . ASSIGN ID
+   26         | ID . ASSIGN expr
+   27         | ID . ASSIGN assigner
+
+    ASSIGN  deslocar, e ir ao estado 16
+
+
+Estado 18
+
+    7 decvarassigner: . %empty  [SEMICOLON]
+    8               | . COMMA assigner decvarassigner
+    8               | COMMA assigner . decvarassigner
+    9               | . assigner
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+
+    ID     deslocar, e ir ao estado 17
+    COMMA  deslocar, e ir ao estado 7
+
+    SEMICOLON  reduzir usando a regra 7 (decvarassigner)
+    SEMICOLON  [reduzir usando a regra 28 (assigner)]
+    $padrão   reduzir usando a regra 7 (decvarassigner)
+
+    decvarassigner  ir ao estado 32
+    assigner        ir ao estado 9
+
+
+Estado 19
+
+    4 decvar: . LET_T ID SEMICOLON decvar
+    5       | . LET_T decvarassigner SEMICOLON decvar
+    5       | LET_T decvarassigner SEMICOLON . decvar
+    6       | . %empty  [$end, ID, LET_T, DEF_T, IF_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+
+    LET_T  deslocar, e ir ao estado 1
+
+    LET_T     [reduzir usando a regra 6 (decvar)]
+    $padrão  reduzir usando a regra 6 (decvar)
+
+    decvar  ir ao estado 33
+
+
+Estado 20
+
+   10 decfunc: DEF_T ID LPARENT . paramlist RPARENT block
+   14 paramlist: . ID
+   15          | . ID COMMA paramlist
+   16          | . %empty  [RPARENT]
+
+    ID  deslocar, e ir ao estado 34
+
+    $padrão  reduzir usando a regra 16 (paramlist)
+
+    paramlist  ir ao estado 35
+
+
+Estado 21
+
+   11 decfunc: DEF_T MAIN_T LPARENT . paramlist RPARENT block
+   14 paramlist: . ID
+   15          | . ID COMMA paramlist
+   16          | . %empty  [RPARENT]
+
+    ID  deslocar, e ir ao estado 34
+
+    $padrão  reduzir usando a regra 16 (paramlist)
+
+    paramlist  ir ao estado 36
+
+
+Estado 22
+
+    4 decvar: LET_T ID SEMICOLON decvar .
+
+    $padrão  reduzir usando a regra 4 (decvar)
+
+
+Estado 23
+
+   25 assigner: ID . ASSIGN ID
+   25         | ID ASSIGN ID .  [ID, COMMA, SEMICOLON]
+   26         | ID . ASSIGN expr
+   27         | ID . ASSIGN assigner
+   41 expr: ID .  [ID, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   42 funccall: ID . LPARENT RPARENT
+   43         | ID . LPARENT arglist RPARENT
+
+    LPARENT  deslocar, e ir ao estado 37
+    ASSIGN   deslocar, e ir ao estado 16
+
+    ID         reduzir usando a regra 25 (assigner)
+    ID         [reduzir usando a regra 41 (expr)]
+    COMMA      reduzir usando a regra 25 (assigner)
+    COMMA      [reduzir usando a regra 41 (expr)]
+    SEMICOLON  reduzir usando a regra 25 (assigner)
+    SEMICOLON  [reduzir usando a regra 41 (expr)]
+    $padrão   reduzir usando a regra 41 (expr)
+
+
+Estado 24
+
+   40 expr: DEC .
+
+    $padrão  reduzir usando a regra 40 (expr)
+
+
+Estado 25
+
+   35 expr: . %empty  [RPARENT, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   38     | LPARENT . expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 39
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 26
+
+   58 unop: MINUS .
+
+    $padrão  reduzir usando a regra 58 (unop)
+
+
+Estado 27
+
+   59 unop: NOT .
+
+    $padrão  reduzir usando a regra 59 (unop)
+
+
+Estado 28
+
+   27 assigner: ID ASSIGN assigner .
+
+    $padrão  reduzir usando a regra 27 (assigner)
+
+
+Estado 29
+
+   26 assigner: ID ASSIGN expr .  [ID, COMMA, SEMICOLON]
+   36 expr: expr . binop expr
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    $padrão  reduzir usando a regra 26 (assigner)
+
+    binop  ir ao estado 52
+
+
+Estado 30
+
+   39 expr: funccall .
+
+    $padrão  reduzir usando a regra 39 (expr)
+
+
+Estado 31
+
+   35 expr: . %empty  [ID, RPARENT, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   37     | unop . expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    ID        [reduzir usando a regra 35 (expr)]
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 53
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 32
+
+    8 decvarassigner: COMMA assigner decvarassigner .
+
+    $padrão  reduzir usando a regra 8 (decvarassigner)
+
+
+Estado 33
+
+    5 decvar: LET_T decvarassigner SEMICOLON decvar .
+
+    $padrão  reduzir usando a regra 5 (decvar)
+
+
+Estado 34
+
+   14 paramlist: ID .  [RPARENT]
+   15          | ID . COMMA paramlist
+
+    COMMA  deslocar, e ir ao estado 54
+
+    $padrão  reduzir usando a regra 14 (paramlist)
+
+
+Estado 35
+
+   10 decfunc: DEF_T ID LPARENT paramlist . RPARENT block
+
+    RPARENT  deslocar, e ir ao estado 55
+
+
+Estado 36
+
+   11 decfunc: DEF_T MAIN_T LPARENT paramlist . RPARENT block
+
+    RPARENT  deslocar, e ir ao estado 56
+
+
+Estado 37
+
+   35 expr: . %empty  [RPARENT, COMMA, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   42         | ID LPARENT . RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   43         | ID LPARENT . arglist RPARENT
+   44 arglist: . expr
+   45        | . expr COMMA arglist
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    RPARENT  deslocar, e ir ao estado 57
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    RPARENT   [reduzir usando a regra 35 (expr)]
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 58
+    funccall  ir ao estado 30
+    arglist   ir ao estado 59
+    unop      ir ao estado 31
+
+
+Estado 38
+
+   41 expr: ID .  [ID, RPARENT, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   42 funccall: ID . LPARENT RPARENT
+   43         | ID . LPARENT arglist RPARENT
+
+    LPARENT  deslocar, e ir ao estado 37
+
+    $padrão  reduzir usando a regra 41 (expr)
+
+
+Estado 39
+
+   36 expr: expr . binop expr
+   38     | LPARENT expr . RPARENT
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    RPARENT        deslocar, e ir ao estado 60
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    binop  ir ao estado 52
+
+
+Estado 40
+
+   46 binop: PLUS .
+
+    $padrão  reduzir usando a regra 46 (binop)
+
+
+Estado 41
+
+   47 binop: MINUS .
+
+    $padrão  reduzir usando a regra 47 (binop)
+
+
+Estado 42
+
+   48 binop: MULTIPLY .
+
+    $padrão  reduzir usando a regra 48 (binop)
+
+
+Estado 43
+
+   49 binop: DIVIDER .
+
+    $padrão  reduzir usando a regra 49 (binop)
+
+
+Estado 44
+
+   50 binop: LESSTHAN .
+
+    $padrão  reduzir usando a regra 50 (binop)
+
+
+Estado 45
+
+   52 binop: BIGGERTHAN .
+
+    $padrão  reduzir usando a regra 52 (binop)
+
+
+Estado 46
+
+   51 binop: LESSOREQUAL .
+
+    $padrão  reduzir usando a regra 51 (binop)
+
+
+Estado 47
+
+   53 binop: BIGGEROREQUAL .
+
+    $padrão  reduzir usando a regra 53 (binop)
+
+
+Estado 48
+
+   54 binop: EQUAL .
+
+    $padrão  reduzir usando a regra 54 (binop)
+
+
+Estado 49
+
+   55 binop: NOTEQUAL .
+
+    $padrão  reduzir usando a regra 55 (binop)
+
+
+Estado 50
+
+   56 binop: AND .
+
+    $padrão  reduzir usando a regra 56 (binop)
+
+
+Estado 51
+
+   57 binop: OR .
+
+    $padrão  reduzir usando a regra 57 (binop)
+
+
+Estado 52
+
+   35 expr: . %empty  [ID, RPARENT, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   36     | expr binop . expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    ID        [reduzir usando a regra 35 (expr)]
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 61
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 53
+
+   36 expr: expr . binop expr
+   37     | unop expr .  [ID, RPARENT, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    PLUS           [reduzir usando a regra 37 (expr)]
+    MINUS          [reduzir usando a regra 37 (expr)]
+    MULTIPLY       [reduzir usando a regra 37 (expr)]
+    DIVIDER        [reduzir usando a regra 37 (expr)]
+    LESSTHAN       [reduzir usando a regra 37 (expr)]
+    BIGGERTHAN     [reduzir usando a regra 37 (expr)]
+    LESSOREQUAL    [reduzir usando a regra 37 (expr)]
+    BIGGEROREQUAL  [reduzir usando a regra 37 (expr)]
+    EQUAL          [reduzir usando a regra 37 (expr)]
+    NOTEQUAL       [reduzir usando a regra 37 (expr)]
+    AND            [reduzir usando a regra 37 (expr)]
+    OR             [reduzir usando a regra 37 (expr)]
+    $padrão       reduzir usando a regra 37 (expr)
+
+    binop  ir ao estado 52
+
+
+Estado 54
+
+   14 paramlist: . ID
+   15          | . ID COMMA paramlist
+   15          | ID COMMA . paramlist
+   16          | . %empty  [RPARENT]
+
+    ID  deslocar, e ir ao estado 34
+
+    $padrão  reduzir usando a regra 16 (paramlist)
+
+    paramlist  ir ao estado 62
+
+
+Estado 55
+
+   10 decfunc: DEF_T ID LPARENT paramlist RPARENT . block
+   12 block: . LBRACE decvar statement RBRACE
+   13      | . %empty  [$end, LET_T, DEF_T]
+
+    LBRACE  deslocar, e ir ao estado 63
+
+    $padrão  reduzir usando a regra 13 (block)
+
+    block  ir ao estado 64
+
+
+Estado 56
+
+   11 decfunc: DEF_T MAIN_T LPARENT paramlist RPARENT . block
+   12 block: . LBRACE decvar statement RBRACE
+   13      | . %empty  [$end, LET_T, DEF_T]
+
+    LBRACE  deslocar, e ir ao estado 63
+
+    $padrão  reduzir usando a regra 13 (block)
+
+    block  ir ao estado 65
+
+
+Estado 57
+
+   42 funccall: ID LPARENT RPARENT .
+
+    $padrão  reduzir usando a regra 42 (funccall)
+
+
+Estado 58
+
+   36 expr: expr . binop expr
+   44 arglist: expr .  [RPARENT]
+   45        | expr . COMMA arglist
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    COMMA          deslocar, e ir ao estado 66
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    $padrão  reduzir usando a regra 44 (arglist)
+
+    binop  ir ao estado 52
+
+
+Estado 59
+
+   43 funccall: ID LPARENT arglist . RPARENT
+
+    RPARENT  deslocar, e ir ao estado 67
+
+
+Estado 60
+
+   38 expr: LPARENT expr RPARENT .
+
+    $padrão  reduzir usando a regra 38 (expr)
+
+
+Estado 61
+
+   36 expr: expr . binop expr
+   36     | expr binop expr .  [ID, RPARENT, COMMA, SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    PLUS           [reduzir usando a regra 36 (expr)]
+    MINUS          [reduzir usando a regra 36 (expr)]
+    MULTIPLY       [reduzir usando a regra 36 (expr)]
+    DIVIDER        [reduzir usando a regra 36 (expr)]
+    LESSTHAN       [reduzir usando a regra 36 (expr)]
+    BIGGERTHAN     [reduzir usando a regra 36 (expr)]
+    LESSOREQUAL    [reduzir usando a regra 36 (expr)]
+    BIGGEROREQUAL  [reduzir usando a regra 36 (expr)]
+    EQUAL          [reduzir usando a regra 36 (expr)]
+    NOTEQUAL       [reduzir usando a regra 36 (expr)]
+    AND            [reduzir usando a regra 36 (expr)]
+    OR             [reduzir usando a regra 36 (expr)]
+    $padrão       reduzir usando a regra 36 (expr)
+
+    binop  ir ao estado 52
+
+
+Estado 62
+
+   15 paramlist: ID COMMA paramlist .
+
+    $padrão  reduzir usando a regra 15 (paramlist)
+
+
+Estado 63
+
+    4 decvar: . LET_T ID SEMICOLON decvar
+    5       | . LET_T decvarassigner SEMICOLON decvar
+    6       | . %empty  [ID, IF_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+   12 block: LBRACE . decvar statement RBRACE
+
+    LET_T  deslocar, e ir ao estado 1
+
+    $padrão  reduzir usando a regra 6 (decvar)
+
+    decvar  ir ao estado 68
+
+
+Estado 64
+
+   10 decfunc: DEF_T ID LPARENT paramlist RPARENT block .
+
+    $padrão  reduzir usando a regra 10 (decfunc)
+
+
+Estado 65
+
+   11 decfunc: DEF_T MAIN_T LPARENT paramlist RPARENT block .
+
+    $padrão  reduzir usando a regra 11 (decfunc)
+
+
+Estado 66
+
+   35 expr: . %empty  [RPARENT, COMMA, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   44 arglist: . expr
+   45        | . expr COMMA arglist
+   45        | expr COMMA . arglist
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 58
+    funccall  ir ao estado 30
+    arglist   ir ao estado 69
+    unop      ir ao estado 31
+
+
+Estado 67
+
+   43 funccall: ID LPARENT arglist RPARENT .
+
+    $padrão  reduzir usando a regra 43 (funccall)
+
+
+Estado 68
+
+   12 block: LBRACE decvar . statement RBRACE
+   17 statement: . assigner SEMICOLON statement
+   18          | . funccall SEMICOLON statement
+   19          | . conditional statement
+   20          | . loop statement
+   21          | . return statement
+   22          | . break
+   23          | . continue
+   24          | . %empty  [RBRACE]
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+   29 return: . RETURN_T expr SEMICOLON
+   30 conditional: . IF_T LPARENT expr RPARENT block
+   31            | . IF_T LPARENT expr RPARENT block ELSE_T block
+   32 loop: . WHILE_T LPARENT expr RPARENT block
+   33 break: . BREAK_T SEMICOLON
+   34 continue: . CONTINUE_T SEMICOLON
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+
+    ID          deslocar, e ir ao estado 70
+    IF_T        deslocar, e ir ao estado 71
+    WHILE_T     deslocar, e ir ao estado 72
+    BREAK_T     deslocar, e ir ao estado 73
+    CONTINUE_T  deslocar, e ir ao estado 74
+    RETURN_T    deslocar, e ir ao estado 75
+
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    $padrão   reduzir usando a regra 24 (statement)
+
+    statement    ir ao estado 76
+    assigner     ir ao estado 77
+    return       ir ao estado 78
+    conditional  ir ao estado 79
+    loop         ir ao estado 80
+    break        ir ao estado 81
+    continue     ir ao estado 82
+    funccall     ir ao estado 83
+
+
+Estado 69
+
+   45 arglist: expr COMMA arglist .
+
+    $padrão  reduzir usando a regra 45 (arglist)
+
+
+Estado 70
+
+   25 assigner: ID . ASSIGN ID
+   26         | ID . ASSIGN expr
+   27         | ID . ASSIGN assigner
+   42 funccall: ID . LPARENT RPARENT
+   43         | ID . LPARENT arglist RPARENT
+
+    LPARENT  deslocar, e ir ao estado 37
+    ASSIGN   deslocar, e ir ao estado 16
+
+
+Estado 71
+
+   30 conditional: IF_T . LPARENT expr RPARENT block
+   31            | IF_T . LPARENT expr RPARENT block ELSE_T block
+
+    LPARENT  deslocar, e ir ao estado 84
+
+
+Estado 72
+
+   32 loop: WHILE_T . LPARENT expr RPARENT block
+
+    LPARENT  deslocar, e ir ao estado 85
+
+
+Estado 73
+
+   33 break: BREAK_T . SEMICOLON
+
+    SEMICOLON  deslocar, e ir ao estado 86
+
+
+Estado 74
+
+   34 continue: CONTINUE_T . SEMICOLON
+
+    SEMICOLON  deslocar, e ir ao estado 87
+
+
+Estado 75
+
+   29 return: RETURN_T . expr SEMICOLON
+   35 expr: . %empty  [SEMICOLON, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 88
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 76
+
+   12 block: LBRACE decvar statement . RBRACE
+
+    RBRACE  deslocar, e ir ao estado 89
+
+
+Estado 77
+
+   17 statement: assigner . SEMICOLON statement
+
+    SEMICOLON  deslocar, e ir ao estado 90
+
+
+Estado 78
+
+   17 statement: . assigner SEMICOLON statement
+   18          | . funccall SEMICOLON statement
+   19          | . conditional statement
+   20          | . loop statement
+   21          | . return statement
+   21          | return . statement
+   22          | . break
+   23          | . continue
+   24          | . %empty  [RBRACE]
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+   29 return: . RETURN_T expr SEMICOLON
+   30 conditional: . IF_T LPARENT expr RPARENT block
+   31            | . IF_T LPARENT expr RPARENT block ELSE_T block
+   32 loop: . WHILE_T LPARENT expr RPARENT block
+   33 break: . BREAK_T SEMICOLON
+   34 continue: . CONTINUE_T SEMICOLON
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+
+    ID          deslocar, e ir ao estado 70
+    IF_T        deslocar, e ir ao estado 71
+    WHILE_T     deslocar, e ir ao estado 72
+    BREAK_T     deslocar, e ir ao estado 73
+    CONTINUE_T  deslocar, e ir ao estado 74
+    RETURN_T    deslocar, e ir ao estado 75
+
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    $padrão   reduzir usando a regra 24 (statement)
+
+    statement    ir ao estado 91
+    assigner     ir ao estado 77
+    return       ir ao estado 78
+    conditional  ir ao estado 79
+    loop         ir ao estado 80
+    break        ir ao estado 81
+    continue     ir ao estado 82
+    funccall     ir ao estado 83
+
+
+Estado 79
+
+   17 statement: . assigner SEMICOLON statement
+   18          | . funccall SEMICOLON statement
+   19          | . conditional statement
+   19          | conditional . statement
+   20          | . loop statement
+   21          | . return statement
+   22          | . break
+   23          | . continue
+   24          | . %empty  [RBRACE]
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+   29 return: . RETURN_T expr SEMICOLON
+   30 conditional: . IF_T LPARENT expr RPARENT block
+   31            | . IF_T LPARENT expr RPARENT block ELSE_T block
+   32 loop: . WHILE_T LPARENT expr RPARENT block
+   33 break: . BREAK_T SEMICOLON
+   34 continue: . CONTINUE_T SEMICOLON
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+
+    ID          deslocar, e ir ao estado 70
+    IF_T        deslocar, e ir ao estado 71
+    WHILE_T     deslocar, e ir ao estado 72
+    BREAK_T     deslocar, e ir ao estado 73
+    CONTINUE_T  deslocar, e ir ao estado 74
+    RETURN_T    deslocar, e ir ao estado 75
+
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    $padrão   reduzir usando a regra 24 (statement)
+
+    statement    ir ao estado 92
+    assigner     ir ao estado 77
+    return       ir ao estado 78
+    conditional  ir ao estado 79
+    loop         ir ao estado 80
+    break        ir ao estado 81
+    continue     ir ao estado 82
+    funccall     ir ao estado 83
+
+
+Estado 80
+
+   17 statement: . assigner SEMICOLON statement
+   18          | . funccall SEMICOLON statement
+   19          | . conditional statement
+   20          | . loop statement
+   20          | loop . statement
+   21          | . return statement
+   22          | . break
+   23          | . continue
+   24          | . %empty  [RBRACE]
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+   29 return: . RETURN_T expr SEMICOLON
+   30 conditional: . IF_T LPARENT expr RPARENT block
+   31            | . IF_T LPARENT expr RPARENT block ELSE_T block
+   32 loop: . WHILE_T LPARENT expr RPARENT block
+   33 break: . BREAK_T SEMICOLON
+   34 continue: . CONTINUE_T SEMICOLON
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+
+    ID          deslocar, e ir ao estado 70
+    IF_T        deslocar, e ir ao estado 71
+    WHILE_T     deslocar, e ir ao estado 72
+    BREAK_T     deslocar, e ir ao estado 73
+    CONTINUE_T  deslocar, e ir ao estado 74
+    RETURN_T    deslocar, e ir ao estado 75
+
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    $padrão   reduzir usando a regra 24 (statement)
+
+    statement    ir ao estado 93
+    assigner     ir ao estado 77
+    return       ir ao estado 78
+    conditional  ir ao estado 79
+    loop         ir ao estado 80
+    break        ir ao estado 81
+    continue     ir ao estado 82
+    funccall     ir ao estado 83
+
+
+Estado 81
+
+   22 statement: break .
+
+    $padrão  reduzir usando a regra 22 (statement)
+
+
+Estado 82
+
+   23 statement: continue .
+
+    $padrão  reduzir usando a regra 23 (statement)
+
+
+Estado 83
+
+   18 statement: funccall . SEMICOLON statement
+
+    SEMICOLON  deslocar, e ir ao estado 94
+
+
+Estado 84
+
+   30 conditional: IF_T LPARENT . expr RPARENT block
+   31            | IF_T LPARENT . expr RPARENT block ELSE_T block
+   35 expr: . %empty  [RPARENT, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 95
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 85
+
+   32 loop: WHILE_T LPARENT . expr RPARENT block
+   35 expr: . %empty  [RPARENT, PLUS, MINUS, MULTIPLY, DIVIDER, LESSTHAN, BIGGERTHAN, LESSOREQUAL, BIGGEROREQUAL, EQUAL, NOTEQUAL, AND, OR]
+   36     | . expr binop expr
+   37     | . unop expr
+   38     | . LPARENT expr RPARENT
+   39     | . funccall
+   40     | . DEC
+   41     | . ID
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+   58 unop: . MINUS
+   59     | . NOT
+
+    ID       deslocar, e ir ao estado 38
+    DEC      deslocar, e ir ao estado 24
+    LPARENT  deslocar, e ir ao estado 25
+    MINUS    deslocar, e ir ao estado 26
+    NOT      deslocar, e ir ao estado 27
+
+    MINUS     [reduzir usando a regra 35 (expr)]
+    $padrão  reduzir usando a regra 35 (expr)
+
+    expr      ir ao estado 96
+    funccall  ir ao estado 30
+    unop      ir ao estado 31
+
+
+Estado 86
+
+   33 break: BREAK_T SEMICOLON .
+
+    $padrão  reduzir usando a regra 33 (break)
+
+
+Estado 87
+
+   34 continue: CONTINUE_T SEMICOLON .
+
+    $padrão  reduzir usando a regra 34 (continue)
+
+
+Estado 88
+
+   29 return: RETURN_T expr . SEMICOLON
+   36 expr: expr . binop expr
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    SEMICOLON      deslocar, e ir ao estado 97
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    binop  ir ao estado 52
+
+
+Estado 89
+
+   12 block: LBRACE decvar statement RBRACE .
+
+    $padrão  reduzir usando a regra 12 (block)
+
+
+Estado 90
+
+   17 statement: . assigner SEMICOLON statement
+   17          | assigner SEMICOLON . statement
+   18          | . funccall SEMICOLON statement
+   19          | . conditional statement
+   20          | . loop statement
+   21          | . return statement
+   22          | . break
+   23          | . continue
+   24          | . %empty  [RBRACE]
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+   29 return: . RETURN_T expr SEMICOLON
+   30 conditional: . IF_T LPARENT expr RPARENT block
+   31            | . IF_T LPARENT expr RPARENT block ELSE_T block
+   32 loop: . WHILE_T LPARENT expr RPARENT block
+   33 break: . BREAK_T SEMICOLON
+   34 continue: . CONTINUE_T SEMICOLON
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+
+    ID          deslocar, e ir ao estado 70
+    IF_T        deslocar, e ir ao estado 71
+    WHILE_T     deslocar, e ir ao estado 72
+    BREAK_T     deslocar, e ir ao estado 73
+    CONTINUE_T  deslocar, e ir ao estado 74
+    RETURN_T    deslocar, e ir ao estado 75
+
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    $padrão   reduzir usando a regra 24 (statement)
+
+    statement    ir ao estado 98
+    assigner     ir ao estado 77
+    return       ir ao estado 78
+    conditional  ir ao estado 79
+    loop         ir ao estado 80
+    break        ir ao estado 81
+    continue     ir ao estado 82
+    funccall     ir ao estado 83
+
+
+Estado 91
+
+   21 statement: return statement .
+
+    $padrão  reduzir usando a regra 21 (statement)
+
+
+Estado 92
+
+   19 statement: conditional statement .
+
+    $padrão  reduzir usando a regra 19 (statement)
+
+
+Estado 93
+
+   20 statement: loop statement .
+
+    $padrão  reduzir usando a regra 20 (statement)
+
+
+Estado 94
+
+   17 statement: . assigner SEMICOLON statement
+   18          | . funccall SEMICOLON statement
+   18          | funccall SEMICOLON . statement
+   19          | . conditional statement
+   20          | . loop statement
+   21          | . return statement
+   22          | . break
+   23          | . continue
+   24          | . %empty  [RBRACE]
+   25 assigner: . ID ASSIGN ID
+   26         | . ID ASSIGN expr
+   27         | . ID ASSIGN assigner
+   28         | . %empty  [SEMICOLON]
+   29 return: . RETURN_T expr SEMICOLON
+   30 conditional: . IF_T LPARENT expr RPARENT block
+   31            | . IF_T LPARENT expr RPARENT block ELSE_T block
+   32 loop: . WHILE_T LPARENT expr RPARENT block
+   33 break: . BREAK_T SEMICOLON
+   34 continue: . CONTINUE_T SEMICOLON
+   42 funccall: . ID LPARENT RPARENT
+   43         | . ID LPARENT arglist RPARENT
+
+    ID          deslocar, e ir ao estado 70
+    IF_T        deslocar, e ir ao estado 71
+    WHILE_T     deslocar, e ir ao estado 72
+    BREAK_T     deslocar, e ir ao estado 73
+    CONTINUE_T  deslocar, e ir ao estado 74
+    RETURN_T    deslocar, e ir ao estado 75
+
+    SEMICOLON  reduzir usando a regra 28 (assigner)
+    $padrão   reduzir usando a regra 24 (statement)
+
+    statement    ir ao estado 99
+    assigner     ir ao estado 77
+    return       ir ao estado 78
+    conditional  ir ao estado 79
+    loop         ir ao estado 80
+    break        ir ao estado 81
+    continue     ir ao estado 82
+    funccall     ir ao estado 83
+
+
+Estado 95
+
+   30 conditional: IF_T LPARENT expr . RPARENT block
+   31            | IF_T LPARENT expr . RPARENT block ELSE_T block
+   36 expr: expr . binop expr
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    RPARENT        deslocar, e ir ao estado 100
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    binop  ir ao estado 52
+
+
+Estado 96
+
+   32 loop: WHILE_T LPARENT expr . RPARENT block
+   36 expr: expr . binop expr
+   46 binop: . PLUS
+   47      | . MINUS
+   48      | . MULTIPLY
+   49      | . DIVIDER
+   50      | . LESSTHAN
+   51      | . LESSOREQUAL
+   52      | . BIGGERTHAN
+   53      | . BIGGEROREQUAL
+   54      | . EQUAL
+   55      | . NOTEQUAL
+   56      | . AND
+   57      | . OR
+
+    RPARENT        deslocar, e ir ao estado 101
+    PLUS           deslocar, e ir ao estado 40
+    MINUS          deslocar, e ir ao estado 41
+    MULTIPLY       deslocar, e ir ao estado 42
+    DIVIDER        deslocar, e ir ao estado 43
+    LESSTHAN       deslocar, e ir ao estado 44
+    BIGGERTHAN     deslocar, e ir ao estado 45
+    LESSOREQUAL    deslocar, e ir ao estado 46
+    BIGGEROREQUAL  deslocar, e ir ao estado 47
+    EQUAL          deslocar, e ir ao estado 48
+    NOTEQUAL       deslocar, e ir ao estado 49
+    AND            deslocar, e ir ao estado 50
+    OR             deslocar, e ir ao estado 51
+
+    binop  ir ao estado 52
+
+
+Estado 97
+
+   29 return: RETURN_T expr SEMICOLON .
+
+    $padrão  reduzir usando a regra 29 (return)
+
+
+Estado 98
+
+   17 statement: assigner SEMICOLON statement .
+
+    $padrão  reduzir usando a regra 17 (statement)
+
+
+Estado 99
+
+   18 statement: funccall SEMICOLON statement .
+
+    $padrão  reduzir usando a regra 18 (statement)
+
+
+Estado 100
+
+   12 block: . LBRACE decvar statement RBRACE
+   13      | . %empty  [ID, IF_T, ELSE_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+   30 conditional: IF_T LPARENT expr RPARENT . block
+   31            | IF_T LPARENT expr RPARENT . block ELSE_T block
+
+    LBRACE  deslocar, e ir ao estado 63
+
+    $padrão  reduzir usando a regra 13 (block)
+
+    block  ir ao estado 102
+
+
+Estado 101
+
+   12 block: . LBRACE decvar statement RBRACE
+   13      | . %empty  [ID, IF_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+   32 loop: WHILE_T LPARENT expr RPARENT . block
+
+    LBRACE  deslocar, e ir ao estado 63
+
+    $padrão  reduzir usando a regra 13 (block)
+
+    block  ir ao estado 103
+
+
+Estado 102
+
+   30 conditional: IF_T LPARENT expr RPARENT block .  [ID, IF_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+   31            | IF_T LPARENT expr RPARENT block . ELSE_T block
+
+    ELSE_T  deslocar, e ir ao estado 104
+
+    $padrão  reduzir usando a regra 30 (conditional)
+
+
+Estado 103
+
+   32 loop: WHILE_T LPARENT expr RPARENT block .
+
+    $padrão  reduzir usando a regra 32 (loop)
+
+
+Estado 104
+
+   12 block: . LBRACE decvar statement RBRACE
+   13      | . %empty  [ID, IF_T, WHILE_T, BREAK_T, CONTINUE_T, RETURN_T, RBRACE, SEMICOLON]
+   31 conditional: IF_T LPARENT expr RPARENT block ELSE_T . block
+
+    LBRACE  deslocar, e ir ao estado 63
+
+    $padrão  reduzir usando a regra 13 (block)
+
+    block  ir ao estado 105
+
+
+Estado 105
+
+   31 conditional: IF_T LPARENT expr RPARENT block ELSE_T block .
+
+    $padrão  reduzir usando a regra 31 (conditional)

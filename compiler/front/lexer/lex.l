@@ -22,7 +22,6 @@ error       (^{id}|^{number}|^{whitespace})
 "if"          { return IF_T; }
 "else"        { return ELSE_T; }
 "while"       { return WHILE_T; }
-"for"         { return FOR_T; }
 "break"       { return BREAK_T; }
 "continue"    { return CONTINUE_T; }
 "return"      { return RETURN_T; }
@@ -61,7 +60,7 @@ error       (^{id}|^{number}|^{whitespace})
 
 {dec}         { return DEC; }
 {id}          { return ID; }
-
+.             { return ERROR; }
 
 %%
 lexicalInput( argc, argv )

@@ -2,15 +2,15 @@
 	[decfunc 
 		[main]
 		[Paramlist ]
-		[block
-	[decvar  [DEC]  +  [DEC] 
-	[decvar  [ID] 
-	[decvar  [DEC] 	]
-	]
-
-	[decvar [ID]]
-	]
+		[block [DEC]  +  [DEC] 	Assign Var
+[DecVar
+[DecVar
+ [ID] 	Assign Var
+[DecVar
+ [DEC] 	Assign Var
+[DecVar
 		]
 	]
-]Eh Valida
+]
+Eh Valida
 Total de linhas: 1

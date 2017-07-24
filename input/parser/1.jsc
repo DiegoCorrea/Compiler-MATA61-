@@ -5,10 +5,10 @@ def main (){
 def lara (a,b,c){
     let d = a * 10;
     if(d <= a + b + c){
+        let p;
         luzia(d);
     }
 }
-
 def luzia(d){
     if(d > 0) {
 
