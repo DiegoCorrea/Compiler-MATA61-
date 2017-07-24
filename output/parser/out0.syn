@@ -1,19 +1,19 @@
 [program	 [funccall ] 
- +  [DEC] 	Assign Var
+ [DEC] [+ [ID ID	Assign Var
 [DecVar
 [DecVar
- [ID]  +  [ID] 	Assign Var
+ [ID]  [ID] [+ [ID ID	Assign Var
 [DecVar
 	 [funccall ] 
- +  [DEC]  /   [DEC] 	Assign Var
+ [DEC] [+ [ID ID [DEC] [/ [ID ID	Assign Var
 [DecVar
- - [DEC]  /   [DEC]  *  [DEC]  - 
-		[arglist  [DEC]  [DEC]  [ID]  -  [DEC] 	 [arglist: expr 
+ - [DEC]  [DEC] [/ [ID ID [DEC] [* [ID ID
+		[arglist  [DEC]  [DEC]  [ID]  [DEC] [- [ID ID	 [arglist: expr 
 	 [arglist: expr 
 	 [arglist: expr 
 		]
  	 [funccall: ID LPARENT arglist RPARENT] 
- /   [DEC]  +  [ID]  *  [DEC]  /   [DEC] 	Assign Var
+ [DEC] [/ [ID ID[- [ID ID [ID]  [DEC] [* [ID ID [DEC] [/ [ID ID[+ [ID ID[ - 	Assign Var
 [DecVar
 
 ]

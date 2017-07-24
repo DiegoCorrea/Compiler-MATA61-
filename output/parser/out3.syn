@@ -4,7 +4,7 @@
 		[Paramlist  [ ID ]  [ ID ] ]
 		[block
 			[return
-				 [ID]  +  [ID] 
+				 [ID]  [ID] [+ [ID ID
 			]
 		]
 	]

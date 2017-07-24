@@ -86,7 +86,17 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef double YYSTYPE;
+
+union YYSTYPE
+{
+#line 8 "compiler/front/lexer/grammar.y" /* yacc.c:1909  */
+              /* define stack type */
+  int itype;
+
+#line 97 "grammar.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

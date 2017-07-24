@@ -2,7 +2,7 @@
 	[decfunc 
 		[main]
 		[Paramlist ]
-		[block [DEC]  +  [DEC] 	Assign Var
+		[block [DEC]  [DEC] [+ [ID ID	Assign Var
 [DecVar
 [DecVar
  [ID] 	Assign Var

@@ -5,10 +5,11 @@
   int yylex(void);
   void yyerror(char const *);
 %}
-
-%define api.value.type{double}
+%union {              /* define stack type */
+  int itype;
+}
 %token ID
-%token DEC
+%token <itype> DEC
 
 %token LET_T
 %token DEF_T
@@ -57,7 +58,8 @@
 
 %left PLUS MINUS
 %left MULTIPLY DIVIDER 
-%left UMINUS 
+%left BIGGERTHAN LESSTHAN EQUAL NOTEQUAL LESSOREQUAL BIGGEROREQUAL
+%right UMINUS 
 
 
 %start start
@@ -130,12 +132,23 @@ return:
     {printf("\n\t\t\t[return\n\t\t\t\t");}   RETURN_T expr SEMICOLON                         {printf("\n\t\t\t]\n");}
 ;
 expr:
-    expr binop expr
-    | unop expr
+    unop expr                    %prec UMINUS       {printf("[ - ");}
     | LPARENT expr RPARENT
     | funccall
     | DEC                                           {printf(" [DEC] ");}
     | ID                                            {printf(" [ID] ");}
+    | expr PLUS expr                              {printf("[+ [ID ID");}
+    | expr MINUS expr                           {printf("[- [ID ID");}
+    | expr MULTIPLY expr                        {printf("[* [ID ID");}
+    | expr DIVIDER expr                         {printf("[/ [ID ID");}
+    | expr LESSTHAN expr                        {printf("[< [ID ID");}
+    | expr LESSOREQUAL expr                     {printf("[<= [ID ID");}
+    | expr BIGGERTHAN expr                      {printf("[> [ID ID");}
+    | expr BIGGEROREQUAL expr                   {printf("[>= [ID ID");}
+    | expr EQUAL expr                           {printf("[== [ID ID");}
+    | expr NOTEQUAL expr                        {printf("[!= [ID ID");}
+    | expr AND expr                             {printf("[&& [ID ID");}
+    | expr OR expr                              {printf("[|| [ID ID");}
     | %empty
 ;
 binop:

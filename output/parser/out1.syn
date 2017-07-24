@@ -4,7 +4,7 @@
 		[main]
 		[Paramlist ]
 		[block
-		[arglist  [DEC]  +  [DEC]  [DEC]  [DEC]  -  [DEC]  -  [DEC] 	 [arglist: expr 
+		[arglist  [DEC]  [DEC] [+ [ID ID [DEC]  [DEC]  [DEC] [- [ID ID [DEC] [- [ID ID	 [arglist: expr 
 	 [arglist: expr 
 	 [arglist: expr 
 		]
@@ -16,9 +16,9 @@
 	[decfunc 
 		[FUNC NAME]
 		[Paramlist  [ ID ]  [ ID ]  [ ID ] ]
-		[block [ID]  *  [DEC] 	Assign Var
+		[block [ID]  [DEC] [* [ID ID	Assign Var
 [DecVar
- [ID]  >=  [ID]  +  [ID]  +  [ID] 
+ [ID]  [ID] [<= [ID ID [ID] [+ [ID ID [ID] [+ [ID ID
 		[block[DecVar
 
 		[arglist  [ID] 	 [arglist: expr 
@@ -33,7 +33,7 @@
 	[decfunc 
 		[FUNC NAME]
 		[Paramlist  [ ID ] ]
-		[block [ID]  >   [DEC] 
+		[block [ID]  [DEC] [> [ID ID
 		[block		]
 		[block		]	 [conditional IF_T LPARENT expr RPARENT block ELSE_T block] 
 	 statement: conditional] 
