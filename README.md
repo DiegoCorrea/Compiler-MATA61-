@@ -17,4 +17,5 @@ If you want configure the compiler, follow the steps:
 Go to project folder and type:  
  * Just make the compiler: `make`  
  * Make and run test cases: `make run`  
- {printf[^\)]*\);}  
+   
+Annotation: {printf[^\)]*\);}  

@@ -89,7 +89,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "compiler/front/lexer/grammar.y" /* yacc.c:1909  */
+#line 11 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
               /* define stack type */
   int itype;
 

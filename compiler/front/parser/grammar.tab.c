@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "compiler/front/lexer/grammar.y" /* yacc.c:339  */
+#line 1 "compiler/front/parser/grammar.y" /* yacc.c:339  */
 
   #include <math.h>
   #include <stdio.h>
@@ -152,7 +152,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "compiler/front/lexer/grammar.y" /* yacc.c:355  */
+#line 11 "compiler/front/parser/grammar.y" /* yacc.c:355  */
               /* define stack type */
   int itype;
 
@@ -1356,325 +1356,325 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 72 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 72 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"program");}
 #line 1362 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 72 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 72 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"n]\n");}
 #line 1368 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 80 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 80 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"DecVar\n");}
 #line 1374 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 84 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 84 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"Assign Var\n");}
 #line 1380 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 87 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 87 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t[decfunc ");}
 #line 1386 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 90 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 90 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t[main]");}
 #line 1392 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 90 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 90 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t[Paramlist ");}
 #line 1398 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 90 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 90 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {printf("]");}
 #line 1404 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 90 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 90 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t]");}
 #line 1410 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 91 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 91 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t[FUNC NAME]");}
 #line 1416 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 91 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 91 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t[Paramlist ");}
 #line 1422 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 91 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 91 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {printf("]");}
 #line 1428 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 91 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 91 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t]");}
 #line 1434 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 94 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 94 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t[block");}
 #line 1440 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 94 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 94 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"\t]");}
 #line 1446 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 102 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 102 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"[ ID ] ");}
 #line 1452 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 103 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 103 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"[ ID ] ");}
 #line 1458 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 107 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 107 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t\t[assign");}
 #line 1464 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 107 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 107 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," statement: assigner SEMICOLON] \n");}
 #line 1470 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 108 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 108 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t\t[funccall");}
 #line 1476 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 108 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 108 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," statement: funccall SEMICOLON] \n");}
 #line 1482 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 109 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 109 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," statement: conditional] \n");}
 #line 1488 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 110 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 110 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," statement: loop] \n");}
 #line 1494 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 117 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 117 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," assigner: ID ASSIGN expr] \n");}
 #line 1500 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 121 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 121 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [conditional IF_T LPARENT expr RPARENT block ELSE_T block] \n");}
 #line 1506 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 122 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 122 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [conditional IF_T LPARENT expr RPARENT block] \n");}
 #line 1512 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 126 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 126 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t\t[Stmt");}
 #line 1518 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 126 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 126 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [loop WHILE_T LPARENT expr RPARENT block \n");}
 #line 1524 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 129 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 129 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [break] \n");}
 #line 1530 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 132 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 132 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [continue] \n");}
 #line 1536 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 135 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 135 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t\t[return\n\t\t\t\t");}
 #line 1542 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 135 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 135 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t\t]\n");}
 #line 1548 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 138 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 138 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," - ");}
 #line 1554 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 141 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 141 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"[DEC] ");}
 #line 1560 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 142 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 142 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"[ID] ");}
 #line 1566 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 143 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 143 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"+ [ID ID");}
 #line 1572 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 144 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 144 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"- [ID ID");}
 #line 1578 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 145 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 145 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"* [ID ID");}
 #line 1584 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 146 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 146 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"/ [ID ID");}
 #line 1590 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 147 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 147 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"< [ID ID");}
 #line 1596 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 148 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 148 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"<= [ID ID");}
 #line 1602 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 149 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 149 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"> [ID ID");}
 #line 1608 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 150 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 150 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,">= [ID ID");}
 #line 1614 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 151 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 151 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"== [ID ID");}
 #line 1620 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 152 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 152 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"!= [ID ID");}
 #line 1626 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 153 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 153 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"&& [ID ID");}
 #line 1632 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 154 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 154 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"|| [ID ID");}
 #line 1638 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 172 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 172 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"-");}
 #line 1644 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 173 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 173 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"!");}
 #line 1650 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 176 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 176 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [funccall ] \n");}
 #line 1656 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 177 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 177 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"t\t[arglist ");}
 #line 1662 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 177 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 177 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output,"\t]\n ");}
 #line 1668 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 177 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 177 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [funccall: ID LPARENT arglist RPARENT] \n");}
 #line 1674 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 180 "compiler/front/lexer/grammar.y" /* yacc.c:1646  */
+#line 180 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {fprintf(fl_output," [arglist: expr \n");}
 #line 1680 "grammar.tab.c" /* yacc.c:1646  */
     break;
@@ -1908,7 +1908,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 186 "compiler/front/lexer/grammar.y" /* yacc.c:1906  */
+#line 186 "compiler/front/parser/grammar.y" /* yacc.c:1906  */
 
 
 void yyerror(char const *err){

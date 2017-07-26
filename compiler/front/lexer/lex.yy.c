@@ -542,7 +542,7 @@ char *yytext;
 #line 1 "compiler/front/lexer/lex.l"
 #line 3 "compiler/front/lexer/lex.l"
 	#include <stdio.h>
-	#include "grammar.tab.h"
+	#include "../parser/grammar.tab.h"
 #line 547 "lex.yy.c"
 
 #define INITIAL 0

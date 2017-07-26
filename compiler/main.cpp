@@ -1,10 +1,8 @@
 #include <iostream>
-//#include "tokens.h"
 extern "C" {
   int yyparse();
   void yyerror(const char *);
   int yylex();
-  //void lexicalInput(int argc, char** argv);
   void readFromFile(int argc, char** argv);
 }
 extern int yylineno;
