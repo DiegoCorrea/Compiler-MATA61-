@@ -543,8 +543,7 @@ char *yytext;
 #line 3 "compiler/front/lexer/lex.l"
 	#include <stdio.h>
 	#include "grammar.tab.h"
-	//#include "tokens.h"
-#line 548 "lex.yy.c"
+#line 547 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -762,9 +761,9 @@ YY_DECL
 		}
 
 	{
-#line 17 "compiler/front/lexer/lex.l"
+#line 16 "compiler/front/lexer/lex.l"
 
-#line 768 "lex.yy.c"
+#line 767 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -833,191 +832,191 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 18 "compiler/front/lexer/lex.l"
+#line 17 "compiler/front/lexer/lex.l"
 
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 19 "compiler/front/lexer/lex.l"
+#line 18 "compiler/front/lexer/lex.l"
 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "compiler/front/lexer/lex.l"
+#line 19 "compiler/front/lexer/lex.l"
 { return LET_T; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "compiler/front/lexer/lex.l"
+#line 20 "compiler/front/lexer/lex.l"
 { return DEF_T; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 22 "compiler/front/lexer/lex.l"
+#line 21 "compiler/front/lexer/lex.l"
 { return IF_T; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "compiler/front/lexer/lex.l"
+#line 22 "compiler/front/lexer/lex.l"
 { return ELSE_T; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "compiler/front/lexer/lex.l"
+#line 23 "compiler/front/lexer/lex.l"
 { return WHILE_T; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 25 "compiler/front/lexer/lex.l"
+#line 24 "compiler/front/lexer/lex.l"
 { return BREAK_T; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 26 "compiler/front/lexer/lex.l"
+#line 25 "compiler/front/lexer/lex.l"
 { return CONTINUE_T; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 27 "compiler/front/lexer/lex.l"
+#line 26 "compiler/front/lexer/lex.l"
 { return RETURN_T; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 28 "compiler/front/lexer/lex.l"
+#line 27 "compiler/front/lexer/lex.l"
 { return MAIN_T; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "compiler/front/lexer/lex.l"
+#line 29 "compiler/front/lexer/lex.l"
 { return LPARENT ; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 31 "compiler/front/lexer/lex.l"
+#line 30 "compiler/front/lexer/lex.l"
 { return RPARENT ; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 33 "compiler/front/lexer/lex.l"
+#line 32 "compiler/front/lexer/lex.l"
 { return LBRACE ; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 34 "compiler/front/lexer/lex.l"
+#line 33 "compiler/front/lexer/lex.l"
 { return RBRACE ; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "compiler/front/lexer/lex.l"
+#line 35 "compiler/front/lexer/lex.l"
 { return LBRACKETS ; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 37 "compiler/front/lexer/lex.l"
+#line 36 "compiler/front/lexer/lex.l"
 { return RBRACKETS ; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 39 "compiler/front/lexer/lex.l"
+#line 38 "compiler/front/lexer/lex.l"
 { return COMMA ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 40 "compiler/front/lexer/lex.l"
+#line 39 "compiler/front/lexer/lex.l"
 { return SEMICOLON ; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 42 "compiler/front/lexer/lex.l"
+#line 41 "compiler/front/lexer/lex.l"
 { return PLUS ; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 43 "compiler/front/lexer/lex.l"
+#line 42 "compiler/front/lexer/lex.l"
 { return MINUS ; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 44 "compiler/front/lexer/lex.l"
+#line 43 "compiler/front/lexer/lex.l"
 { return MULTIPLY ; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 45 "compiler/front/lexer/lex.l"
+#line 44 "compiler/front/lexer/lex.l"
 { return DIVIDER ; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 47 "compiler/front/lexer/lex.l"
+#line 46 "compiler/front/lexer/lex.l"
 { return LESSTHAN ; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 48 "compiler/front/lexer/lex.l"
+#line 47 "compiler/front/lexer/lex.l"
 { return BIGGERTHAN ; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 50 "compiler/front/lexer/lex.l"
+#line 49 "compiler/front/lexer/lex.l"
 { return LESSOREQUAL ; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 51 "compiler/front/lexer/lex.l"
+#line 50 "compiler/front/lexer/lex.l"
 { return BIGGEROREQUAL ; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 53 "compiler/front/lexer/lex.l"
+#line 52 "compiler/front/lexer/lex.l"
 { return EQUAL ; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 54 "compiler/front/lexer/lex.l"
+#line 53 "compiler/front/lexer/lex.l"
 { return ASSIGN ; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 55 "compiler/front/lexer/lex.l"
+#line 54 "compiler/front/lexer/lex.l"
 { return NOTEQUAL ; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 57 "compiler/front/lexer/lex.l"
+#line 56 "compiler/front/lexer/lex.l"
 { return AND ; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 58 "compiler/front/lexer/lex.l"
+#line 57 "compiler/front/lexer/lex.l"
 { return OR ; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 59 "compiler/front/lexer/lex.l"
+#line 58 "compiler/front/lexer/lex.l"
 { return NOT ; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 61 "compiler/front/lexer/lex.l"
+#line 60 "compiler/front/lexer/lex.l"
 { return DEC; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 62 "compiler/front/lexer/lex.l"
+#line 61 "compiler/front/lexer/lex.l"
 { return ID; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 63 "compiler/front/lexer/lex.l"
+#line 62 "compiler/front/lexer/lex.l"
 { return ERROR; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 65 "compiler/front/lexer/lex.l"
+#line 64 "compiler/front/lexer/lex.l"
 ECHO;
 	YY_BREAK
-#line 1021 "lex.yy.c"
+#line 1020 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2030,16 +2029,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 65 "compiler/front/lexer/lex.l"
+#line 64 "compiler/front/lexer/lex.l"
 
 
-lexicalInput( argc, argv )
-	int argc;
-	char **argv;
-{
-	++argv, --argc;	/* skip over program name */
-	if ( argc > 0 )
-		yyin = fopen( argv[0], "r" );
-	else
-		yyin = stdin;
-}

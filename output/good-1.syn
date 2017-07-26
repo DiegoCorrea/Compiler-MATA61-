@@ -1,0 +1,20 @@
+programDecVar
+t[decfunc t	[main]t	[Paramlist t	[blockt	[arglist [DEC] [DEC] + [ID ID[DEC] [DEC] [DEC] - [ID ID[DEC] - [ID ID [arglist: expr 
+ [arglist: expr 
+ [arglist: expr 
+	]
+  [funccall: ID LPARENT arglist RPARENT] 
+Assign Var
+DecVar
+	]t]t[decfunc t	[FUNC NAME]t	[Paramlist [ ID ] [ ID ] [ ID ] t	[block[ID] [DEC] * [ID IDAssign Var
+DecVar
+[ID] [ID] <= [ID ID[ID] + [ID ID[ID] + [ID IDt	[blockDecVar
+t	[arglist [ID]  [arglist: expr 
+	]
+  [funccall: ID LPARENT arglist RPARENT] 
+t		[funccall statement: funccall SEMICOLON] 
+	] [conditional IF_T LPARENT expr RPARENT block] 
+ statement: conditional] 
+	]t]t[decfunc t	[FUNC NAME]t	[Paramlist [ ID ] t	[block[ID] [DEC] > [ID IDt	[block	]t	[block	] [conditional IF_T LPARENT expr RPARENT block ELSE_T block] 
+ statement: conditional] 
+	]t]n]
