@@ -1,12 +1,25 @@
-programt[decfunc t	[FUNC NAME]t	[Paramlist [ ID ] [ ID ] t	[blockt		[return
-				[ID] [ID] + [ID IDt		]
-	]t]t[decfunc t	[main]t	[Paramlist t	[blockDecVar
-[DEC]  assigner: ID ASSIGN expr] 
-t		[assignt		[return
-				t	[arglist [ID] [DEC]  [arglist: expr 
- [arglist: expr 
-	]
-  [funccall: ID LPARENT arglist RPARENT] 
-t		]
- statement: assigner SEMICOLON] 
-	]t]n]
+[program
+	[decfunc 
+		[FUNC NAME]		[Paramlist [ ID ] [ ID ]  ] 
+		[block 
+			[return
+				[ID] [ID] [+ [ID] [ID]
+			]
+		 ] 
+
+	[decfunc 
+		[main]		[Paramlist  ] 
+		[block 
+
+	[decvar  [ID] ]				[assign [ID] [DEC]  ] 
+			[return
+				 [funccall 
+			ID]
+			[arglist [ID] [DEC] 			 ]
+			 ]
+			]
+ 
+			]
+		 ] 
+
+]

@@ -1,17 +1,10 @@
-program [funccall ] 
-[DEC] + [ID IDAssign Var
-DecVar
-DecVar
-[ID] [ID] + [ID IDAssign Var
-DecVar
- [funccall ] 
-[DEC] + [ID ID[DEC] / [ID IDAssign Var
-DecVar
--[DEC] [DEC] / [ID ID[DEC] * [ID IDt	[arglist [DEC] [DEC] [ID] [DEC] - [ID ID [arglist: expr 
- [arglist: expr 
- [arglist: expr 
-	]
-  [funccall: ID LPARENT arglist RPARENT] 
-[DEC] / [ID ID- [ID ID[ID] [DEC] * [ID ID[DEC] / [ID ID+ [ID ID - Assign Var
-DecVar
-n]
+[program
+	[decvar [assign [ID] [funccall ]
+[DEC] [+ [ID] [ID] ]
+	[decvar  [ID] ]
+	[decvar [assign [ID][ID] [ID] [+ [ID] [ID] ]
+	[decvar [assign [ID] [funccall ]
+[DEC] [+ [ID] [ID][DEC] [/ [ID] [ID] ]
+	[decvar [assign [ID]-[DEC] [DEC] [/ [ID] [ID][DEC] [* [ID] [ID] [funccall ]
+[ID] [DEC] [* [ID] [ID][DEC] [/ [ID] [ID][+ [ID] [ID][- [ID] [ID] ]
+]

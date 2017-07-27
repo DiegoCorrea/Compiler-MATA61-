@@ -39,6 +39,12 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 20 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
+
+    #include "tree.h"
+
+#line 48 "grammar.tab.h" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -53,34 +59,33 @@ extern int yydebug;
     IF_T = 263,
     ELSE_T = 264,
     WHILE_T = 265,
-    FOR_T = 266,
-    BREAK_T = 267,
-    CONTINUE_T = 268,
-    RETURN_T = 269,
-    LPARENT = 270,
-    RPARENT = 271,
-    LBRACE = 272,
-    RBRACE = 273,
-    LBRACKETS = 274,
-    RBRACKETS = 275,
-    COMMA = 276,
-    SEMICOLON = 277,
-    PLUS = 278,
-    MINUS = 279,
-    MULTIPLY = 280,
-    DIVIDER = 281,
-    LESSTHAN = 282,
-    BIGGERTHAN = 283,
-    LESSOREQUAL = 284,
-    BIGGEROREQUAL = 285,
-    EQUAL = 286,
-    ASSIGN = 287,
-    NOTEQUAL = 288,
-    AND = 289,
-    OR = 290,
-    NOT = 291,
-    ERROR = 292,
-    UMINUS = 293
+    BREAK_T = 266,
+    CONTINUE_T = 267,
+    RETURN_T = 268,
+    LPARENT = 269,
+    RPARENT = 270,
+    LBRACE = 271,
+    RBRACE = 272,
+    LBRACKETS = 273,
+    RBRACKETS = 274,
+    COMMA = 275,
+    SEMICOLON = 276,
+    PLUS = 277,
+    MINUS = 278,
+    MULTIPLY = 279,
+    DIVIDER = 280,
+    LESSTHAN = 281,
+    BIGGERTHAN = 282,
+    LESSOREQUAL = 283,
+    BIGGEROREQUAL = 284,
+    EQUAL = 285,
+    ASSIGN = 286,
+    NOTEQUAL = 287,
+    AND = 288,
+    OR = 289,
+    NOT = 290,
+    ERROR = 291,
+    UMINUS = 292
   };
 #endif
 
@@ -89,11 +94,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
-              /* define stack type */
-  int itype;
+#line 15 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
 
-#line 97 "grammar.tab.h" /* yacc.c:1909  */
+  int itype;
+  struct ast *astNode;
+
+#line 103 "grammar.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -1,25 +1,44 @@
-program[DEC] Assign Var
-DecVar
-t[decfunc t	[main]t	[Paramlist t	[blockt	[arglist [DEC] [DEC] + [ID ID[DEC] [DEC] [DEC] - [ID ID[DEC] - [ID ID [arglist: expr 
- [arglist: expr 
- [arglist: expr 
-	]
-  [funccall: ID LPARENT arglist RPARENT] 
-Assign Var
-DecVar
-	]t]t[decfunc t	[FUNC NAME]t	[Paramlist [ ID ] [ ID ] [ ID ] t	[block[ID] [DEC] * [ID IDAssign Var
-DecVar
-[ID] [ID] <= [ID ID[ID] + [ID ID[ID] + [ID IDt	[blockt		[return
-				t	[arglist [ID]  [arglist: expr 
-	]
-  [funccall: ID LPARENT arglist RPARENT] 
-t		]
-	] [conditional IF_T LPARENT expr RPARENT block] 
- statement: conditional] 
-	]t]t[decfunc t	[FUNC NAME]t	[Paramlist [ ID ] t	[blockt		[Stmt[ID] [ID] > [ID IDt	[block[ID] [DEC] - [ID ID assigner: ID ASSIGN expr] 
-t		[assign statement: assigner SEMICOLON] 
-	] [loop WHILE_T LPARENT expr RPARENT block 
-t		[return
-				[ID] [ID] * [ID IDt		]
- statement: loop] 
-	]t]n]
+[program
+	[decvar [assign [ID][DEC]  ]
+	[decfunc 
+		[main]		[Paramlist  ] 
+		[block 
+
+	[decvar [assign [ID] [funccall 
+			ID]
+			[arglist [DEC] [DEC] [+ [ID] [ID][DEC] [DEC] [DEC] [- [ID] [ID][DEC] [- [ID] [ID]			 ]
+			 ]
+			 ]
+			]
+  ]		 ] 
+
+	[decfunc 
+		[FUNC NAME]		[Paramlist [ ID ] [ ID ] [ ID ]  ] 
+		[block 
+
+	[decvar [assign [ID][ID] [DEC] [* [ID] [ID] ]				 [if 
+[ID] [ID] [<= [ID] [ID][ID] [+ [ID] [ID][ID] [+ [ID] [ID]		[block 
+			[return
+				 [funccall 
+			ID]
+			[arglist [ID] 			 ]
+			]
+ 
+			]
+		 ] 
+			 ]
+		 ] 
+
+	[decfunc 
+		[FUNC NAME]		[Paramlist [ ID ]  ] 
+		[block 
+				[while 
+[ID] [ID] [> [ID] [ID]		[block 
+				[assign [ID] [ID] [DEC] [- [ID] [ID] ] 
+		 ] 
+				 ]n			[return
+				[ID] [ID] [* [ID] [ID]
+			]
+		 ] 
+
+]

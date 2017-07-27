@@ -1,8 +1,11 @@
-programt[decfunc t	[main]t	[Paramlist t	[block[DEC] [DEC] + [ID IDAssign Var
-DecVar
-DecVar
-[ID] Assign Var
-DecVar
-[DEC] Assign Var
-DecVar
-	]t]n]
+[program
+	[decfunc 
+		[main]		[Paramlist  ] 
+		[block 
+
+	[decvar [assign [ID][DEC] [DEC] [+ [ID] [ID] ]
+	[decvar  [ID] ]
+	[decvar [assign [ID][ID]  ]
+	[decvar [assign [ID][DEC]  ]		 ] 
+
+]
