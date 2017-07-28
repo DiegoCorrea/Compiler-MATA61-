@@ -10,8 +10,8 @@ struct ast {
     } value;
 
     struct ast *childrens;
-    struct ast *nextParent;
-    struct ast *previousParent;
+    struct ast *nextBrother;
+    struct ast *previousBrother;
 };
 struct numval {
     char nodetype[MAX_NODE_TYPE];

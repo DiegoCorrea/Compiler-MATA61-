@@ -22,8 +22,8 @@
     #include "tree.h"
 }
 
-%type <astNode> start program decvar decvarassign
-%type <astNode> decfunc decfuncids paramlist arglist arglistparams
+%type <astNode> start program decvar decvarassign decfunc decfuncids
+%type <astNode> paramlist arglist
 %type <astNode> block blockstatements assigner loop return break continue statement elseconditional
 %type <astNode> expr funccall unop identifier
 %token <astNode> ID
@@ -367,28 +367,25 @@ funccall:
     }
     | ID LPARENT arglist RPARENT {
         struct ast *instantFather = newast("funccall");
+        
         astAddChild(instantFather, newast("ID"));
-        astAddChild(instantFather, $3);
+        
+        struct ast *argument_list = newast("arglist");
+        astAddChild(argument_list, $3);
+
+        astAddChild(instantFather, argument_list);
+        //astAddChild(instantFather, $3);
         $$ = instantFather;
     }
 ;
 arglist:
     expr {
-        struct ast *instantFather = newast("arglist");
-        astAddChild(instantFather, $1);
-        astAddChild(instantFather, $2);
-        $$ = instantFather;
+        //$$ = $1;
     }
-    expr COMMA arglist {
-        struct ast *instantFather = newast("arglist");
-        astAddChild(instantFather, $1);
-        astAddChild(instantFather, $2);
-        $$ = instantFather;
+    | expr COMMA arglist {
+        astBrothers($1, $3);
+        //$$ = $1;
     }
-;
-arglistparams:
-    %empty
-    | COMMA arglist 
 ;
 %%
 
@@ -417,8 +414,8 @@ struct ast *newast(char nodetype[MAX_NODE_TYPE]) {
     
     strcpy(no->nodetype,nodetype);
     no->childrens = NULL;
-    no->nextParent = NULL;
-    no->previousParent = NULL;
+    no->nextBrother = NULL;
+    no->previousBrother = NULL;
 
     return (struct ast *)no;
 }
@@ -427,10 +424,10 @@ void astAddChild(struct ast *father, struct ast *child){
     if(father->childrens == NULL){
         father->childrens = child;
     }else{
-        for(walkNode = father->childrens; walkNode->nextParent != NULL; walkNode = walkNode->nextParent);
+        for(walkNode = father->childrens; walkNode->nextBrother != NULL; walkNode = walkNode->nextBrother);
 
-        walkNode->nextParent = child;
-        child->previousParent = walkNode;
+        walkNode->nextBrother = child;
+        child->previousBrother = walkNode;
     }
 }
 void astNumAddChild(struct ast *father, struct ast *child){
@@ -438,10 +435,10 @@ void astNumAddChild(struct ast *father, struct ast *child){
     if(father->childrens == NULL){
         father->childrens = child;
     }else{
-        for(walkNode = father->childrens; walkNode->nextParent != NULL;walkNode = walkNode->nextParent);
+        for(walkNode = father->childrens; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
 
-        walkNode->nextParent = child;
-        child->previousParent = walkNode;
+        walkNode->nextBrother = child;
+        child->previousBrother = walkNode;
     }
 }
 
@@ -460,7 +457,7 @@ struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d){
 void astPrint(struct ast *father, int tab){
     struct ast *walker;
 
-    for(walker = father; walker != NULL; walker = walker->nextParent){
+    for(walker = father; walker != NULL; walker = walker->nextBrother){
         for(int i = 0; i < tab; i++)
             printf("\t");            
         printf("[%s \n", walker->nodetype);
@@ -476,14 +473,16 @@ void astPrint(struct ast *father, int tab){
 void astAddChildrens(struct ast **head_list, struct ast *newBrother){
     struct ast *walkNode;
     if(*head_list != NULL){
-        for(walkNode = *head_list; walkNode->nextParent != NULL;walkNode = walkNode->nextParent);
-        walkNode->nextParent = newBrother;
+        for(walkNode = *head_list; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+        walkNode->nextBrother = newBrother;
     }
     else{
         *head_list = newBrother;
     }
 }
 void astBrothers(struct ast *leftBrother, struct ast *rightBrother){
-    leftBrother->nextParent = rightBrother;
-    rightBrother->previousParent = leftBrother;
+    struct ast *walkNode;
+    for(walkNode = leftBrother; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+    walkNode->nextBrother = rightBrother;
+    rightBrother->previousBrother = walkNode;
 }

@@ -7,31 +7,43 @@
 
 struct ast *newast(char nodetype[MAX_NODE_TYPE]) {
     struct ast *no = (struct ast *)malloc(sizeof(struct ast));
-    no->childrens = NULL;
-    no->nextParent = NULL;
-    no->previousParent = NULL;
-
     if(!no) {
         //yyerror("out of space");
         exit(0);
     }
+    
     strcpy(no->nodetype,nodetype);
+    no->childrens = NULL;
+    no->nextBrother = NULL;
+    no->previousBrother = NULL;
+
     return (struct ast *)no;
 }
-void astAddChild(struct ast *father,struct ast *child){
+void astAddChild(struct ast *father, struct ast *child){
     struct ast *walkNode;
     if(father->childrens == NULL){
         father->childrens = child;
     }else{
-        for(walkNode = father->childrens; walkNode->nextParent != NULL;walkNode = walkNode->nextParent);
+        for(walkNode = father->childrens; walkNode->nextBrother != NULL; walkNode = walkNode->nextBrother);
 
-        walkNode->nextParent = child;
-        child->previousParent = walkNode;
+        walkNode->nextBrother = child;
+        child->previousBrother = walkNode;
     }
 }
-/*
-struct ast *newnum(double d){
-    struct numval \*no = malloc(sizeof(struct numval));
+void astNumAddChild(struct ast *father, struct ast *child){
+    struct ast *walkNode;
+    if(father->childrens == NULL){
+        father->childrens = child;
+    }else{
+        for(walkNode = father->childrens; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+
+        walkNode->nextBrother = child;
+        child->previousBrother = walkNode;
+    }
+}
+
+struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d){
+    struct numval *no = malloc(sizeof(struct numval));
 
     if(!no) {
         //yyerror("out of space");
@@ -41,74 +53,36 @@ struct ast *newnum(double d){
     no->number = d;
     return (struct ast *)no;
 }
-struct ast *newcmp(char nodetype[MAX_NODE_TYPE], struct ast *l, struct ast *r){
-    struct ast *no = malloc(sizeof(struct ast));
-    
-    if(!no) {
-        //yyerror("out of space");
-        exit(0);
-    }
-    strcpy(no->nodetype,nodetype);
-    no->l = l;
-    no->r = r;
-    return no;
-}
-struct ast *newfunc(char nodetype[MAX_NODE_TYPE], struct ast *l){
-    struct fncall *no = malloc(sizeof(struct fncall));
 
-    if(!no) {
-        //yyerror("out of space");
-        exit(0);
-    }
-    strcpy(no->nodetype,nodetype);
-    no->l = l;
-    no->functype = functype;
-    return (struct ast *)no;
-}
-struct ast *newcall(struct symbol *s, struct ast *l){
-    struct ufncall *no = malloc(sizeof(struct ufncall));
-    if(!no) {
-        //yyerror("out of space");
-        exit(0);
-    }
-    strcpy(no->nodetype,nodetype);
-    no->l = l;
-    no->s = s;
-    return (struct ast *)no;
-}
-struct ast *newref(struct symbol *s){
-    struct symref *no = malloc(sizeof(struct symref));
+void astPrint(struct ast *father, int tab){
+    struct ast *walker;
 
-    if(!no) {
-        //yyerror("out of space");
-        exit(0);
-    }
-    strcpy(no->nodetype,nodetype);
-    no->s = s;
-    return (struct ast *)no;
-}
-struct ast *newasgn(struct symbol *s, struct ast *v){
-    struct symasgn *no = malloc(sizeof(struct symasgn));
-    if(!no) {
-        //yyerror("out of space");
-        exit(0);
-    }
-    strcpy(no->nodetype,nodetype);
-    no->s = s;
-    no->v = v;
-    return (struct ast *)no;
-}
-struct ast *newflow(char nodetype[MAX_NODE_TYPE], struct ast *cond, struct ast *tl, struct ast *el){
-    struct flow *no = malloc(sizeof(struct flow));
+    for(walker = father; walker != NULL; walker = walker->nextBrother){
+        for(int i = 0; i < tab; i++)
+            printf("\t");            
+        printf("[%s \n", walker->nodetype);
 
-    if(!no) {
-        //yyerror("out of space");
-        exit(0);
+        if(walker->childrens != NULL)
+            astPrint(walker->childrens,tab+1);
+
+        for(int i = 0; i < tab; i++)
+            printf("\t");
+        printf("]\n");
     }
-   strcpy(no->nodetype,nodetype);
-    no->cond = cond;
-    no->tl = tl;
-    no->el = el;
-    return (struct ast *)no;
 }
-*/
+void astAddChildrens(struct ast **head_list, struct ast *newBrother){
+    struct ast *walkNode;
+    if(*head_list != NULL){
+        for(walkNode = *head_list; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+        walkNode->nextBrother = newBrother;
+    }
+    else{
+        *head_list = newBrother;
+    }
+}
+void astBrothers(struct ast *leftBrother, struct ast *rightBrother){
+    struct ast *walkNode;
+    for(walkNode = leftBrother; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+    walkNode->nextBrother = rightBrother;
+    rightBrother->previousBrother = walkNode;
+}

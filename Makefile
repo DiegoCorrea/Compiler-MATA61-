@@ -6,8 +6,8 @@ all:
 	gcc -c compiler/front/lexer/lex.yy.c
 	mv *.o compiler/front/lexer/
 	ar rvs compiler/front/front.a compiler/front/parser/grammar.tab.o compiler/front/lexer/lex.yy.o
-	g++ -std=c++11 -Wall -Wextra -o compilador compiler/main.cpp compiler/front/front.a compiler/front/parser/tree.cpp
-
+	g++ -std=c++11 -Wall -Wextra -o compilador compiler/main.cpp compiler/front/front.a 
+	
 grammar:
 	bison -d compiler/front/parser/grammar.y
 	mv grammar.tab.* compiler/front/parser/
