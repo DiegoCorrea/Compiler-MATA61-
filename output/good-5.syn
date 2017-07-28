@@ -1,4 +1,8 @@
 [program 
+	[decvar 
+		[ID 
+		]
+	]
 	[decfunc 
 		[main 
 		]
@@ -61,11 +65,33 @@
 					]
 				]
 			]
-			[funccall 
-				[ID 
-				]
-				[arglist 
+			[if 
+				[+ 
+					[+ 
+						[<= 
+							[ID 
+							]
+							[ID 
+							]
+						]
+						[ID 
+						]
+					]
 					[ID 
+					]
+				]
+				[block 
+					[decvar 
+						[ID 
+						]
+					]
+					[funccall 
+						[ID 
+						]
+						[arglist 
+							[ID 
+							]
+						]
 					]
 				]
 			]
@@ -79,12 +105,16 @@
 			]
 		]
 		[block 
-			[return 
-				[* 
+			[if 
+				[> 
 					[ID 
 					]
-					[ID 
+					[DEC 
 					]
+				]
+				[block 
+				]
+				[block 
 				]
 			]
 		]

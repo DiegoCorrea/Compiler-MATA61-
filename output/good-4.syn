@@ -1,11 +1,42 @@
-[program
+[program 
 	[decfunc 
-		[main]		[Paramlist  ] 
+		[main 
+		]
+		[paramlist 
+		]
 		[block 
-
-	[decvar [assign [ID][DEC] [DEC] [+ [ID] [ID] ]
-	[decvar  [ID] ]
-	[decvar [assign [ID][ID]  ]
-	[decvar [assign [ID][DEC]  ]		 ] 
-
+			[decvar 
+				[assign 
+					[ID 
+					]
+					[+ 
+						[DEC 
+						]
+						[DEC 
+						]
+					]
+				]
+			]
+			[decvar 
+				[ID 
+				]
+			]
+			[decvar 
+				[assign 
+					[ID 
+					]
+					[ID 
+					]
+				]
+			]
+			[decvar 
+				[assign 
+					[ID 
+					]
+					[DEC 
+					]
+				]
+			]
+		]
+	]
 ]

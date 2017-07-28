@@ -1,18 +1,10 @@
-let a;
 def main (){
-    let a = lara (5+5, 10, 25-10-15);
-}
-def lara (a,b,c){
-    let d = a * 10;
-    if(d <= a + b + c){
-        let p;
-        luzia(d);
-    }
-}
-def luzia(d){
-    if(d > 0) {
 
-    } else{
-        
-    }
+}
+
+def lara (){
+
+}
+def luzia(){
+
 }

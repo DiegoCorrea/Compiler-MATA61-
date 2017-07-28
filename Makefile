@@ -23,6 +23,11 @@ goodtest:
 	./compilador input/good-2.jsc output/good-2.syn
 	./compilador input/good-3.jsc output/good-3.syn
 	./compilador input/good-4.jsc output/good-4.syn
+	./compilador input/good-5.jsc output/good-5.syn
+	./compilador input/good-7.jsc output/good-7.syn
+	./compilador input/good-8.jsc output/good-8.syn
+	./compilador input/good-9.jsc output/good-9.syn
+	./compilador input/good-10.jsc output/good-10.syn
 
 badtest:
 	$(MAKE) all

@@ -1,17 +1,11 @@
-let z = 1000;
 def main (){
     let z = lara (5+5, 10, 25-10-15);
 }
 def lara (a,b,c){
-    let d = a * 10;
-    if(d <= a + b + c){
-        return luzia(d);
-    }
+    let h = a * 10;
+    luzia(o);
 }
 
-def luzia(d){
-   while(z > d){
-    d = d - 1;
-   }
-   return (d) * (d);
+def luzia(o){
+   return (o) * (d);
 }

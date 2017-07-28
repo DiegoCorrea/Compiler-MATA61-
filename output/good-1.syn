@@ -1,0 +1,26 @@
+[program 
+	[decfunc 
+		[main 
+		]
+		[paramlist 
+		]
+		[block 
+		]
+	]
+	[decfunc 
+		[ID 
+		]
+		[paramlist 
+		]
+		[block 
+		]
+	]
+	[decfunc 
+		[ID 
+		]
+		[paramlist 
+		]
+		[block 
+		]
+	]
+]

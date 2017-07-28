@@ -1,25 +1,52 @@
-[program
+[program 
 	[decfunc 
-		[FUNC NAME]		[Paramlist [ ID ] [ ID ]  ] 
-		[block 
-			[return
-				[ID] [ID] [+ [ID] [ID]
+		[ID 
+		]
+		[paramlist 
+			[ID 
 			]
-		 ] 
-
+			[ID 
+			]
+		]
+		[block 
+			[return 
+				[+ 
+					[ID 
+					]
+					[ID 
+					]
+				]
+			]
+		]
+	]
 	[decfunc 
-		[main]		[Paramlist  ] 
+		[main 
+		]
+		[paramlist 
+		]
 		[block 
-
-	[decvar  [ID] ]				[assign [ID] [DEC]  ] 
-			[return
-				 [funccall 
-			ID]
-			[arglist [ID] [DEC] 			 ]
-			 ]
+			[decvar 
+				[ID 
+				]
 			]
- 
+			[assign 
+				[ID 
+				]
+				[DEC 
+				]
 			]
-		 ] 
-
+			[return 
+				[funccall 
+					[ID 
+					]
+					[arglist 
+						[ID 
+						]
+						[DEC 
+						]
+					]
+				]
+			]
+		]
+	]
 ]

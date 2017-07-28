@@ -1,5 +1,9 @@
 def main(){
-    let a, b, c, d, e;
+    let a;
+    let b;
+    let c;
+    let d;
+    let e;
     if(a == b){
         if(b < c){
             e = c;

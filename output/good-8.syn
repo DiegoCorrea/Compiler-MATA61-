@@ -61,11 +61,31 @@
 					]
 				]
 			]
-			[funccall 
-				[ID 
-				]
-				[arglist 
+			[if 
+				[+ 
+					[+ 
+						[<= 
+							[ID 
+							]
+							[ID 
+							]
+						]
+						[ID 
+						]
+					]
 					[ID 
+					]
+				]
+				[block 
+					[return 
+						[funccall 
+							[ID 
+							]
+							[arglist 
+								[ID 
+								]
+							]
+						]
 					]
 				]
 			]
@@ -79,6 +99,26 @@
 			]
 		]
 		[block 
+			[while 
+				[> 
+					[ID 
+					]
+					[ID 
+					]
+				]
+				[block 
+					[assign 
+						[ID 
+						]
+						[- 
+							[ID 
+							]
+							[DEC 
+							]
+						]
+					]
+				]
+			]
 			[return 
 				[* 
 					[ID 

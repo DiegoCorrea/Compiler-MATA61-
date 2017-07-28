@@ -24,9 +24,10 @@
 
 %type <astNode> start program decvar decvarassign decfunc decfuncids
 %type <astNode> paramlist arglist
-%type <astNode> block blockstatements assigner loop return break continue statement elseconditional
+%type <astNode> block blockstatements assigner loop return break continue statement conditional elseconditional
 %type <astNode> expr funccall unop
 %token <astNode> ID
+
 %token <itype> DEC
 
 %token LET_T
@@ -92,27 +93,34 @@ start:
 ;
 program:
     program decvar {
-        struct ast *instantFather = newast("decvar");
+        astAddChildrens(&ROOT_CHILDS, $2);
+        $$ = ROOT_CHILDS;
+    }
+    | program decfunc {
+        struct ast *instantFather = newast("decfunc");
         astAddChild(instantFather, $2);
         astAddChildrens(&ROOT_CHILDS, instantFather);
         $$ = ROOT_CHILDS;
     }
-    |program decfunc 
     | %empty {
         $$ = NULL;
     }
 ;
 decvar:
     LET_T ID decvarassign SEMICOLON {
-        struct ast *id = newast("ID");
+        struct ast *decvar_node = newast("decvar");
+
+        struct ast *id_node = newast("ID");
         if($3 != NULL){
-            struct ast *assign = newast("assign");
-            astAddChild(assign,id);
-            astAddChild(assign,$3);
-            $$ = assign;
+            struct ast *assign_node = newast("assign");
+            astAddChild(assign_node, id_node);
+            astAddChild(assign_node, $3);
+            astAddChild(decvar_node, assign_node);
+            $$ = decvar_node;
         }
         else{
-            $$ = id;
+            astAddChild(decvar_node, id_node);
+            $$ = decvar_node;
         }
     }
 ;
@@ -125,38 +133,67 @@ decvarassign:
     }
 ;
 decfunc:
-    DEF_T  decfuncids {
-        struct ast *decfunc = newast("decfunc");
-        decfunc->childrens = $2;
-        $$ = decfunc;
+    DEF_T decfuncids {
+        $$ = $2;
     }
 ;
 decfuncids:
-    MAIN_T  LPARENT  paramlist  RPARENT block {
-        /*
-        struct ast *main = newast("main");
-        if($3 != NULL) {
-            struct ast *assign = newast("paramlist");
-            astAddChild(assign,main);
-            astAddChild(assign,$3);
-            $$ = assign;
-        } else {
-            $$ = main;
-        }
-        */
+    MAIN_T LPARENT  paramlist  RPARENT block {
+        struct ast *main_node = newast("main");
+
+        struct ast *paramlist_node = newast("paramlist");
+        astAddChild(paramlist_node, $3);
+
+        astNodeBrothers(main_node, paramlist_node);
+        astNodeBrothers(main_node, $5);
+
+        $$ = main_node;
+    }
+    | MAIN_T LPARENT RPARENT block {
+        struct ast *main_node = newast("main");
+        
+        struct ast *paramlist_node = newast("paramlist");
+        astNodeBrothers(main_node, paramlist_node);
+
+        astNodeBrothers(main_node, $4);
+
+        $$ = main_node;
     }
     | ID  LPARENT  paramlist  RPARENT  block {
+        struct ast *id_node = newast("ID");
 
+        struct ast *paramlist_node = newast("paramlist");
+        astAddChild(paramlist_node, $3);
+
+        astNodeBrothers(id_node, paramlist_node);
+        astNodeBrothers(id_node, $5);
+
+        $$ = id_node;
+    }
+    | ID  LPARENT RPARENT  block {
+        struct ast *id_node = newast("ID");
+
+        struct ast *paramlist_node = newast("paramlist");
+        astNodeBrothers(id_node, paramlist_node);
+
+        astNodeBrothers(id_node, $4);
+
+        $$ = id_node;
     }
 ;
 block:
     LBRACE  blockstatements RBRACE {
-
+        struct ast *instantFather = newast("block");
+        
+        if($2 != NULL)
+            astAddChild(instantFather, $2);
+        
+        $$ = instantFather;
     }
 ;
 blockstatements:
      decvar blockstatements {
-
+        astNodeBrothers($1, $2);
      }
      | statement {
 
@@ -170,25 +207,23 @@ paramlist:
         $$ = newast("ID");
     }
     | ID COMMA paramlist {
-        astBrothers(newast("ID"),$3);
-        $$ = $1;
-    }
-    | %empty{
-        $$ = NULL;
+        struct ast *brother = newast("ID");
+        astNodeBrothers(brother,$3);
+        $$ = brother;
     }
 ;
 statement:
     assigner SEMICOLON statement {
-
+        astNodeBrothers($1, $3);
     }
     | funccall SEMICOLON statement {
-
+        astNodeBrothers($1, $3);
     }
     | conditional statement {
-
+        astNodeBrothers($1, $2);
     }
     | loop statement {
-
+        astNodeBrothers($1, $2);
     }
     | return
     | break
@@ -216,6 +251,13 @@ assigner:
 ;
 conditional: 
     IF_T LPARENT expr RPARENT block elseconditional {
+        struct ast *instantFather = newast("if");
+        astAddChild(instantFather,$3);
+        astAddChild(instantFather,$5);
+        if($6 != NULL){
+            astAddChild(instantFather,$6);
+        }
+        $$ = instantFather;
     }
 ;
 elseconditional:
@@ -342,17 +384,12 @@ expr:
         astAddChild(instantFather,$3);
         $$ = instantFather;
     }
-    | %empty {
-        $$ = NULL;
-    }
 ;
 unop:
     MINUS                                           {
-        fprintf(fl_output,"-");
         $$ = newast("-");
     }
     | NOT                                           {
-        fprintf(fl_output,"!");
         $$ = newast("!");
     }
 ;
@@ -380,7 +417,7 @@ arglist:
         //$$ = $1;
     }
     | expr COMMA arglist {
-        astBrothers($1, $3);
+        astNodeBrothers($1, $3);
         //$$ = $1;
     }
 ;
@@ -438,7 +475,6 @@ void astNumAddChild(struct ast *father, struct ast *child){
         child->previousBrother = walkNode;
     }
 }
-
 struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d){
     struct numval *no = malloc(sizeof(struct numval));
 
@@ -450,21 +486,26 @@ struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d){
     no->number = d;
     return (struct ast *)no;
 }
-
 void astPrint(struct ast *father, int tab){
     struct ast *walker;
 
     for(walker = father; walker != NULL; walker = walker->nextBrother){
-        for(int i = 0; i < tab; i++)
+        for(int i = 0; i < tab; i++){
             printf("\t");            
+            fprintf(fl_output,"\t");            
+        }
         printf("[%s \n", walker->nodetype);
+        fprintf(fl_output,"[%s \n", walker->nodetype);
 
         if(walker->childrens != NULL)
             astPrint(walker->childrens,tab+1);
 
-        for(int i = 0; i < tab; i++)
+        for(int i = 0; i < tab; i++){
             printf("\t");
+            fprintf(fl_output,"\t");  
+        }
         printf("]\n");
+        fprintf(fl_output,"]\n");
     }
 }
 void astAddChildrens(struct ast **head_list, struct ast *newBrother){
@@ -472,14 +513,19 @@ void astAddChildrens(struct ast **head_list, struct ast *newBrother){
     if(*head_list != NULL){
         for(walkNode = *head_list; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
         walkNode->nextBrother = newBrother;
+        newBrother->previousBrother = walkNode;
     }
     else{
         *head_list = newBrother;
     }
 }
-void astBrothers(struct ast *leftBrother, struct ast *rightBrother){
+void astNodeBrothers(struct ast *leftBrother, struct ast *rightBrother){
     struct ast *walkNode;
-    for(walkNode = leftBrother; walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
-    walkNode->nextBrother = rightBrother;
-    rightBrother->previousBrother = walkNode;
+    if(rightBrother != NULL){
+        for(walkNode = leftBrother; walkNode != NULL && walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+        walkNode->nextBrother = rightBrother;
+        rightBrother->previousBrother = walkNode;
+    } else {
+        printf("\n\n----->>>astBrother: NULL\n\n");
+    }
 }
