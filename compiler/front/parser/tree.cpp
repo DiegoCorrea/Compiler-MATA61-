@@ -16,7 +16,6 @@ struct ast *newast(char nodetype[MAX_NODE_TYPE]) {
         exit(0);
     }
     strcpy(no->nodetype,nodetype);
-   // printando("\nValor: %s\n", nodetype);
     return (struct ast *)no;
 }
 void astAddChild(struct ast *father,struct ast *child){
@@ -29,9 +28,6 @@ void astAddChild(struct ast *father,struct ast *child){
         walkNode->nextParent = child;
         child->previousParent = walkNode;
     }
-}
-void printando(struct ast *no){
-    //printando("\nValor: %s\n", no->nodetype);
 }
 /*
 struct ast *newnum(double d){

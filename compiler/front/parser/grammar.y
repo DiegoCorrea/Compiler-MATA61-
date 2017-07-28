@@ -11,6 +11,7 @@
   extern int yylineno;
 
   struct ast *ROOT;
+  struct ast *ROOT_CHILDS = NULL;
 %}
 %union {
   int itype;
@@ -21,8 +22,8 @@
     #include "tree.h"
 }
 
-%type <astNode> start program decvar
-%type <astNode> decvarassign decfunc expr funccall unop identifier
+%type <astNode> start program decvar decvarassign
+%type <astNode> decfunc expr funccall unop identifier
 %token <astNode> ID
 %token <itype> DEC
 
@@ -80,33 +81,36 @@
 
 %%
 start: 
-    {fprintf(fl_output,"[program");}        program     {
-        fprintf(fl_output,"\n]"); 
+    program {
         ROOT = newast("program");
-        astAddChild(ROOT, $2);
+        astAddChild(ROOT, $1);
 
         astPrint(ROOT, 0);
     }
 ;
 program:
-    decvar program                                      {
+    program decvar {
         struct ast *instantFather = newast("decvar");
-        astAddChild(instantFather, $1);
+        astAddChild(instantFather, $2);
+        astAddBrother(&ROOT_CHILDS, instantFather);
+        $$ = ROOT_CHILDS;
     }
-    | decfunc program
+    |program decfunc 
     | %empty {
         $$ = NULL;
     }
 ;
 decvar:
-    LET_T {fprintf(fl_output,"\n\t[decvar ");} ID decvarassign SEMICOLON          {
-        struct ast *instant = newast("ID");
+    LET_T ID decvarassign SEMICOLON {
+        struct ast *id = newast("ID");
         if($3 != NULL){
-            astAddChild($4,instant);
-            $$ = $4;
+            struct ast *assign = newast("=");
+            astAddChild(assign,id);
+            astAddChild(assign,$3);
+            $$ = assign;
         }
         else{
-            $$ = instant;
+            $$ = id;
         }
     }
 ;
@@ -117,25 +121,21 @@ identifier:
 ;
 decvarassign:
     %empty                                  {
-        fprintf(fl_output," [ID] ]");
         $$ = NULL;
     }
-    | ASSIGN {fprintf(fl_output,"[assign [ID]");} expr {
-        fprintf(fl_output," ]");
-        struct ast *instantFather = newast("=");
-        astAddChild(instantFather,$3);
-        $$ = instantFather;
+    | ASSIGN  expr {
+        $$ = $2;
     }
 ;
 decfunc:
-    DEF_T {fprintf(fl_output,"\n\t[decfunc \n");} decfuncids
+    DEF_T  decfuncids
 ;
 decfuncids:
-    MAIN_T {fprintf(fl_output,"\t\t[main]");} LPARENT {fprintf(fl_output,"\t\t[Paramlist ");} paramlist {fprintf(fl_output," ] \n");} RPARENT block 
-    | ID {fprintf(fl_output,"\t\t[FUNC NAME]");} LPARENT {fprintf(fl_output,"\t\t[Paramlist ");} paramlist {fprintf(fl_output," ] \n");} RPARENT  block
+    MAIN_T  LPARENT  paramlist  RPARENT block 
+    | ID  LPARENT  paramlist  RPARENT  block
 ;
 block:
-    LBRACE {fprintf(fl_output,"\t\t[block \n");} blockstatements RBRACE {fprintf(fl_output,"\t\t ] \n");}
+    LBRACE  blockstatements RBRACE 
 ;
 blockstatements:
      decvar blockstatements
@@ -143,8 +143,8 @@ blockstatements:
      | %empty
 ;
 paramlist: 
-    ID                                              {fprintf(fl_output,"[ ID ] ");}
-    | ID {fprintf(fl_output,"[ ID ] ");} COMMA paramlist
+    ID                                              
+    | ID  COMMA paramlist
     | %empty
 ;
 statement:
@@ -158,11 +158,11 @@ statement:
     | %empty
 ;
 assigner:
-    ID ASSIGN {fprintf(fl_output,"\t\t\t\t[assign [ID] ");} expr {fprintf(fl_output," ] \n");}
+    ID ASSIGN  expr 
     | %empty
 ;
 conditional: 
-    IF_T {fprintf(fl_output,"\t\t\t\t [if \n");} LPARENT expr RPARENT block elseconditional     {fprintf(fl_output,"\t\t\t ]\n");}
+    IF_T  LPARENT expr RPARENT block elseconditional     
     
 ;
 elseconditional:
@@ -170,16 +170,16 @@ elseconditional:
     |  ELSE_T  block 
 ;
 loop:
-    WHILE_T {fprintf(fl_output,"\t\t\t\t[while \n");} LPARENT expr RPARENT block              {fprintf(fl_output,"\t\t\t\t ]n");}
+    WHILE_T  LPARENT expr RPARENT block              
 ;
 break:
-    BREAK_T SEMICOLON                                   {fprintf(fl_output,"\t\t\t\t[break] \n");}
+    BREAK_T SEMICOLON                                   
 ;
 continue:
-    CONTINUE_T SEMICOLON                                {fprintf(fl_output,"\t\t\t\t[continue] \n");}
+    CONTINUE_T SEMICOLON                                
 ;
 return:
-    {fprintf(fl_output,"\t\t\t[return\n\t\t\t\t");}   RETURN_T expr SEMICOLON                         {fprintf(fl_output,"\n\t\t\t]\n");}
+     RETURN_T expr SEMICOLON                         
 ;
 expr:
     unop expr                    %prec UMINUS   {
@@ -193,66 +193,60 @@ expr:
         $$ = $1;
     }
     | DEC                                       {
-        fprintf(fl_output,"[DEC] ");
         $$ = newast("DEC");
     }
     | ID                                        {
-        fprintf(fl_output,"[ID] ");
         $$ = newast("ID");
     }
     | expr PLUS expr                            {
-        fprintf(fl_output,"[+ [ID] [ID]");
         struct ast *instantFather = newast("+");
         astAddChild(instantFather,$1);
         astAddChild(instantFather,$3);
         $$ = instantFather;
     }
     | expr MINUS expr                           {
-        fprintf(fl_output,"[- [ID] [ID]");
         struct ast *instantFather = newast("-");
         astAddChild(instantFather,$1);
         astAddChild(instantFather,$3);
         $$ = instantFather;
     }
     | expr MULTIPLY expr                        {
-        fprintf(fl_output,"[* [ID] [ID]");
         struct ast *instantFather = newast("*");
         astAddChild(instantFather,$1);
         astAddChild(instantFather,$3);
         $$ = instantFather;
     }
     | expr DIVIDER expr                         {
-        fprintf(fl_output,"[/ [ID] [ID]");
         struct ast *instantFather = newast("/");
         astAddChild(instantFather,$1);
         astAddChild(instantFather,$3);
         $$ = instantFather;
     }
-    | expr LESSTHAN expr                        {fprintf(fl_output,"[< [ID] [ID]");}
-    | expr LESSOREQUAL expr                     {fprintf(fl_output,"[<= [ID] [ID]");}
-    | expr BIGGERTHAN expr                      {fprintf(fl_output,"[> [ID] [ID]");}
-    | expr BIGGEROREQUAL expr                   {fprintf(fl_output,"[>= [ID] [ID]");}
-    | expr EQUAL expr                           {fprintf(fl_output,"[== [ID] [ID]");}
-    | expr NOTEQUAL expr                        {fprintf(fl_output,"[!= [ID] [ID]");}
-    | expr AND expr                             {fprintf(fl_output,"[&& [ID] [ID]");}
-    | expr OR expr                              {fprintf(fl_output,"[|| [ID] [ID]");}
+    | expr LESSTHAN expr                        
+    | expr LESSOREQUAL expr                     
+    | expr BIGGERTHAN expr                      
+    | expr BIGGEROREQUAL expr                   
+    | expr EQUAL expr                           
+    | expr NOTEQUAL expr                        
+    | expr AND expr                             
+    | expr OR expr                              
     | %empty {
         $$ = NULL;
     }
 ;
 binop:
-    PLUS                                            {fprintf(fl_output,"+ ");}
-    | MINUS                                         {fprintf(fl_output,"- ");}
-    | MULTIPLY                                      {fprintf(fl_output,"* ");}
-    | DIVIDER                                       {fprintf(fl_output,"/  ");}
-    | LESSTHAN                                      {fprintf(fl_output,"<  ");}
-    | LESSOREQUAL                                   {fprintf(fl_output,"<= ");}
-    | BIGGERTHAN                                    {fprintf(fl_output,">  ");}
-    | BIGGEROREQUAL                                 {fprintf(fl_output,">= ");}
-    | EQUAL                                         {fprintf(fl_output,"== ");}
-    | NOTEQUAL                                      {fprintf(fl_output,"!= ");}
-    | AND                                           {fprintf(fl_output,"&& ");}
-    | OR                                            {fprintf(fl_output,"|| ");}
+    PLUS                                            
+    | MINUS                                         
+    | MULTIPLY                                      
+    | DIVIDER                                       
+    | LESSTHAN                                      
+    | LESSOREQUAL                                   
+    | BIGGERTHAN                                    
+    | BIGGEROREQUAL                                 
+    | EQUAL                                         
+    | NOTEQUAL                                      
+    | AND                                           
+    | OR                                            
 ;
 unop:
     MINUS                                           {
@@ -266,14 +260,13 @@ unop:
 ;
 funccall:
     ID LPARENT RPARENT                              {
-        fprintf(fl_output," [funccall ]\n");
         struct ast *instantFather = newast("funccall");
         $$ = instantFather;
     }
-    | ID  LPARENT {fprintf(fl_output," [funccall \n\t\t\tID]\n");}{fprintf(fl_output,"\t\t\t[arglist ");} arglist   {fprintf(fl_output,"\t\t\t]\n ");} RPARENT
+    | ID  LPARENT  arglist    RPARENT
 ;
 arglist:
-    expr arglistparams                                  {fprintf(fl_output,"\t\t\t ]\n");}
+    expr arglistparams                                  
 ;
 arglistparams:
     %empty
@@ -299,16 +292,16 @@ void readFromFile( argc, argv )
 }
 struct ast *newast(char nodetype[MAX_NODE_TYPE]) {
     struct ast *no = (struct ast *)malloc(sizeof(struct ast));
-    no->childrens = NULL;
-    no->nextParent = NULL;
-    no->previousParent = NULL;
-
     if(!no) {
         //yyerror("out of space");
         exit(0);
     }
+    
     strcpy(no->nodetype,nodetype);
-    printf("\nValor: %s\n", nodetype);
+    no->childrens = NULL;
+    no->nextParent = NULL;
+    no->previousParent = NULL;
+
     return (struct ast *)no;
 }
 void astAddChild(struct ast *father, struct ast *child){
@@ -316,7 +309,7 @@ void astAddChild(struct ast *father, struct ast *child){
     if(father->childrens == NULL){
         father->childrens = child;
     }else{
-        for(walkNode = father->childrens; walkNode->nextParent != NULL;walkNode = walkNode->nextParent);
+        for(walkNode = father->childrens; walkNode->nextParent != NULL; walkNode = walkNode->nextParent);
 
         walkNode->nextParent = child;
         child->previousParent = walkNode;
@@ -360,5 +353,15 @@ void astPrint(struct ast *father, int tab){
         for(int i = 0; i < tab; i++)
             printf("\t");
         printf("]\n");
+    }
+}
+void astAddBrother(struct ast **head_list, struct ast *newBrother){
+    struct ast *walkNode;
+    if(*head_list != NULL){
+        for(walkNode = *head_list; walkNode->nextParent != NULL;walkNode = walkNode->nextParent);
+        walkNode->nextParent = newBrother;
+    }
+    else{
+        *head_list = newBrother;
     }
 }

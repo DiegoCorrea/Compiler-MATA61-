@@ -18,4 +18,4 @@ Go to project folder and type:
  * Just make the compiler: `make`  
  * Make and run test cases: `make run`  
    
-Annotation: {printf[^\)]*\);}  
+Annotation: {fprintf\([^\)]*\);}

@@ -8,8 +8,8 @@ struct ast {
 		int number;
 		char *string;
     } value;
-    struct ast *childrens;
 
+    struct ast *childrens;
     struct ast *nextParent;
     struct ast *previousParent;
 };
@@ -42,6 +42,9 @@ struct symasgn {
 struct ast *newast(char nodetype[MAX_NODE_TYPE]);
 void astAddChild(struct ast *father,struct ast *child);
 struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d);
+void astPrint(struct ast *father, int tab);
+void astAddBrother(struct ast **head_list,struct ast *newBrother);
+
 /*
 struct ast *newcmp(char cmptype[MAX_NODE_TYPE], struct ast *l, struct ast *r);
 struct ast *newfunc(char functype[MAX_NODE_TYPE], struct ast *l);

@@ -999,7 +999,7 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 60 "compiler/front/lexer/lex.l"
-{ return DEC; }
+{ yylval.itype = atof(yytext); return DEC; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP

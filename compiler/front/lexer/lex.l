@@ -57,7 +57,7 @@ error       (^{id}|^{number}|^{whitespace})
 "||"          { return OR ; }
 "!"           { return NOT ; }
 
-{dec}         { return DEC; }
+{dec}         { yylval.itype = atof(yytext); return DEC; }
 {id}          { return ID; }
 .             { return ERROR; }
 

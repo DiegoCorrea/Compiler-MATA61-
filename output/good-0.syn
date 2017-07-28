@@ -1,10 +1,1 @@
-[program
-	[decvar [assign [ID] [funccall ]
-[DEC] [+ [ID] [ID] ]
-	[decvar  [ID] ]
-	[decvar [assign [ID][ID] [ID] [+ [ID] [ID] ]
-	[decvar [assign [ID] [funccall ]
-[DEC] [+ [ID] [ID][DEC] [/ [ID] [ID] ]
-	[decvar [assign [ID]-[DEC] [DEC] [/ [ID] [ID][DEC] [* [ID] [ID] [funccall ]
-[ID] [DEC] [* [ID] [ID][DEC] [/ [ID] [ID][+ [ID] [ID][- [ID] [ID] ]
-]
+-
