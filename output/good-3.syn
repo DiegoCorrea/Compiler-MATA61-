@@ -32,7 +32,7 @@
 			[assign 
 				[ID 
 				]
-				[DEC 
+				[3 
 				]
 			]
 			[return 
@@ -42,7 +42,7 @@
 					[arglist 
 						[ID 
 						]
-						[DEC 
+						[2 
 						]
 					]
 				]

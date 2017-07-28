@@ -14,8 +14,11 @@
   struct ast *ROOT_CHILDS = NULL;
 %}
 %union {
-  int itype;
-  struct ast *astNode;
+    int itype;
+    struct ast *astNode;
+
+    struct symbol *symbolValue;
+    struct symlist *symbolList;
 }
 %code requires
 {
@@ -307,7 +310,7 @@ expr:
         $$ = $1;
     }
     | DEC                                       {
-        $$ = newast("DEC");
+        $$ = newnum("DEC", $1);
     }
     | ID                                        {
         $$ = newast("ID");
@@ -475,15 +478,20 @@ void astNumAddChild(struct ast *father, struct ast *child){
         child->previousBrother = walkNode;
     }
 }
-struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d){
-    struct numval *no = malloc(sizeof(struct numval));
-
+struct ast *newnum(char nodetype[MAX_NODE_TYPE], int number){
+    struct ast *no = (struct ast *)malloc(sizeof(struct ast));
     if(!no) {
         //yyerror("out of space");
         exit(0);
     }
+    
     strcpy(no->nodetype,nodetype);
-    no->number = d;
+    no->dec.number = number;
+    
+    no->childrens = NULL;
+    no->nextBrother = NULL;
+    no->previousBrother = NULL;
+
     return (struct ast *)no;
 }
 void astPrint(struct ast *father, int tab){
@@ -494,8 +502,35 @@ void astPrint(struct ast *father, int tab){
             printf("\t");            
             fprintf(fl_output,"\t");            
         }
-        printf("[%s \n", walker->nodetype);
-        fprintf(fl_output,"[%s \n", walker->nodetype);
+        
+        /*
+        switch(walker->nodetype) {
+            case "DEC":
+                printf("[%d \n", walker->dec.number);
+                fprintf(fl_output,"[%d \n", walker->dec.number);
+            break;
+            case "ID":
+                printf("[%s \n", walker->nodetype);
+                fprintf(fl_output,"[%s \n", walker->nodetype);
+            break;
+            default:
+                printf("[%s \n", walker->nodetype);
+                fprintf(fl_output,"[%s \n", walker->nodetype);
+            break;
+        }
+        */
+        
+        if(strcmp(walker->nodetype,"DEC") == 0){
+            printf("[%d \n", walker->dec.number);
+            fprintf(fl_output,"[%d \n", walker->dec.number);
+        } else if(strcmp(walker->nodetype,"ID") == 0){
+            printf("[%s \n", walker->nodetype);
+            fprintf(fl_output,"[%s \n", walker->nodetype);
+        } else{
+            printf("[%s \n", walker->nodetype);
+            fprintf(fl_output,"[%s \n", walker->nodetype);
+        }
+        
 
         if(walker->childrens != NULL)
             astPrint(walker->childrens,tab+1);
@@ -529,3 +564,30 @@ void astNodeBrothers(struct ast *leftBrother, struct ast *rightBrother){
         printf("\n\n----->>>astBrother: NULL\n\n");
     }
 }
+
+
+
+/*
+static unsigned symhash(char *sym){
+    unsigned int hash = 0;
+    unsigned c;
+    while(c = *sym++) hash = hash*9 ^ c;
+
+    return hash;
+}
+struct symbol *lookup(char* sym) {
+    struct symbol *sp = &symtab[symhash(sym)%NHASH];
+    int scount = NHASH;
+  
+    while(--scount >= 0) {
+        if(sp->name && !strcmp(sp->name, sym)) { return sp; }
+        if(!sp->name) {
+            sp->name = strdup(sym);
+            sp->value = 0;
+            sp->func = NULL;
+            sp->syms = NULL;
+            return sp;
+        }
+    }
+}
+*/

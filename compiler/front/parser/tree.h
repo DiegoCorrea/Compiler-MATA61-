@@ -6,12 +6,13 @@ struct ast {
     char nodetype[MAX_NODE_TYPE];
     union {
 		int number;
-		char *string;
-    } value;
+    } dec;
 
     struct ast *childrens;
     struct ast *nextBrother;
     struct ast *previousBrother;
+
+    struct symbol *s;
 };
 struct numval {
     char nodetype[MAX_NODE_TYPE];
@@ -61,5 +62,25 @@ double eval(struct ast *);
 void treefree(struct ast *);
 void printando(struct ast *);
 */
+/* symbol table */
+struct symbol {
+    /* a variable name */
+    char *name;
+    int value;
+    struct ast *func;
+    /* stmt for the function */
+    struct symlist *syms; /* list of dummy args */
+};
+/* simple symtab of fixed size */
+#define NHASH 9997
+struct symbol symtab[NHASH];
+struct symbol *lookup(char*);
+/* list of symbols, for an argument list */
+struct symlist {
+    struct symbol *sym;
+    struct symlist *next;
+};
+struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
+void symlistfree(struct symlist *sl);
 
 #endif // __TREE_H
