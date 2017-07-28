@@ -25,7 +25,7 @@
 %type <astNode> start program decvar decvarassign decfunc decfuncids
 %type <astNode> paramlist arglist
 %type <astNode> block blockstatements assigner loop return break continue statement elseconditional
-%type <astNode> expr funccall unop identifier
+%type <astNode> expr funccall unop
 %token <astNode> ID
 %token <itype> DEC
 
@@ -116,11 +116,6 @@ decvar:
         }
     }
 ;
-identifier:
-    ID {
-        $$ = newast("ID");
-    }
-;
 decvarassign:
     %empty                                  {
         $$ = NULL;
@@ -138,6 +133,7 @@ decfunc:
 ;
 decfuncids:
     MAIN_T  LPARENT  paramlist  RPARENT block {
+        /*
         struct ast *main = newast("main");
         if($3 != NULL) {
             struct ast *assign = newast("paramlist");
@@ -147,6 +143,7 @@ decfuncids:
         } else {
             $$ = main;
         }
+        */
     }
     | ID  LPARENT  paramlist  RPARENT  block {
 
