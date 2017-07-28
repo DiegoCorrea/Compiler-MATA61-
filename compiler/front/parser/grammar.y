@@ -23,7 +23,9 @@
 }
 
 %type <astNode> start program decvar decvarassign
-%type <astNode> decfunc expr funccall unop identifier
+%type <astNode> decfunc decfuncids paramlist arglist arglistparams
+%type <astNode> block blockstatements assigner loop return break continue statement elseconditional
+%type <astNode> expr funccall unop identifier
 %token <astNode> ID
 %token <itype> DEC
 
@@ -92,7 +94,7 @@ program:
     program decvar {
         struct ast *instantFather = newast("decvar");
         astAddChild(instantFather, $2);
-        astAddBrother(&ROOT_CHILDS, instantFather);
+        astAddChildrens(&ROOT_CHILDS, instantFather);
         $$ = ROOT_CHILDS;
     }
     |program decfunc 
@@ -104,7 +106,7 @@ decvar:
     LET_T ID decvarassign SEMICOLON {
         struct ast *id = newast("ID");
         if($3 != NULL){
-            struct ast *assign = newast("=");
+            struct ast *assign = newast("assign");
             astAddChild(assign,id);
             astAddChild(assign,$3);
             $$ = assign;
@@ -128,58 +130,131 @@ decvarassign:
     }
 ;
 decfunc:
-    DEF_T  decfuncids
+    DEF_T  decfuncids {
+        struct ast *decfunc = newast("decfunc");
+        decfunc->childrens = $2;
+        $$ = decfunc;
+    }
 ;
 decfuncids:
-    MAIN_T  LPARENT  paramlist  RPARENT block 
-    | ID  LPARENT  paramlist  RPARENT  block
+    MAIN_T  LPARENT  paramlist  RPARENT block {
+        struct ast *main = newast("main");
+        if($3 != NULL) {
+            struct ast *assign = newast("paramlist");
+            astAddChild(assign,main);
+            astAddChild(assign,$3);
+            $$ = assign;
+        } else {
+            $$ = main;
+        }
+    }
+    | ID  LPARENT  paramlist  RPARENT  block {
+
+    }
 ;
 block:
-    LBRACE  blockstatements RBRACE 
+    LBRACE  blockstatements RBRACE {
+
+    }
 ;
 blockstatements:
-     decvar blockstatements
-     | statement
-     | %empty
+     decvar blockstatements {
+
+     }
+     | statement {
+
+     }
+     | %empty{
+        $$ = NULL;
+    }
 ;
 paramlist: 
-    ID                                              
-    | ID  COMMA paramlist
-    | %empty
+    ID {
+        $$ = newast("ID");
+    }
+    | ID COMMA paramlist {
+        astBrothers(newast("ID"),$3);
+        $$ = $1;
+    }
+    | %empty{
+        $$ = NULL;
+    }
 ;
 statement:
-    assigner SEMICOLON statement
-    | funccall SEMICOLON statement
-    | conditional statement
-    | loop statement
+    assigner SEMICOLON statement {
+
+    }
+    | funccall SEMICOLON statement {
+
+    }
+    | conditional statement {
+
+    }
+    | loop statement {
+
+    }
     | return
     | break
     | continue
-    | %empty
+    | %empty{
+        $$ = NULL;
+    }
 ;
 assigner:
-    ID ASSIGN  expr 
-    | %empty
+    ID ASSIGN  expr {
+        struct ast *id = newast("ID");
+        if($3 != NULL){
+            struct ast *assign = newast("assign");
+            astAddChild(assign,id);
+            astAddChild(assign,$3);
+            $$ = assign;
+        }
+        else{
+            $$ = id;
+        }
+    }
+    | %empty{
+        $$ = NULL;
+    }
 ;
 conditional: 
-    IF_T  LPARENT expr RPARENT block elseconditional     
-    
+    IF_T LPARENT expr RPARENT block elseconditional {
+    }
 ;
 elseconditional:
-    %empty
-    |  ELSE_T  block 
+    %empty {
+        $$ = NULL;
+    }
+    | ELSE_T block {
+        $$ = $2;
+    }
 ;
 loop:
-    WHILE_T  LPARENT expr RPARENT block              
+    WHILE_T  LPARENT expr RPARENT block{
+        struct ast *instantFather = newast("while");
+        astAddChild(instantFather,$3);
+        astAddChild(instantFather,$5);
+        $$ = instantFather;
+    }
 ;
 break:
-    BREAK_T SEMICOLON                                   
+    BREAK_T SEMICOLON {
+        struct ast *instantFather = newast("break");
+        $$ = instantFather;
+    }
 ;
 continue:
-    CONTINUE_T SEMICOLON                                
+    CONTINUE_T SEMICOLON {
+        struct ast *instantFather = newast("continue");
+        $$ = instantFather;
+    }
 ;
 return:
-     RETURN_T expr SEMICOLON                         
+     RETURN_T expr SEMICOLON {
+        struct ast *instantFather = newast("return");
+        astAddChild(instantFather,$2);
+        $$ = instantFather;
+    }
 ;
 expr:
     unop expr                    %prec UMINUS   {
@@ -222,31 +297,57 @@ expr:
         astAddChild(instantFather,$3);
         $$ = instantFather;
     }
-    | expr LESSTHAN expr                        
-    | expr LESSOREQUAL expr                     
-    | expr BIGGERTHAN expr                      
-    | expr BIGGEROREQUAL expr                   
-    | expr EQUAL expr                           
-    | expr NOTEQUAL expr                        
-    | expr AND expr                             
-    | expr OR expr                              
+    | expr LESSTHAN expr {
+        struct ast *instantFather = newast("<");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr LESSOREQUAL expr {
+        struct ast *instantFather = newast("<=");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr BIGGERTHAN expr {
+        struct ast *instantFather = newast(">");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr BIGGEROREQUAL expr {
+        struct ast *instantFather = newast(">=");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr EQUAL expr {
+        struct ast *instantFather = newast("==");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr NOTEQUAL expr {
+        struct ast *instantFather = newast("!=");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr AND expr {
+        struct ast *instantFather = newast("&&");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
+    | expr OR expr {
+        struct ast *instantFather = newast("||");
+        astAddChild(instantFather,$1);
+        astAddChild(instantFather,$3);
+        $$ = instantFather;
+    }
     | %empty {
         $$ = NULL;
     }
-;
-binop:
-    PLUS                                            
-    | MINUS                                         
-    | MULTIPLY                                      
-    | DIVIDER                                       
-    | LESSTHAN                                      
-    | LESSOREQUAL                                   
-    | BIGGERTHAN                                    
-    | BIGGEROREQUAL                                 
-    | EQUAL                                         
-    | NOTEQUAL                                      
-    | AND                                           
-    | OR                                            
 ;
 unop:
     MINUS                                           {
@@ -259,18 +360,35 @@ unop:
     }
 ;
 funccall:
-    ID LPARENT RPARENT                              {
+    ID LPARENT RPARENT {
         struct ast *instantFather = newast("funccall");
+        astAddChild(instantFather, newast("ID"));
         $$ = instantFather;
     }
-    | ID  LPARENT  arglist    RPARENT
+    | ID LPARENT arglist RPARENT {
+        struct ast *instantFather = newast("funccall");
+        astAddChild(instantFather, newast("ID"));
+        astAddChild(instantFather, $3);
+        $$ = instantFather;
+    }
 ;
 arglist:
-    expr arglistparams                                  
+    expr {
+        struct ast *instantFather = newast("arglist");
+        astAddChild(instantFather, $1);
+        astAddChild(instantFather, $2);
+        $$ = instantFather;
+    }
+    expr COMMA arglist {
+        struct ast *instantFather = newast("arglist");
+        astAddChild(instantFather, $1);
+        astAddChild(instantFather, $2);
+        $$ = instantFather;
+    }
 ;
 arglistparams:
     %empty
-    | COMMA arglist
+    | COMMA arglist 
 ;
 %%
 
@@ -355,7 +473,7 @@ void astPrint(struct ast *father, int tab){
         printf("]\n");
     }
 }
-void astAddBrother(struct ast **head_list, struct ast *newBrother){
+void astAddChildrens(struct ast **head_list, struct ast *newBrother){
     struct ast *walkNode;
     if(*head_list != NULL){
         for(walkNode = *head_list; walkNode->nextParent != NULL;walkNode = walkNode->nextParent);
@@ -364,4 +482,8 @@ void astAddBrother(struct ast **head_list, struct ast *newBrother){
     else{
         *head_list = newBrother;
     }
+}
+void astBrothers(struct ast *leftBrother, struct ast *rightBrother){
+    leftBrother->nextParent = rightBrother;
+    rightBrother->previousParent = leftBrother;
 }

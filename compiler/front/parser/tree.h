@@ -43,7 +43,8 @@ struct ast *newast(char nodetype[MAX_NODE_TYPE]);
 void astAddChild(struct ast *father,struct ast *child);
 struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d);
 void astPrint(struct ast *father, int tab);
-void astAddBrother(struct ast **head_list,struct ast *newBrother);
+void astAddChildrens(struct ast **head_list,struct ast *newBrother);
+void astBrothers(struct ast *leftBrother, struct ast *rightBrother);
 
 /*
 struct ast *newcmp(char cmptype[MAX_NODE_TYPE], struct ast *l, struct ast *r);
