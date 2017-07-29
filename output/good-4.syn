@@ -1,1 +1,1 @@
-[program [decfunc [main ][paramlist ][block [decvar [assign [a ][+ [3 ][5 ]]]][decvar [b ]][decvar [assign [c ][b ]]][decvar [assign [d ][1 ]]]]]]
+[program [decfunc [main ][paramlist ][block [decvar [a ][+ [3 ][5 ]]][decvar [b ]][decvar [c ][b ]][decvar [d ][1 ]]]]]

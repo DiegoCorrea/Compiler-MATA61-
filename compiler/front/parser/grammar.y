@@ -79,10 +79,11 @@
 
 %token ERROR
 
+%left AND OR 
+%left EQUAL
+%left BIGGERTHAN LESSTHAN NOTEQUAL LESSOREQUAL BIGGEROREQUAL
 %left PLUS MINUS
 %left MULTIPLY DIVIDER 
-%left AND OR
-%left BIGGERTHAN LESSTHAN EQUAL NOTEQUAL LESSOREQUAL BIGGEROREQUAL
 %nonassoc UMINUS NOT
 
 
@@ -119,15 +120,15 @@ decvar:
         struct ast *decvar_node = newast("decvar");
 
         struct ast *id_node = newref("ID", $2);
+        astAddChild(decvar_node, id_node);
         if($3 != NULL){
-            struct ast *assign_node = newast("assign");
-            astAddChild(assign_node, id_node);
-            astAddChild(assign_node, $3);
-            astAddChild(decvar_node, assign_node);
+            //struct ast *assign_node = newast("assign");
+            
+            astAddChild(decvar_node, $3);
+            //astAddChild(decvar_node, assign_node);
             $$ = decvar_node;
         }
         else{
-            astAddChild(decvar_node, id_node);
             $$ = decvar_node;
         }
     }
@@ -616,28 +617,27 @@ void reservedWords(struct symbol *sym){
 }
 void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack, struct vardeclaration *func_stack){
     struct ast *walkerAST;
-
     for(walkerAST = father; walkerAST != NULL; walkerAST = walkerAST->nextBrother){
         struct vardeclaration *var_node = (struct vardeclaration *)malloc(sizeof(struct vardeclaration));
         
         if(strcmp(walkerAST->nodetype,"decvar") == 0){
-            if(strcmp(walkerAST->childrens->nodetype,"assign") == 0){
-                semanticCheck(walkerAST->childrens->childrens->nextBrother, nivel+2, var_stack, func_stack);
-                var_node->sym = walkerAST->childrens->childrens->identification;
-                var_node->nivel = nivel;
+            if(walkerAST->childrens->nextBrother != NULL){
+                semanticCheck(walkerAST->childrens->nextBrother, nivel+1, var_stack, func_stack);
+            }
+                //var_node->sym = walkerAST->childrens->childrens->identification;
+                //var_node->nivel = nivel;
                 
-                printf("\n=========Assign: %s", var_node->sym->name);
+                //printf("\n=========Assign: %s", var_node->sym->name);
                 
-                var_stack = symStackPush(var_stack, var_node);
-                printf("\n=========Semantico add VAR: %s", var_node->sym->name);
-            } else{
+                //var_stack = symStackPush(var_stack, var_node);
+               // printf("\n=========Semantico add VAR: %s", var_node->sym->name);
+
             
                 var_node->sym = walkerAST->childrens->identification;
                 var_node->nivel = nivel;
 
                 var_stack = symStackPush(var_stack, var_node);
                 printf("\n=========Semantico add VAR: %s", var_node->sym->name);
-            }
         } else if(strcmp(walkerAST->nodetype,"decfunc") == 0){
             struct ast *walkChild = walkerAST->childrens;
 
