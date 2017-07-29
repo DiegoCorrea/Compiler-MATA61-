@@ -40,7 +40,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 24 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
+#line 25 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
 
     #include "tree.h"
 
@@ -94,7 +94,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 16 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
+#line 17 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
 
     int itype;
     struct ast *astNode;

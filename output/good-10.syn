@@ -6,59 +6,59 @@
 		]
 		[block 
 			[decvar 
-				[ID 
+				[a 
 				]
 			]
 			[decvar 
-				[ID 
+				[b 
 				]
 			]
 			[decvar 
-				[ID 
+				[c 
 				]
 			]
 			[decvar 
-				[ID 
+				[d 
 				]
 			]
 			[decvar 
-				[ID 
+				[e 
 				]
 			]
 			[if 
 				[== 
-					[ID 
+					[a 
 					]
-					[ID 
+					[b 
 					]
 				]
 				[block 
 					[if 
 						[< 
-							[ID 
+							[b 
 							]
-							[ID 
+							[c 
 							]
 						]
 						[block 
 							[assign 
-								[ID 
+								[e 
 								]
-								[ID 
+								[c 
 								]
 							]
 							[if 
 								[< 
-									[ID 
+									[c 
 									]
-									[ID 
+									[d 
 									]
 								]
 								[block 
 									[assign 
-										[ID 
+										[e 
 										]
-										[ID 
+										[d 
 										]
 									]
 								]
@@ -66,23 +66,23 @@
 						]
 						[block 
 							[assign 
-								[ID 
+								[e 
 								]
-								[ID 
+								[d 
 								]
 							]
 							[if 
 								[> 
-									[ID 
+									[b 
 									]
-									[ID 
+									[d 
 									]
 								]
 								[block 
 									[assign 
-										[ID 
+										[e 
 										]
-										[ID 
+										[b 
 										]
 									]
 								]
@@ -93,27 +93,27 @@
 				[block 
 					[if 
 						[< 
-							[ID 
+							[a 
 							]
-							[ID 
+							[d 
 							]
 						]
 						[block 
 							[assign 
-								[ID 
+								[e 
 								]
 								[- 
-									[ID 
+									[d 
 									]
 								]
 							]
 						]
 						[block 
 							[assign 
-								[ID 
+								[e 
 								]
 								[- 
-									[ID 
+									[a 
 									]
 								]
 							]

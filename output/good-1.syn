@@ -1,22 +1,22 @@
 [program 
 	[decfunc 
+		[lara 
+		]
+		[paramlist 
+		]
+		[block 
+		]
+	]
+	[decfunc 
+		[luzia 
+		]
+		[paramlist 
+		]
+		[block 
+		]
+	]
+	[decfunc 
 		[main 
-		]
-		[paramlist 
-		]
-		[block 
-		]
-	]
-	[decfunc 
-		[ID 
-		]
-		[paramlist 
-		]
-		[block 
-		]
-	]
-	[decfunc 
-		[ID 
 		]
 		[paramlist 
 		]

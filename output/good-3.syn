@@ -1,19 +1,19 @@
 [program 
 	[decfunc 
-		[ID 
+		[add 
 		]
 		[paramlist 
-			[ID 
+			[x 
 			]
-			[ID 
+			[y 
 			]
 		]
 		[block 
 			[return 
 				[+ 
-					[ID 
+					[x 
 					]
-					[ID 
+					[y 
 					]
 				]
 			]
@@ -26,21 +26,21 @@
 		]
 		[block 
 			[decvar 
-				[ID 
+				[a 
 				]
 			]
 			[assign 
-				[ID 
+				[a 
 				]
 				[3 
 				]
 			]
 			[return 
 				[funccall 
-					[ID 
+					[add 
 					]
 					[arglist 
-						[ID 
+						[a 
 						]
 						[2 
 						]

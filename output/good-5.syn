@@ -1,6 +1,6 @@
 [program 
 	[decvar 
-		[ID 
+		[a 
 		]
 	]
 	[decfunc 
@@ -11,10 +11,10 @@
 		[block 
 			[decvar 
 				[assign 
-					[ID 
+					[a 
 					]
 					[funccall 
-						[ID 
+						[lara 
 						]
 						[arglist 
 							[+ 
@@ -42,23 +42,23 @@
 		]
 	]
 	[decfunc 
-		[ID 
+		[lara 
 		]
 		[paramlist 
-			[ID 
+			[a 
 			]
-			[ID 
+			[b 
 			]
-			[ID 
+			[c 
 			]
 		]
 		[block 
 			[decvar 
 				[assign 
-					[ID 
+					[d 
 					]
 					[* 
-						[ID 
+						[a 
 						]
 						[10 
 						]
@@ -69,27 +69,27 @@
 				[+ 
 					[+ 
 						[<= 
-							[ID 
+							[d 
 							]
-							[ID 
+							[a 
 							]
 						]
-						[ID 
+						[b 
 						]
 					]
-					[ID 
+					[c 
 					]
 				]
 				[block 
 					[decvar 
-						[ID 
+						[p 
 						]
 					]
 					[funccall 
-						[ID 
+						[luzia 
 						]
 						[arglist 
-							[ID 
+							[d 
 							]
 						]
 					]
@@ -98,16 +98,16 @@
 		]
 	]
 	[decfunc 
-		[ID 
+		[luzia 
 		]
 		[paramlist 
-			[ID 
+			[d 
 			]
 		]
 		[block 
 			[if 
 				[> 
-					[ID 
+					[d 
 					]
 					[0 
 					]

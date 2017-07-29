@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "lex.yy.c": "cpp"
+        "lex.yy.c": "cpp",
+        "typeinfo": "cpp"
     }
 }

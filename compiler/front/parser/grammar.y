@@ -4,6 +4,7 @@
   #include <stdlib.h>
   #include <string.h>
   #include "tree.h"
+  
   int yylex(void);
   void yyerror(char const *);
   FILE *yyin;
@@ -29,7 +30,7 @@
 %type <astNode> paramlist arglist
 %type <astNode> block blockstatements assigner loop return break continue statement conditional elseconditional
 %type <astNode> expr funccall unop
-%token <astNode> ID
+%token <symbolValue> ID
 
 %token <itype> DEC
 
@@ -113,7 +114,7 @@ decvar:
     LET_T ID decvarassign SEMICOLON {
         struct ast *decvar_node = newast("decvar");
 
-        struct ast *id_node = newast("ID");
+        struct ast *id_node = newref("ID", $2);
         if($3 != NULL){
             struct ast *assign_node = newast("assign");
             astAddChild(assign_node, id_node);
@@ -163,7 +164,7 @@ decfuncids:
         $$ = main_node;
     }
     | ID  LPARENT  paramlist  RPARENT  block {
-        struct ast *id_node = newast("ID");
+        struct ast *id_node = newref("ID", $1);
 
         struct ast *paramlist_node = newast("paramlist");
         astAddChild(paramlist_node, $3);
@@ -174,7 +175,7 @@ decfuncids:
         $$ = id_node;
     }
     | ID  LPARENT RPARENT  block {
-        struct ast *id_node = newast("ID");
+        struct ast *id_node = newref("ID", $1);
 
         struct ast *paramlist_node = newast("paramlist");
         astNodeBrothers(id_node, paramlist_node);
@@ -207,10 +208,10 @@ blockstatements:
 ;
 paramlist: 
     ID {
-        $$ = newast("ID");
+        $$ = newref("ID", $1);
     }
     | ID COMMA paramlist {
-        struct ast *brother = newast("ID");
+        struct ast *brother = newref("ID", $1);
         astNodeBrothers(brother,$3);
         $$ = brother;
     }
@@ -237,7 +238,7 @@ statement:
 ;
 assigner:
     ID ASSIGN  expr {
-        struct ast *id = newast("ID");
+        struct ast *id = newref("ID", $1);
         if($3 != NULL){
             struct ast *assign = newast("assign");
             astAddChild(assign,id);
@@ -313,7 +314,7 @@ expr:
         $$ = newnum("DEC", $1);
     }
     | ID                                        {
-        $$ = newast("ID");
+        $$ = newref("ID", $1);
     }
     | expr PLUS expr                            {
         struct ast *instantFather = newast("+");
@@ -399,13 +400,13 @@ unop:
 funccall:
     ID LPARENT RPARENT {
         struct ast *instantFather = newast("funccall");
-        astAddChild(instantFather, newast("ID"));
+        astAddChild(instantFather, newref("ID", $1));
         $$ = instantFather;
     }
     | ID LPARENT arglist RPARENT {
         struct ast *instantFather = newast("funccall");
         
-        astAddChild(instantFather, newast("ID"));
+        astAddChild(instantFather, newref("ID", $1));
         
         struct ast *argument_list = newast("arglist");
         astAddChild(argument_list, $3);
@@ -494,6 +495,22 @@ struct ast *newnum(char nodetype[MAX_NODE_TYPE], int number){
 
     return (struct ast *)no;
 }
+struct ast *newref(char nodetype[MAX_NODE_TYPE], struct symbol *name){
+    struct ast *no = (struct ast *)malloc(sizeof(struct ast));
+    if(!no) {
+        //yyerror("out of space");
+        exit(0);
+    }
+    
+    strcpy(no->nodetype,nodetype);
+    no->identification = name;
+    printf("\n\n=====LEX: %s ===============\n\n",  no->identification->name);
+    no->childrens = NULL;
+    no->nextBrother = NULL;
+    no->previousBrother = NULL;
+
+    return (struct ast *)no;
+}
 void astPrint(struct ast *father, int tab){
     struct ast *walker;
 
@@ -524,8 +541,9 @@ void astPrint(struct ast *father, int tab){
             printf("[%d \n", walker->dec.number);
             fprintf(fl_output,"[%d \n", walker->dec.number);
         } else if(strcmp(walker->nodetype,"ID") == 0){
-            printf("[%s \n", walker->nodetype);
-            fprintf(fl_output,"[%s \n", walker->nodetype);
+            char *name = walker->identification->name;
+            printf("[%s \n", name);
+            fprintf(fl_output,"[%s \n", name);
         } else{
             printf("[%s \n", walker->nodetype);
             fprintf(fl_output,"[%s \n", walker->nodetype);
@@ -567,7 +585,7 @@ void astNodeBrothers(struct ast *leftBrother, struct ast *rightBrother){
 
 
 
-/*
+
 static unsigned symhash(char *sym){
     unsigned int hash = 0;
     unsigned c;
@@ -586,8 +604,9 @@ struct symbol *lookup(char* sym) {
             sp->value = 0;
             sp->func = NULL;
             sp->syms = NULL;
+            //printf("\n\n=====LEX: %s ===============\n\n",  sp->name);
             return sp;
         }
+        if(++sp >= symtab+NHASH) sp = symtab; /* try the next entry */
     }
 }
-*/

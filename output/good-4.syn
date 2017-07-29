@@ -7,7 +7,7 @@
 		[block 
 			[decvar 
 				[assign 
-					[ID 
+					[a 
 					]
 					[+ 
 						[3 
@@ -18,20 +18,20 @@
 				]
 			]
 			[decvar 
-				[ID 
+				[b 
 				]
 			]
 			[decvar 
 				[assign 
-					[ID 
+					[c 
 					]
-					[ID 
+					[b 
 					]
 				]
 			]
 			[decvar 
 				[assign 
-					[ID 
+					[d 
 					]
 					[1 
 					]

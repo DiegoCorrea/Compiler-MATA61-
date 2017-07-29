@@ -2,6 +2,7 @@
 %{
 	#include <stdio.h>
 	#include "../parser/grammar.tab.h"
+	#include "../parser/tree.h"
 %}
 %option yylineno
 
@@ -58,7 +59,7 @@ error       (^{id}|^{number}|^{whitespace})
 "!"           { return NOT ; }
 
 {dec}         { yylval.itype = atof(yytext); return DEC; }
-{id}          { return ID; }
+{id}          { yylval.symbolValue = lookup(yytext); return ID; }
 .             { return ERROR; }
 
 %%

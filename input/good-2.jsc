@@ -1,11 +1,10 @@
-def main (){
-    let z = lara (5+5, 10, 25-10-15);
+def luzia(o){
+   return (o) * (o);
 }
 def lara (a,b,c){
     let h = a * 10;
-    luzia(o);
+    luzia(h);
 }
-
-def luzia(o){
-   return (o) * (d);
+def main (){
+    let z = lara (5+5, 10, 25-10-15);
 }

@@ -1,70 +1,54 @@
 [program 
 	[decvar 
 		[assign 
-			[ID 
+			[a 
 			]
-			[funccall 
-				[ID 
-				]
-				[arglist 
-					[+ 
-						[- 
-							[+ 
-								[1 
-								]
-								[2 
-								]
-							]
-							[551325 
-							]
-						]
-						[ID 
-						]
+			[- 
+				[+ 
+					[1 
+					]
+					[2 
 					]
 				]
+				[551325 
+				]
 			]
 		]
 	]
 	[decvar 
-		[ID 
+		[b 
 		]
 	]
 	[decvar 
 		[assign 
-			[ID 
+			[c 
 			]
 			[+ 
-				[ID 
+				[a 
 				]
-				[ID 
+				[b 
 				]
 			]
 		]
 	]
 	[decvar 
 		[assign 
-			[ID 
+			[d 
 			]
 			[/ 
 				[+ 
-					[funccall 
-						[ID 
-						]
-						[arglist 
-							[+ 
-								[- 
-									[* 
-										[ID 
-										]
-										[1 
-										]
-									]
-									[ID 
-									]
+					[+ 
+						[- 
+							[* 
+								[a 
 								]
-								[ID 
+								[1 
 								]
 							]
+							[c 
+							]
+						]
+						[b 
 						]
 					]
 					[10 
@@ -77,7 +61,7 @@
 	]
 	[decvar 
 		[assign 
-			[ID 
+			[e 
 			]
 			[- 
 				[- 
@@ -91,20 +75,14 @@
 						[10 
 						]
 					]
-					[+ 
-						[funccall 
-							[ID 
-							]
-						]
-						[/ 
-							[* 
-								[ID 
-								]
-								[10 
-								]
+					[/ 
+						[* 
+							[a 
 							]
 							[10 
 							]
+						]
+						[10 
 						]
 					]
 				]
