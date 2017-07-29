@@ -89,7 +89,7 @@ struct vardeclaration {
 
     int value;
 };
-
+void reservedWords(struct symbol *sym);
 struct vardeclaration *symStackPush(struct vardeclaration *var_stack, struct vardeclaration *var_node);
 int onVarStack(struct vardeclaration *var_stack, struct symbol *sym);
 void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack, struct vardeclaration *func_stack);

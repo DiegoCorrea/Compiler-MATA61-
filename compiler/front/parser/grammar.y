@@ -13,6 +13,8 @@
 
   struct ast *ROOT;
   struct ast *ROOT_CHILDS = NULL;
+
+  int START_OK = 0;
 %}
 %union {
     int itype;
@@ -79,8 +81,9 @@
 
 %left PLUS MINUS
 %left MULTIPLY DIVIDER 
+%left AND OR
 %left BIGGERTHAN LESSTHAN EQUAL NOTEQUAL LESSOREQUAL BIGGEROREQUAL
-%nonassoc UMINUS 
+%nonassoc UMINUS NOT
 
 
 %start start
@@ -91,9 +94,9 @@ start:
         ROOT = newast("program");
         astAddChild(ROOT, $1);
 
-        astPrint(ROOT, 0);
-
         semanticCheck(ROOT, 0, NULL, NULL);
+        if(START_OK == 0) exit(0);
+        astPrint(ROOT, 0);
     }
 ;
 program:
@@ -603,6 +606,14 @@ int onVarStack(struct vardeclaration *top_stack, struct symbol *sym){
     }
     return 1;
 }
+void reservedWords(struct symbol *sym){
+    if(strcmp("print", sym->name) == 0){
+        exit(0);
+    }
+    if(strcmp("main", sym->name) == 0){
+        START_OK = 1;
+    }
+}
 void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack, struct vardeclaration *func_stack){
     struct ast *walkerAST;
 
@@ -629,6 +640,11 @@ void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_sta
             }
         } else if(strcmp(walkerAST->nodetype,"decfunc") == 0){
             struct ast *walkChild = walkerAST->childrens;
+
+            reservedWords(walkChild->identification);
+            if(onVarStack(func_stack, walkChild->identification) == 0){
+                exit(0);
+            }
 
             var_node->sym = walkChild->identification;
             var_node->nivel = nivel;

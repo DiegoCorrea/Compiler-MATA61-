@@ -1,6 +1,7 @@
-def main(){
-    let b = 4;
+def print(){
+    let a = 3;
 }
+
 def main(){
     let b = 4;
 }

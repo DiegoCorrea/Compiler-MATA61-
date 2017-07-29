@@ -28,14 +28,8 @@ goodtest:
 	./compilador input/good-8.jsc output/good-8.syn
 	./compilador input/good-9.jsc output/good-9.syn
 	./compilador input/good-10.jsc output/good-10.syn
-
-badtest:
-	$(MAKE) all
-	./compilador input/bad-0.jsc output/bad-0.syn
-	./compilador input/bad-1.jsc output/bad-1.syn
-	./compilador input/bad-2.jsc output/bad-2.syn
-	./compilador input/bad-3.jsc output/bad-3.syn
-	./compilador input/bad-4.jsc output/bad-4.syn
+	./compilador input/good-11.jsc output/good-11.syn
+	./compilador input/good-12.jsc output/good-12.syn
 
 report:
 	 bison -d -r all --report-file=compiler/front/front.log compiler/front/lexer/grammar.y
