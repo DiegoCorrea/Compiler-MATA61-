@@ -1,7 +1,7 @@
 all:
 	$(MAKE) grammar
 	$(MAKE) lex
-	gcc -c compiler/front/parser/grammar.tab.c 
+	gcc -std=gnu99 -c compiler/front/parser/grammar.tab.c 
 	mv *.o compiler/front/parser/
 	gcc -c compiler/front/lexer/lex.yy.c
 	mv *.o compiler/front/lexer/

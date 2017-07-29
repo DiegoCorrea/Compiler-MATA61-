@@ -25,7 +25,6 @@ error       (^{id}|^{number}|^{whitespace})
 "break"       { return BREAK_T; }
 "continue"    { return CONTINUE_T; }
 "return"      { return RETURN_T; }
-"main"        { return MAIN_T; }
 
 "("           { return LPARENT ; }
 ")"           { return RPARENT ; }

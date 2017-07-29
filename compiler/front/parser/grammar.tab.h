@@ -55,37 +55,36 @@ extern int yydebug;
     DEC = 259,
     LET_T = 260,
     DEF_T = 261,
-    MAIN_T = 262,
-    IF_T = 263,
-    ELSE_T = 264,
-    WHILE_T = 265,
-    BREAK_T = 266,
-    CONTINUE_T = 267,
-    RETURN_T = 268,
-    LPARENT = 269,
-    RPARENT = 270,
-    LBRACE = 271,
-    RBRACE = 272,
-    LBRACKETS = 273,
-    RBRACKETS = 274,
-    COMMA = 275,
-    SEMICOLON = 276,
-    PLUS = 277,
-    MINUS = 278,
-    MULTIPLY = 279,
-    DIVIDER = 280,
-    LESSTHAN = 281,
-    BIGGERTHAN = 282,
-    LESSOREQUAL = 283,
-    BIGGEROREQUAL = 284,
-    EQUAL = 285,
-    ASSIGN = 286,
-    NOTEQUAL = 287,
-    AND = 288,
-    OR = 289,
-    NOT = 290,
-    ERROR = 291,
-    UMINUS = 292
+    IF_T = 262,
+    ELSE_T = 263,
+    WHILE_T = 264,
+    BREAK_T = 265,
+    CONTINUE_T = 266,
+    RETURN_T = 267,
+    LPARENT = 268,
+    RPARENT = 269,
+    LBRACE = 270,
+    RBRACE = 271,
+    LBRACKETS = 272,
+    RBRACKETS = 273,
+    COMMA = 274,
+    SEMICOLON = 275,
+    PLUS = 276,
+    MINUS = 277,
+    MULTIPLY = 278,
+    DIVIDER = 279,
+    LESSTHAN = 280,
+    BIGGERTHAN = 281,
+    LESSOREQUAL = 282,
+    BIGGEROREQUAL = 283,
+    EQUAL = 284,
+    ASSIGN = 285,
+    NOTEQUAL = 286,
+    AND = 287,
+    OR = 288,
+    NOT = 289,
+    ERROR = 290,
+    UMINUS = 291
   };
 #endif
 
@@ -102,7 +101,7 @@ union YYSTYPE
     struct symbol *symbolValue;
     struct symlist *symbolList;
 
-#line 106 "grammar.tab.h" /* yacc.c:1909  */
+#line 105 "grammar.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

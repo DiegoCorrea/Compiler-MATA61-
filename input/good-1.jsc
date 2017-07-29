@@ -1,8 +1,8 @@
-def lara (){
+def lara (b, c){
 
 }
-def luzia(){
-
+def luzia(a){
+    
 }
 def main (){
 

@@ -63,6 +63,7 @@ void astNodeBrothers(struct ast *leftBrother, struct ast *rightBrother);
 struct symbol {
     /* a variable name */
     char *name;
+    
     int value;
     struct ast *func; /* stmt for the function */
     struct symlist *syms; /* list of dummy args */
@@ -85,11 +86,13 @@ struct vardeclaration {
     struct symbol *sym;
     int nivel;
     struct vardeclaration *next;
+
+    int value;
 };
 
 struct vardeclaration *symStackPush(struct vardeclaration *var_stack, struct vardeclaration *var_node);
 int onVarStack(struct vardeclaration *var_stack, struct symbol *sym);
-void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack);
+void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack, struct vardeclaration *func_stack);
 
 
 #endif // __TREE_H
