@@ -6,6 +6,8 @@
 
 struct ast {
     char nodetype[MAX_NODE_TYPE];
+    int nodeTypeCoded;
+
     union {
 		int number;
     } dec;
@@ -75,5 +77,19 @@ struct symbol *lookup(char*);
 static unsigned symhash(char *sym);
 /* list of symbols, for an argument list */
 struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
+
+
+/* semantica */
+
+struct vardeclaration {
+    struct symbol *sym;
+    int nivel;
+    struct vardeclaration *next;
+};
+
+struct vardeclaration *symStackPush(struct vardeclaration *var_stack, struct vardeclaration *var_node);
+int onVarStack(struct vardeclaration *var_stack, struct symbol *sym);
+void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack);
+
 
 #endif // __TREE_H

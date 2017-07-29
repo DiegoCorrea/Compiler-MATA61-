@@ -93,6 +93,8 @@ start:
         astAddChild(ROOT, $1);
 
         astPrint(ROOT, 0);
+
+        semanticCheck(ROOT, 0, NULL);
     }
 ;
 program:
@@ -504,7 +506,7 @@ struct ast *newref(char nodetype[MAX_NODE_TYPE], struct symbol *name){
     
     strcpy(no->nodetype,nodetype);
     no->identification = name;
-    printf("\n\n=====LEX: %s ===============\n\n",  no->identification->name);
+    //printf("\n\n=====LEX: %s ===============\n\n",  no->identification->name);
     no->childrens = NULL;
     no->nextBrother = NULL;
     no->previousBrother = NULL;
@@ -608,5 +610,61 @@ struct symbol *lookup(char* sym) {
             return sp;
         }
         if(++sp >= symtab+NHASH) sp = symtab; /* try the next entry */
+    }
+}
+struct vardeclaration *symStackPush(struct vardeclaration *var_stack, struct vardeclaration *var_node){
+    var_node->next = var_stack;
+    return var_node;
+}
+int onVarStack(struct vardeclaration *top_stack, struct symbol *sym){
+    struct vardeclaration *walkerStack;
+
+    for(walkerStack = top_stack; walkerStack != NULL && (strcmp(walkerStack->sym->name, sym->name) != 0); walkerStack = walkerStack->next);
+    if(walkerStack != NULL && (strcmp(walkerStack->sym->name, sym->name) == 0)){
+        return 0;
+    }
+    return 1;
+}
+void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack){
+    struct ast *walkerAST;
+
+    for(walkerAST = father; walkerAST != NULL; walkerAST = walkerAST->nextBrother){
+        struct vardeclaration *var_node = (struct vardeclaration *)malloc(sizeof(struct vardeclaration));
+        if(strcmp(walkerAST->nodetype,"decvar") == 0){
+            //printf("\n\ndfasdfasdfa\n\n");
+            if(strcmp(walkerAST->childrens->nodetype,"assign") == 0){
+                semanticCheck(walkerAST->childrens->childrens->nextBrother, nivel+2, var_stack);
+                var_node->sym = walkerAST->childrens->childrens->identification;
+                var_node->nivel = nivel;
+                
+                printf("\n=========Assign: %s", var_node->sym->name);
+                
+                var_stack = symStackPush(var_stack, var_node);
+                printf("\n=========Semantico add VAR: %s", var_node->sym->name);
+            } else{
+            
+                var_node->sym = walkerAST->childrens->identification;
+                var_node->nivel = nivel;
+
+                var_stack = symStackPush(var_stack, var_node);
+                printf("\n=========Semantico add VAR: %s", var_node->sym->name);
+            }
+            /*
+            for(struct vardeclaration *var_walker = var_stack; var_walker != NULL; var_walker = var_walker->next){
+                printf("\n=========Semantico add VAR: %s", var_walker->sym->name);
+            }
+            */
+
+        } else if(strcmp(walkerAST->nodetype,"decfunc") == 0){
+            semanticCheck(walkerAST->childrens, nivel+1, var_stack);
+        } else if(strcmp(walkerAST->nodetype,"ID") == 0){
+            if(onVarStack(var_stack, walkerAST->identification) == 0){
+                printf("\n=========%s: Na Pilha", walkerAST->identification->name);
+            } else {
+                printf("\n=========%s: Não encontrado", walkerAST->identification->name);
+            } 
+        } else{
+            semanticCheck(walkerAST->childrens, nivel+1, var_stack);
+        }
     }
 }
