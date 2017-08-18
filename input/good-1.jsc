@@ -4,6 +4,6 @@ def lara (b, c){
 def luzia(a){
     
 }
-def main (){
-
+def main (a){
+lara(a,g);
 }

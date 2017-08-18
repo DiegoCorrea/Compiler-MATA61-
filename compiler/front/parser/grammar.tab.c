@@ -431,7 +431,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   221
+#define YYLAST   212
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  37
@@ -490,12 +490,12 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    93,    93,   103,   107,   113,   118,   136,   139,   144,
-     149,   160,   172,   182,   185,   188,   193,   196,   203,   206,
-     209,   212,   215,   216,   217,   218,   223,   235,   240,   251,
-     254,   259,   267,   273,   279,   286,   290,   293,   296,   299,
-     302,   308,   314,   320,   326,   332,   338,   344,   350,   356,
-     362,   368,   376,   379,   384,   389,   403,   406
+       0,    94,    94,   104,   108,   114,   119,   137,   140,   145,
+     150,   161,   173,   183,   186,   189,   194,   197,   204,   207,
+     210,   213,   216,   217,   218,   219,   224,   236,   241,   252,
+     255,   260,   268,   274,   280,   287,   291,   294,   297,   300,
+     303,   309,   315,   321,   327,   333,   339,   345,   351,   357,
+     363,   369,   377,   380,   385,   394,   408,   411
 };
 #endif
 
@@ -543,17 +543,17 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -44,     6,     2,   -44,    -1,     7,   -44,   -44,   -19,     3,
-     -44,    56,    -8,     1,    29,   -44,    56,   -44,   -44,   168,
-      56,   -44,   -44,    -5,    34,    30,    32,    60,    56,    56,
+     -44,     6,     2,   -44,    -1,     9,   -44,   -44,   -16,     3,
+     -44,    56,    29,     1,    39,   -44,    56,   -44,   -44,   168,
+      56,   -44,   -44,    36,    52,    54,    32,    60,    56,    56,
       56,    56,    56,    56,    56,    56,    56,    56,    56,    56,
-     -44,    44,   127,   -44,    34,   -44,   141,    38,   -44,   179,
-     179,   188,   188,   -44,   -44,   -44,   -44,   -44,   -44,    12,
-      12,   -44,     0,    42,    49,    43,    45,    56,   127,    48,
-     -44,    47,   139,   139,   -44,   -44,   -44,    53,   -44,    56,
+     -44,    70,   127,   -44,    52,   -44,   141,    61,   -44,   -13,
+     -13,   -44,   -44,    41,    41,    41,    41,    16,    41,   181,
+     181,   -44,     0,    63,    64,    59,    75,    56,   127,    81,
+     -44,    76,   139,   139,   -44,   -44,   -44,    78,   -44,    56,
      -44,    56,    56,    56,   -44,   -44,   155,   -44,   -44,   139,
      -44,   -44,   139,   -44,   168,    80,    96,   -44,   -44,   -44,
-      34,    34,    67,   -44,    34,   -44,   -44
+      52,    52,    72,   -44,    52,   -44,   -44
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -577,9 +577,9 @@ static const yytype_uint8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -44,   -44,   -44,    66,   -44,   -44,   -44,   -43,     8,    36,
+     -44,   -44,   -44,    97,   -44,   -44,   -44,   -43,    46,    74,
      -41,   -44,   -44,   -44,   -44,   -44,   -44,   -44,   -11,   -44,
-     -39,    16
+     -39,    21
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -596,17 +596,17 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_int8 yytable[] =
 {
       19,    78,     8,    77,    23,    27,     3,     4,     5,    40,
-       9,    11,    22,    26,    41,    24,    13,    49,    50,    51,
+      30,    31,     9,    26,    11,    24,    13,    49,    50,    51,
       52,    53,    54,    55,    56,    57,    58,    59,    60,    77,
-      81,    90,    91,    77,    77,    14,    15,    32,    33,    34,
-      35,    36,    26,    37,    44,    16,    45,    23,    98,    42,
-      77,    99,    80,    77,    17,    82,    86,   102,   103,    14,
-      15,   106,    83,    84,    88,    85,    18,    89,     6,    16,
-      94,    95,    96,    92,    48,   104,    87,    61,    17,     0,
-       0,    28,    29,    30,    31,    32,    33,    34,    35,    36,
-      18,    37,    38,    39,   100,    93,     0,     0,     0,     0,
-       0,    28,    29,    30,    31,    32,    33,    34,    35,    36,
-     101,    37,    38,    39,     0,     0,     0,    28,    29,    30,
+      81,    90,    91,    77,    77,    14,    15,    28,    29,    30,
+      31,    32,    33,    34,    35,    16,    45,    37,    98,    22,
+      77,    99,    26,    77,    17,    41,    86,   102,   103,    14,
+      15,   106,    28,    29,    30,    31,    18,    42,    44,    16,
+      94,    95,    96,    23,    48,    80,    82,    83,    17,    84,
+     104,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+      18,    37,    38,    39,   100,    85,    89,    88,    92,     6,
+      93,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+     101,    37,    38,    39,    87,    61,     0,    28,    29,    30,
       31,    32,    33,    34,    35,    36,     0,    37,    38,    39,
       62,     0,     4,     0,    63,     0,    64,    65,    66,    67,
        0,     0,    62,     0,     0,     0,    63,   -27,    64,    65,
@@ -615,25 +615,24 @@ static const yytype_int8 yytable[] =
       36,     0,    37,    38,    39,    97,    28,    29,    30,    31,
       32,    33,    34,    35,    36,     0,    37,    38,    39,    28,
       29,    30,    31,    32,    33,    34,    35,    36,     0,    37,
-      38,    39,    30,    31,    32,    33,    34,    35,    36,     0,
-      37,    38,    39,    32,    33,    34,    35,    36,     0,    37,
-      38,    39
+      38,    39,    28,    29,    30,    31,    32,    33,    34,    35,
+      36,     0,    37
 };
 
 static const yytype_int8 yycheck[] =
 {
       11,    44,     3,    42,     3,    16,     0,     5,     6,    20,
-       3,    30,    20,    13,    19,    14,    13,    28,    29,    30,
+      23,    24,     3,    13,    30,    14,    13,    28,    29,    30,
       31,    32,    33,    34,    35,    36,    37,    38,    39,    68,
-      30,    72,    73,    72,    73,     3,     4,    25,    26,    27,
-      28,    29,    13,    31,    14,    13,    14,     3,    89,    15,
-      89,    92,    14,    92,    22,    13,    67,   100,   101,     3,
-       4,   104,    13,    20,    16,    20,    34,    20,     2,    13,
-      81,    82,    83,    20,    14,     8,    68,    41,    22,    -1,
-      -1,    21,    22,    23,    24,    25,    26,    27,    28,    29,
-      34,    31,    32,    33,    14,    79,    -1,    -1,    -1,    -1,
-      -1,    21,    22,    23,    24,    25,    26,    27,    28,    29,
-      14,    31,    32,    33,    -1,    -1,    -1,    21,    22,    23,
+      30,    72,    73,    72,    73,     3,     4,    21,    22,    23,
+      24,    25,    26,    27,    28,    13,    14,    31,    89,    20,
+      89,    92,    13,    92,    22,    19,    67,   100,   101,     3,
+       4,   104,    21,    22,    23,    24,    34,    15,    14,    13,
+      81,    82,    83,     3,    14,    14,    13,    13,    22,    20,
+       8,    21,    22,    23,    24,    25,    26,    27,    28,    29,
+      34,    31,    32,    33,    14,    20,    20,    16,    20,     2,
+      79,    21,    22,    23,    24,    25,    26,    27,    28,    29,
+      14,    31,    32,    33,    68,    41,    -1,    21,    22,    23,
       24,    25,    26,    27,    28,    29,    -1,    31,    32,    33,
        3,    -1,     5,    -1,     7,    -1,     9,    10,    11,    12,
       -1,    -1,     3,    -1,    -1,    -1,     7,    20,     9,    10,
@@ -642,9 +641,8 @@ static const yytype_int8 yycheck[] =
       29,    -1,    31,    32,    33,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    -1,    31,    32,    33,    21,
       22,    23,    24,    25,    26,    27,    28,    29,    -1,    31,
-      32,    33,    23,    24,    25,    26,    27,    28,    29,    -1,
-      31,    32,    33,    25,    26,    27,    28,    29,    -1,    31,
-      32,    33
+      32,    33,    21,    22,    23,    24,    25,    26,    27,    28,
+      29,    -1,    31
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -1360,7 +1358,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 93 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 94 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         ROOT = newast("program");
         astAddChild(ROOT, (yyvsp[0].astNode));
@@ -1369,39 +1367,39 @@ yyreduce:
         if(START_OK == 0) exit(0);
         astPrint(ROOT, 0);
     }
-#line 1373 "grammar.tab.c" /* yacc.c:1646  */
+#line 1371 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 103 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 104 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astAddChildrens(&ROOT_CHILDS, (yyvsp[0].astNode));
         (yyval.astNode) = ROOT_CHILDS;
     }
-#line 1382 "grammar.tab.c" /* yacc.c:1646  */
+#line 1380 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 107 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 108 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("decfunc");
         astAddChild(instantFather, (yyvsp[0].astNode));
         astAddChildrens(&ROOT_CHILDS, instantFather);
         (yyval.astNode) = ROOT_CHILDS;
     }
-#line 1393 "grammar.tab.c" /* yacc.c:1646  */
+#line 1391 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 113 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 114 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = NULL;
     }
-#line 1401 "grammar.tab.c" /* yacc.c:1646  */
+#line 1399 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 118 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 119 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *decvar_node = newast("decvar");
 
@@ -1418,35 +1416,35 @@ yyreduce:
             (yyval.astNode) = decvar_node;
         }
     }
-#line 1422 "grammar.tab.c" /* yacc.c:1646  */
+#line 1420 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 136 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 137 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = NULL;
     }
-#line 1430 "grammar.tab.c" /* yacc.c:1646  */
+#line 1428 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 139 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 140 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = (yyvsp[0].astNode);
     }
-#line 1438 "grammar.tab.c" /* yacc.c:1646  */
+#line 1436 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 144 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 145 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = (yyvsp[0].astNode);
     }
-#line 1446 "grammar.tab.c" /* yacc.c:1646  */
+#line 1444 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 149 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 150 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *id_node = newref("ID", (yyvsp[-4].symbolValue));
 
@@ -1458,11 +1456,11 @@ yyreduce:
 
         (yyval.astNode) = id_node;
     }
-#line 1462 "grammar.tab.c" /* yacc.c:1646  */
+#line 1460 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 160 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 161 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *id_node = newref("ID", (yyvsp[-3].symbolValue));
 
@@ -1473,11 +1471,11 @@ yyreduce:
 
         (yyval.astNode) = id_node;
     }
-#line 1477 "grammar.tab.c" /* yacc.c:1646  */
+#line 1475 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 172 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 173 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("block");
         
@@ -1486,93 +1484,93 @@ yyreduce:
         
         (yyval.astNode) = instantFather;
     }
-#line 1490 "grammar.tab.c" /* yacc.c:1646  */
+#line 1488 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 182 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 183 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astNodeBrothers((yyvsp[-1].astNode), (yyvsp[0].astNode));
      }
-#line 1498 "grammar.tab.c" /* yacc.c:1646  */
+#line 1496 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 185 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 186 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
 
      }
-#line 1506 "grammar.tab.c" /* yacc.c:1646  */
+#line 1504 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 188 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 189 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = NULL;
     }
-#line 1514 "grammar.tab.c" /* yacc.c:1646  */
+#line 1512 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 193 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 194 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = newref("ID", (yyvsp[0].symbolValue));
     }
-#line 1522 "grammar.tab.c" /* yacc.c:1646  */
+#line 1520 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 196 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 197 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *brother = newref("ID", (yyvsp[-2].symbolValue));
         astNodeBrothers(brother,(yyvsp[0].astNode));
         (yyval.astNode) = brother;
     }
-#line 1532 "grammar.tab.c" /* yacc.c:1646  */
+#line 1530 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 203 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 204 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astNodeBrothers((yyvsp[-2].astNode), (yyvsp[0].astNode));
     }
-#line 1540 "grammar.tab.c" /* yacc.c:1646  */
+#line 1538 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 206 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 207 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astNodeBrothers((yyvsp[-2].astNode), (yyvsp[0].astNode));
     }
-#line 1548 "grammar.tab.c" /* yacc.c:1646  */
+#line 1546 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 209 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 210 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astNodeBrothers((yyvsp[-1].astNode), (yyvsp[0].astNode));
     }
-#line 1556 "grammar.tab.c" /* yacc.c:1646  */
+#line 1554 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 212 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 213 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astNodeBrothers((yyvsp[-1].astNode), (yyvsp[0].astNode));
     }
-#line 1564 "grammar.tab.c" /* yacc.c:1646  */
+#line 1562 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 218 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 219 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = NULL;
     }
-#line 1572 "grammar.tab.c" /* yacc.c:1646  */
+#line 1570 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 223 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 224 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *id = newref("ID", (yyvsp[-2].symbolValue));
         if((yyvsp[0].astNode) != NULL){
@@ -1585,19 +1583,19 @@ yyreduce:
             (yyval.astNode) = id;
         }
     }
-#line 1589 "grammar.tab.c" /* yacc.c:1646  */
+#line 1587 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 235 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 236 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = NULL;
     }
-#line 1597 "grammar.tab.c" /* yacc.c:1646  */
+#line 1595 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 240 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 241 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("if");
         astAddChild(instantFather,(yyvsp[-3].astNode));
@@ -1607,265 +1605,269 @@ yyreduce:
         }
         (yyval.astNode) = instantFather;
     }
-#line 1611 "grammar.tab.c" /* yacc.c:1646  */
+#line 1609 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 251 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 252 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = NULL;
     }
-#line 1619 "grammar.tab.c" /* yacc.c:1646  */
+#line 1617 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 254 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 255 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = (yyvsp[0].astNode);
     }
-#line 1627 "grammar.tab.c" /* yacc.c:1646  */
+#line 1625 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 259 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 260 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("while");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1638 "grammar.tab.c" /* yacc.c:1646  */
+#line 1636 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 267 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 268 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("break");
         (yyval.astNode) = instantFather;
     }
-#line 1647 "grammar.tab.c" /* yacc.c:1646  */
+#line 1645 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 273 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 274 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("continue");
         (yyval.astNode) = instantFather;
     }
-#line 1656 "grammar.tab.c" /* yacc.c:1646  */
+#line 1654 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 279 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 280 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("return");
         astAddChild(instantFather,(yyvsp[-1].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1666 "grammar.tab.c" /* yacc.c:1646  */
+#line 1664 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 286 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 287 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astAddChild((yyvsp[-1].astNode),(yyvsp[0].astNode));
         (yyval.astNode) = (yyvsp[-1].astNode);
     }
-#line 1675 "grammar.tab.c" /* yacc.c:1646  */
+#line 1673 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 290 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 291 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = (yyvsp[-1].astNode);
     }
-#line 1683 "grammar.tab.c" /* yacc.c:1646  */
+#line 1681 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 293 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 294 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = (yyvsp[0].astNode);
     }
-#line 1691 "grammar.tab.c" /* yacc.c:1646  */
+#line 1689 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 296 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 297 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = newnum("DEC", (yyvsp[0].itype));
     }
-#line 1699 "grammar.tab.c" /* yacc.c:1646  */
+#line 1697 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 299 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 300 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = newref("ID", (yyvsp[0].symbolValue));
     }
-#line 1707 "grammar.tab.c" /* yacc.c:1646  */
+#line 1705 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 302 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 303 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("+");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1718 "grammar.tab.c" /* yacc.c:1646  */
+#line 1716 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 308 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 309 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("-");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1729 "grammar.tab.c" /* yacc.c:1646  */
+#line 1727 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 314 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 315 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("*");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1740 "grammar.tab.c" /* yacc.c:1646  */
+#line 1738 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 320 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 321 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("/");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1751 "grammar.tab.c" /* yacc.c:1646  */
+#line 1749 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 326 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 327 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("<");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1762 "grammar.tab.c" /* yacc.c:1646  */
+#line 1760 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 332 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 333 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("<=");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1773 "grammar.tab.c" /* yacc.c:1646  */
+#line 1771 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 338 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 339 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast(">");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1784 "grammar.tab.c" /* yacc.c:1646  */
+#line 1782 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 344 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 345 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast(">=");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1795 "grammar.tab.c" /* yacc.c:1646  */
+#line 1793 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 350 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 351 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("==");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1806 "grammar.tab.c" /* yacc.c:1646  */
+#line 1804 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 356 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 357 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("!=");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1817 "grammar.tab.c" /* yacc.c:1646  */
+#line 1815 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 362 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 363 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("&&");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1828 "grammar.tab.c" /* yacc.c:1646  */
+#line 1826 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 368 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 369 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("||");
         astAddChild(instantFather,(yyvsp[-2].astNode));
         astAddChild(instantFather,(yyvsp[0].astNode));
         (yyval.astNode) = instantFather;
     }
-#line 1839 "grammar.tab.c" /* yacc.c:1646  */
+#line 1837 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 376 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 377 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = newast("-");
     }
-#line 1847 "grammar.tab.c" /* yacc.c:1646  */
+#line 1845 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 379 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 380 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         (yyval.astNode) = newast("!");
     }
-#line 1855 "grammar.tab.c" /* yacc.c:1646  */
+#line 1853 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 384 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 385 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("funccall");
         astAddChild(instantFather, newref("ID", (yyvsp[-2].symbolValue)));
+
+        struct ast *argument_list = newast("arglist");
+        astAddChild(instantFather, argument_list);
+
         (yyval.astNode) = instantFather;
     }
-#line 1865 "grammar.tab.c" /* yacc.c:1646  */
+#line 1867 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 389 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 394 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         struct ast *instantFather = newast("funccall");
         
@@ -1878,28 +1880,28 @@ yyreduce:
         //astAddChild(instantFather, $3);
         (yyval.astNode) = instantFather;
     }
-#line 1882 "grammar.tab.c" /* yacc.c:1646  */
+#line 1884 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 403 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 408 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         //$$ = $1;
     }
-#line 1890 "grammar.tab.c" /* yacc.c:1646  */
+#line 1892 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 406 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
+#line 411 "compiler/front/parser/grammar.y" /* yacc.c:1646  */
     {
         astNodeBrothers((yyvsp[-2].astNode), (yyvsp[0].astNode));
         //$$ = $1;
     }
-#line 1899 "grammar.tab.c" /* yacc.c:1646  */
+#line 1901 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1903 "grammar.tab.c" /* yacc.c:1646  */
+#line 1905 "grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2127,7 +2129,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 411 "compiler/front/parser/grammar.y" /* yacc.c:1906  */
+#line 416 "compiler/front/parser/grammar.y" /* yacc.c:1906  */
 
 
 void yyerror(char const *err){

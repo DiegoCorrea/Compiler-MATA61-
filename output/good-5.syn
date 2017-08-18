@@ -1,1 +1,0 @@
-[program [decvar [a ]][decfunc [main ][paramlist ][block [decvar [a ][funccall [lara ][arglist [+ [5 ][5 ]][10 ][- [- [25 ][10 ]][15 ]]]]]]][decfunc [lara ][paramlist [a ][b ][c ]][block [decvar [d ][* [a ][10 ]]][if [+ [+ [<= [d ][a ]][b ]][c ]][block [decvar [p ]][funccall [luzia ][arglist [d ]]]]]]][decfunc [luzia ][paramlist [d ]][block [if [> [d ][0 ]][block ][block ]]]]]

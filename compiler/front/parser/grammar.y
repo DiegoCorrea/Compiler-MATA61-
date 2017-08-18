@@ -385,6 +385,10 @@ funccall:
     ID LPARENT RPARENT {
         struct ast *instantFather = newast("funccall");
         astAddChild(instantFather, newref("ID", $1));
+
+        struct ast *argument_list = newast("arglist");
+        astAddChild(instantFather, argument_list);
+
         $$ = instantFather;
     }
     | ID LPARENT arglist RPARENT {
