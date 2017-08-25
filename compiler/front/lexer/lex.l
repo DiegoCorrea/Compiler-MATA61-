@@ -15,8 +15,8 @@ comment     "//".*
 error       (^{id}|^{number}|^{whitespace})
 
 %%
-{comment}	    
-{whitespace}  
+{comment}
+{whitespace}
 "let"         { return LET_T; }
 "def"         { return DEF_T; }
 "if"          { return IF_T; }

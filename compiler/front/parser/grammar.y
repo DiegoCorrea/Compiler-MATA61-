@@ -3,7 +3,7 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-  #include "tree.h"
+  #include "./tree.h"
 
   int yylex(void);
   void yyerror(char const *);
@@ -13,8 +13,9 @@
 
   struct ast *ROOT;
   struct ast *ROOT_CHILDS = NULL;
-
   int START_OK = 0;
+
+  struct symbol symtab[NHASH];
 %}
 %union {
     int itype;
@@ -22,10 +23,6 @@
 
     struct symbol *symbolValue;
     struct symlist *symbolList;
-}
-%code requires
-{
-    #include "tree.h"
 }
 
 %type <astNode> start program decvar decvarassign decfunc decfuncids
@@ -91,93 +88,91 @@
 
 %%
 start:
-    program {
-        ROOT = newast("program");
-        astAddChild(ROOT, $1);
+  program {
+    ROOT = newast("program");
+    astAddChild(ROOT, $1);
 
-        semanticCheck(ROOT, 0, NULL, NULL);
-        if(START_OK == 0) exit(0);
-        astPrint(ROOT, 0);
-    }
+    semanticCheck(ROOT, 0, NULL, NULL);
+    astPrint(ROOT, 0);
+  }
 ;
 program:
-    program decvar {
-        astAddChildrens(&ROOT_CHILDS, $2);
-        $$ = ROOT_CHILDS;
-    }
-    | program decfunc {
-        struct ast *instantFather = newast("decfunc");
-        astAddChild(instantFather, $2);
-        astAddChildrens(&ROOT_CHILDS, instantFather);
-        $$ = ROOT_CHILDS;
-    }
-    | %empty {
-        $$ = NULL;
-    }
+  program decvar {
+    astAddChildrens(&ROOT_CHILDS, $2);
+    $$ = ROOT_CHILDS;
+  }
+  | program decfunc {
+    struct ast *instantFather = newast("decfunc");
+    astAddChild(instantFather, $2);
+    astAddChildrens(&ROOT_CHILDS, instantFather);
+    $$ = ROOT_CHILDS;
+  }
+  | %empty {
+    $$ = NULL;
+  }
 ;
 decvar:
-    LET_T ID decvarassign SEMICOLON {
-        struct ast *decvar_node = newast("decvar");
+  LET_T ID decvarassign SEMICOLON {
+    struct ast *decvar_node = newast("decvar");
 
-        struct ast *id_node = newref("ID", $2);
-        astAddChild(decvar_node, id_node);
-        if($3 != NULL){
-            //struct ast *assign_node = newast("assign");
+    struct ast *id_node = newref("ID", $2);
+    astAddChild(decvar_node, id_node);
 
-            astAddChild(decvar_node, $3);
-            //astAddChild(decvar_node, assign_node);
-            $$ = decvar_node;
-        }
-        else{
-            $$ = decvar_node;
-        }
+    if($3 != NULL){
+      astAddChild(decvar_node, $3);
+
+      $$ = decvar_node;
     }
+    else{
+      $$ = decvar_node;
+    }
+  }
 ;
 decvarassign:
-    %empty                                  {
-        $$ = NULL;
+    %empty {
+      $$ = NULL;
     }
     | ASSIGN  expr {
-        $$ = $2;
+      $$ = $2;
     }
 ;
 decfunc:
-    DEF_T decfuncids {
-        $$ = $2;
-    }
+  DEF_T decfuncids {
+    $$ = $2;
+  }
 ;
 decfuncids:
-    ID  LPARENT  paramlist  RPARENT  block {
-        struct ast *id_node = newref("ID", $1);
+  ID  LPARENT  paramlist  RPARENT  block {
+    struct ast *id_node = newref("ID", $1);
 
-        struct ast *paramlist_node = newast("paramlist");
-        astAddChild(paramlist_node, $3);
+    struct ast *paramlist_node = newast("paramlist");
+    astAddChild(paramlist_node, $3);
 
-        astNodeBrothers(id_node, paramlist_node);
-        astNodeBrothers(id_node, $5);
+    astNodeBrothers(id_node, paramlist_node);
+    astNodeBrothers(id_node, $5);
 
-        $$ = id_node;
-    }
-    | ID  LPARENT RPARENT  block {
-        struct ast *id_node = newref("ID", $1);
+    $$ = id_node;
+  }
+  | ID  LPARENT RPARENT  block {
+    struct ast *id_node = newref("ID", $1);
 
-        struct ast *paramlist_node = newast("paramlist");
-        astNodeBrothers(id_node, paramlist_node);
+    struct ast *paramlist_node = newast("paramlist");
+    astNodeBrothers(id_node, paramlist_node);
 
-        astNodeBrothers(id_node, $4);
+    astNodeBrothers(id_node, $4);
 
-        $$ = id_node;
-    }
+    $$ = id_node;
+  }
 ;
 block:
-    LBRACE  blockstatements RBRACE {
-        struct ast *instantFather = newast("block");
+  LBRACE  blockstatements RBRACE {
+    struct ast *instantFather = newast("block");
 
-        if($2 != NULL)
-            astAddChild(instantFather, $2);
+    if($2 != NULL)
+        astAddChild(instantFather, $2);
 
-        $$ = instantFather;
-    }
+    $$ = instantFather;
+  }
 ;
 blockstatements:
      decvar blockstatements {
@@ -191,84 +186,84 @@ blockstatements:
     }
 ;
 paramlist:
-    ID {
-        $$ = newref("ID", $1);
-    }
-    | ID COMMA paramlist {
-        struct ast *brother = newref("ID", $1);
-        astNodeBrothers(brother,$3);
-        $$ = brother;
-    }
+  ID {
+    $$ = newref("ID", $1);
+  }
+  | ID COMMA paramlist {
+    struct ast *brother = newref("ID", $1);
+    astNodeBrothers(brother,$3);
+    $$ = brother;
+  }
 ;
 statement:
-    assigner SEMICOLON statement {
-        astNodeBrothers($1, $3);
-    }
-    | funccall SEMICOLON statement {
-        astNodeBrothers($1, $3);
-    }
-    | conditional statement {
-        astNodeBrothers($1, $2);
-    }
-    | loop statement {
-        astNodeBrothers($1, $2);
-    }
-    | return
-    | break
-    | continue
-    | %empty{
-        $$ = NULL;
-    }
+  assigner SEMICOLON statement {
+    astNodeBrothers($1, $3);
+  }
+  | funccall SEMICOLON statement {
+    astNodeBrothers($1, $3);
+  }
+  | conditional statement {
+    astNodeBrothers($1, $2);
+  }
+  | loop statement {
+    astNodeBrothers($1, $2);
+  }
+  | return
+  | break
+  | continue
+  | %empty{
+    $$ = NULL;
+  }
 ;
 assigner:
-    ID ASSIGN  expr {
-        struct ast *id = newref("ID", $1);
-        if($3 != NULL){
-            struct ast *assign = newast("assign");
-            astAddChild(assign,id);
-            astAddChild(assign,$3);
-            $$ = assign;
-        }
-        else{
-            $$ = id;
-        }
+  ID ASSIGN  expr {
+    struct ast *id = newref("ID", $1);
+    if($3 != NULL){
+      struct ast *assign = newast("assign");
+      astAddChild(assign,id);
+      astAddChild(assign,$3);
+      $$ = assign;
     }
-    | %empty{
-        $$ = NULL;
+    else{
+      $$ = id;
     }
+  }
+  | %empty{
+    $$ = NULL;
+  }
 ;
 conditional:
-    IF_T LPARENT expr RPARENT block elseconditional {
-        struct ast *instantFather = newast("if");
-        astAddChild(instantFather,$3);
-        astAddChild(instantFather,$5);
-        if($6 != NULL){
-            astAddChild(instantFather,$6);
-        }
-        $$ = instantFather;
+  IF_T LPARENT expr RPARENT block elseconditional {
+    struct ast *instantFather = newast("if");
+    astAddChild(instantFather,$3);
+    astAddChild(instantFather,$5);
+    if($6 != NULL){
+      astAddChild(instantFather,$6);
     }
+    $$ = instantFather;
+  }
 ;
 elseconditional:
-    %empty {
-        $$ = NULL;
-    }
-    | ELSE_T block {
-        $$ = $2;
-    }
+  %empty {
+    $$ = NULL;
+  }
+  | ELSE_T block {
+    $$ = $2;
+  }
 ;
 loop:
-    WHILE_T  LPARENT expr RPARENT block{
-        struct ast *instantFather = newast("while");
-        astAddChild(instantFather,$3);
-        astAddChild(instantFather,$5);
-        $$ = instantFather;
-    }
+  WHILE_T  LPARENT expr RPARENT block{
+    struct ast *instantFather = newast("while");
+    astAddChild(instantFather,$3);
+    astAddChild(instantFather,$5);
+    $$ = instantFather;
+  }
 ;
 break:
-    BREAK_T SEMICOLON {
-        struct ast *instantFather = newast("break");
-        $$ = instantFather;
-    }
+  BREAK_T SEMICOLON {
+    struct ast *instantFather = newast("break");
+    $$ = instantFather;
+  }
 ;
 continue:
     CONTINUE_T SEMICOLON {
@@ -416,8 +411,7 @@ arglist:
 %%
 
 void yyerror(char const *err){
-  printf("Error na linha %d: %s\n", yylineno, err);
-  //printf("%d: %s at '%s'\n", yylineno, err, yytext);
+  printf("[PARSER] Error na linha %d.\nMensagem: %s\n", yylineno, err);
   exit(1);
 }
 void readFromFile( argc, argv )
@@ -434,8 +428,7 @@ void readFromFile( argc, argv )
 struct ast *newast(char nodetype[MAX_NODE_TYPE]) {
     struct ast *no = (struct ast *)malloc(sizeof(struct ast));
     if(!no) {
-        //yyerror("out of space");
-        exit(0);
+      exit(0);
     }
 
     strcpy(no->nodetype,nodetype);
@@ -507,24 +500,6 @@ void astPrint(struct ast *father, int tab){
             printf("\t");
             //fprintf(fl_output,"\t");
         }
-
-        /*
-        switch(walker->nodetype) {
-            case "DEC":
-                printf("[%d \n", walker->dec.number);
-                fprintf(fl_output,"[%d \n", walker->dec.number);
-            break;
-            case "ID":
-                printf("[%s \n", walker->nodetype);
-                fprintf(fl_output,"[%s \n", walker->nodetype);
-            break;
-            default:
-                printf("[%s \n", walker->nodetype);
-                fprintf(fl_output,"[%s \n", walker->nodetype);
-            break;
-        }
-        */
-
         if(strcmp(walker->nodetype,"DEC") == 0){
             printf("[%d \n", walker->dec.number);
             fprintf(fl_output,"[%d ", walker->dec.number);
@@ -536,8 +511,6 @@ void astPrint(struct ast *father, int tab){
             printf("[%s \n", walker->nodetype);
             fprintf(fl_output,"[%s ", walker->nodetype);
         }
-
-
         if(walker->childrens != NULL)
             astPrint(walker->childrens,tab+1);
 

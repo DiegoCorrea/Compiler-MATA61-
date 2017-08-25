@@ -39,12 +39,6 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
-/* "%code requires" blocks.  */
-#line 27 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
-
-    #include "tree.h"
-
-#line 48 "grammar.tab.h" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -93,7 +87,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 19 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
+#line 20 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
 
     int itype;
     struct ast *astNode;
@@ -101,7 +95,7 @@ union YYSTYPE
     struct symbol *symbolValue;
     struct symlist *symbolList;
 
-#line 105 "grammar.tab.h" /* yacc.c:1909  */
+#line 99 "grammar.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -3,19 +3,37 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../front/parser/tree.h"
+#include "./codeGenerator.h"
 
-extern "C" {
-
+void codeGenerator(struct ast *ASTROOT){
+  if (ASTROOT != NULL) {
+    printf("[CODE GEN]ASTROOT Com estrutura\n");
+    astPrintBack(ASTROOT,0);
+  } else {
+    printf("[CODE GEN]ASTROOT = NULL\n");
+  }
 }
-extern int yylineno;
-extern char* yytext;
-extern FILE *fl_output;
-extern struct ast *ROOT;
-extern struct ast *ROOT_CHILDS;
+void astPrintBack(struct ast *father, int tab){
+    struct ast *walker;
 
+    for(walker = father; walker != NULL; walker = walker->nextBrother){
+        for(int i = 0; i < tab; i++){
+            printf("\t");
+        }
+        if(strcmp(walker->nodetype,"DEC") == 0){
+            printf("[%d \n", walker->dec.number);
+        } else if(strcmp(walker->nodetype,"ID") == 0){
+            char *name = walker->identification->name;
+            printf("[%s \n", name);
+        } else{
+            printf("[%s \n", walker->nodetype);
+        }
+        if(walker->childrens != NULL)
+            astPrintBack(walker->childrens,tab+1);
 
-int codeGenerator(int argc, char** argv){
-  
-  return 0;
+        for(int i = 0; i < tab; i++){
+            printf("\t");
+        }
+        printf("]\n");
+    }
 }
