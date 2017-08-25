@@ -4,7 +4,7 @@
   #include <stdlib.h>
   #include <string.h>
   #include "tree.h"
-  
+
   int yylex(void);
   void yyerror(char const *);
   FILE *yyin;
@@ -79,18 +79,18 @@
 
 %token ERROR
 
-%left AND OR 
+%left AND OR
 %left EQUAL
 %left BIGGERTHAN LESSTHAN NOTEQUAL LESSOREQUAL BIGGEROREQUAL
 %left PLUS MINUS
-%left MULTIPLY DIVIDER 
+%left MULTIPLY DIVIDER
 %nonassoc UMINUS NOT
 
 
 %start start
 
 %%
-start: 
+start:
     program {
         ROOT = newast("program");
         astAddChild(ROOT, $1);
@@ -123,7 +123,7 @@ decvar:
         astAddChild(decvar_node, id_node);
         if($3 != NULL){
             //struct ast *assign_node = newast("assign");
-            
+
             astAddChild(decvar_node, $3);
             //astAddChild(decvar_node, assign_node);
             $$ = decvar_node;
@@ -172,10 +172,10 @@ decfuncids:
 block:
     LBRACE  blockstatements RBRACE {
         struct ast *instantFather = newast("block");
-        
+
         if($2 != NULL)
             astAddChild(instantFather, $2);
-        
+
         $$ = instantFather;
     }
 ;
@@ -190,7 +190,7 @@ blockstatements:
         $$ = NULL;
     }
 ;
-paramlist: 
+paramlist:
     ID {
         $$ = newref("ID", $1);
     }
@@ -237,7 +237,7 @@ assigner:
         $$ = NULL;
     }
 ;
-conditional: 
+conditional:
     IF_T LPARENT expr RPARENT block elseconditional {
         struct ast *instantFather = newast("if");
         astAddChild(instantFather,$3);
@@ -393,9 +393,9 @@ funccall:
     }
     | ID LPARENT arglist RPARENT {
         struct ast *instantFather = newast("funccall");
-        
+
         astAddChild(instantFather, newref("ID", $1));
-        
+
         struct ast *argument_list = newast("arglist");
         astAddChild(argument_list, $3);
 
@@ -424,7 +424,7 @@ void readFromFile( argc, argv )
 	int argc;
 	char **argv;
 {
-    
+
 	++argv, --argc;	/* skip over program name */
 	if ( argc > 0 )
 		yyin = fopen( argv[0], "r" );
@@ -437,7 +437,7 @@ struct ast *newast(char nodetype[MAX_NODE_TYPE]) {
         //yyerror("out of space");
         exit(0);
     }
-    
+
     strcpy(no->nodetype,nodetype);
     no->childrens = NULL;
     no->nextBrother = NULL;
@@ -473,10 +473,10 @@ struct ast *newnum(char nodetype[MAX_NODE_TYPE], int number){
         //yyerror("out of space");
         exit(0);
     }
-    
+
     strcpy(no->nodetype,nodetype);
     no->dec.number = number;
-    
+
     no->childrens = NULL;
     no->nextBrother = NULL;
     no->previousBrother = NULL;
@@ -489,7 +489,7 @@ struct ast *newref(char nodetype[MAX_NODE_TYPE], struct symbol *name){
         //yyerror("out of space");
         exit(0);
     }
-    
+
     strcpy(no->nodetype,nodetype);
     no->identification = name;
     //printf("\n\n=====LEX: %s ===============\n\n",  no->identification->name);
@@ -504,10 +504,10 @@ void astPrint(struct ast *father, int tab){
 
     for(walker = father; walker != NULL; walker = walker->nextBrother){
         for(int i = 0; i < tab; i++){
-            printf("\t");            
-            //fprintf(fl_output,"\t");            
+            printf("\t");
+            //fprintf(fl_output,"\t");
         }
-        
+
         /*
         switch(walker->nodetype) {
             case "DEC":
@@ -524,7 +524,7 @@ void astPrint(struct ast *father, int tab){
             break;
         }
         */
-        
+
         if(strcmp(walker->nodetype,"DEC") == 0){
             printf("[%d \n", walker->dec.number);
             fprintf(fl_output,"[%d ", walker->dec.number);
@@ -536,14 +536,14 @@ void astPrint(struct ast *father, int tab){
             printf("[%s \n", walker->nodetype);
             fprintf(fl_output,"[%s ", walker->nodetype);
         }
-        
+
 
         if(walker->childrens != NULL)
             astPrint(walker->childrens,tab+1);
 
         for(int i = 0; i < tab; i++){
             printf("\t");
-            //fprintf(fl_output,"\t");  
+            //fprintf(fl_output,"\t");
         }
         printf("]\n");
         fprintf(fl_output,"]");
@@ -584,7 +584,7 @@ static unsigned symhash(char *sym){
 struct symbol *lookup(char* sym) {
     struct symbol *sp = &symtab[symhash(sym)%NHASH];
     int scount = NHASH;
-  
+
     while(--scount >= 0) {
         if(sp->name && !strcmp(sp->name, sym)) { return sp; }
         if(!sp->name) {
@@ -623,20 +623,20 @@ void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_sta
     struct ast *walkerAST;
     for(walkerAST = father; walkerAST != NULL; walkerAST = walkerAST->nextBrother){
         struct vardeclaration *var_node = (struct vardeclaration *)malloc(sizeof(struct vardeclaration));
-        
+
         if(strcmp(walkerAST->nodetype,"decvar") == 0){
             if(walkerAST->childrens->nextBrother != NULL){
                 semanticCheck(walkerAST->childrens->nextBrother, nivel+1, var_stack, func_stack);
             }
                 //var_node->sym = walkerAST->childrens->childrens->identification;
                 //var_node->nivel = nivel;
-                
+
                 //printf("\n=========Assign: %s", var_node->sym->name);
-                
+
                 //var_stack = symStackPush(var_stack, var_node);
                // printf("\n=========Semantico add VAR: %s", var_node->sym->name);
 
-            
+
                 var_node->sym = walkerAST->childrens->identification;
                 var_node->nivel = nivel;
 
@@ -655,7 +655,7 @@ void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_sta
             func_stack = symStackPush(func_stack, var_node);
 
             walkChild = walkChild->nextBrother;
-            
+
             for(struct ast *params_node = walkChild->childrens; params_node != NULL; params_node = params_node->nextBrother){
                 var_node = (struct vardeclaration *)malloc(sizeof(struct vardeclaration));
 
@@ -665,22 +665,22 @@ void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_sta
                 var_stack = symStackPush(var_stack, var_node);
             }
 
-            
+
             //printf("\n=========Semantico add FUNCCCCC: %s", help->nodetype);
-            
+
             //semanticCheck(help, nivel+1, var_stack, func_stack);
         }else if(strcmp(walkerAST->nodetype,"funccall") == 0){
             if(onVarStack(func_stack, walkerAST->childrens->identification) == 0){
                 printf("\n=========%s: Na Pilha", walkerAST->identification->name);
             } else {
                 exit(0);
-            } 
+            }
         } else if(strcmp(walkerAST->nodetype,"ID") == 0){
             if(onVarStack(var_stack, walkerAST->identification) == 0){
                 printf("\n=========%s: Na Pilha", walkerAST->identification->name);
             } else {
                 exit(0);
-            } 
+            }
         } else{
             semanticCheck(walkerAST->childrens, nivel+1, var_stack, func_stack);
         }

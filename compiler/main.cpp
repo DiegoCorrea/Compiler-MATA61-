@@ -4,17 +4,19 @@ extern "C" {
   void yyerror(const char *);
   int yylex();
   void readFromFile(int argc, char** argv);
+  void codeGenerator(int argc, char** argv);
 }
 extern int yylineno;
 extern char* yytext;
 extern FILE *fl_output;
 
-void lexical(int argc, char** argv);
+//void lexical(int argc, char** argv);
 void parser(int argc, char** argv);
 
 int main(int argc, char** argv){
   //lexical(argc, argv);
   parser(argc, argv);
+  codeGenerator(argc, argv);
   return 0;
 }
 void parser(int argc, char** argv){
@@ -23,11 +25,12 @@ void parser(int argc, char** argv){
 
   int parser_result = yyparse();
   if(parser_result == 0){
-    printf("Eh Valida\n");
+    printf("[Parser] AST Gerada\n");
   } else{
-    printf("Invalida!\n");
+    printf("[Parser] Entrada Invalida. Geração da AST abortada!\n");
+    exit
   }
-  printf("Total de linhas: %d\n", yylineno);
+  printf("[Parser] Total de linhas no arquivo: %d\n", yylineno);
   fclose( fl_output );
 }
 
