@@ -18,7 +18,7 @@ lex:
 
 test:
 	$(MAKE) all
-	./compilador input/good-0.jsc output/good-0.syn
+	./compilador input/codeGen/good-0.jsc output/codeGen/good-0.syn
 
 report:
 	 bison -d -r all --report-file=compiler/front/front.log compiler/front/lexer/grammar.y

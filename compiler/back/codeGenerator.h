@@ -2,8 +2,25 @@
 #define __CODEGENERATOR_H
 #include "../front/parser/tree.h"
 
-void codeGenerator(struct ast *ASTROOT);
-void astPrintBack(struct ast *father, int tab);
+void astPrintBack(struct ast *ASTROOT, int tab);
+/* Code Gen */
+void codeGenerator(struct ast *ASTROOT, char** argv);
+void codeGen(struct ast *ASTROOT);
+/* Code Gen Global Variables*/
+void codeGenGlobalVariables(struct ast *ASTROOT);
+void codeGenSingleGlobalVariable(char const *varName);
 
+/**/
+void codeGenPrintIntegerOnScreen();
 
+/**/
+void codeGenStartMips(struct ast *ASTROOT);
+void codeGenPushFunction(struct ast *ASTROOT);
+void codeGenFunction(struct ast *ASTROOT);
+void codeGenPushFunction(struct ast *ASTROOT);
+void codeGenFunctionLoadParameters();
+void codeGenFunctionBlock();
+void codeGenPopFunction();
+/**/
+void codeGenSum();
 #endif // __CODEGENERATOR_H

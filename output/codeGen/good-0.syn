@@ -1,0 +1,16 @@
+.globl __start
+.data 
+  Nada:	.word	1
+  Dupla:	.word	1
+  Mais:	.word	1
+.text
+  move $fp, $sp
+  sw $ra, 0($sp)
+  addiu $sp, $sp, -4
+  addiu	$sp, $sp, 4
+  jr $ra
+
+__start:
+  move $fp, $sp
+  sw $ra, 0($sp)
+  addiu $sp, $sp, -4

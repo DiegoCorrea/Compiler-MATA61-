@@ -16,12 +16,12 @@ extern FILE *fl_output;
 extern struct ast *ROOT;
 
 void front(int argc, char** argv);
-void back(struct ast *ASTROOT);
+void back(struct ast *ASTROOT, char** argv);
 
 int main(int argc, char** argv){
   front(argc, argv);
   printf("\n");
-  back(ROOT);
+  back(ROOT, argv);
   return 0;
 }
 
@@ -39,10 +39,10 @@ void front(int argc, char** argv){
   fclose( fl_output );
 }
 
-void back(struct ast *ASTROOT){
+void back(struct ast *ASTROOT, char** argv){
   if (ASTROOT != NULL) {
     printf("[BACK]ASTROOT Com estrutura\n");
-    codeGenerator(ASTROOT);
+    codeGenerator(ASTROOT, argv);
   } else {
     printf("[BACK]ASTROOT = NULL\n");
   }
