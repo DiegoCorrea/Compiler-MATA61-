@@ -6,7 +6,19 @@ let e = 8;
 let f = 0;
 let g = 5;
 
-let essavariavelehgrandecomoaporra = 999999999;
+let essavariavelehgrandecomoaporra = 9999999;
 def main (){
+
+}
+
+def somando (){
+
+}
+
+def pulando (){
+
+}
+
+def andando (){
 
 }
