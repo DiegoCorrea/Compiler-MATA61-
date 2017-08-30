@@ -7,4 +7,10 @@
   e: 	 .word 	 0 
   f: 	 .word 	 0 
   g: 	 .word 	 0 
+  essavariavelehgrandecomoaporra: 	 .word 	 0 
 .text
+
+__start:
+  sw $fp, 0($sp)
+  li $v0, 10
+  syscall

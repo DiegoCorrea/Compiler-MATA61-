@@ -7,15 +7,10 @@
 
 struct ast {
     char nodetype[MAX_NODE_TYPE];
-    int nodeTypeCoded;
 
     union {
-		int number;
+		    int number;
     } dec;
-
-    union{
-        struct symbol *s;
-    }id;
 
     struct ast *childrens;
     struct ast *nextBrother;
@@ -23,11 +18,6 @@ struct ast {
 
     struct symbol *identification;
 };
-struct numval {
-    char nodetype[MAX_NODE_TYPE];
-    int number;
-};
-
 struct ast *newast(char nodetype[MAX_NODE_TYPE]);
 struct ast *newnum(char nodetype[MAX_NODE_TYPE], int d);
 struct ast *newref(char nodetype[MAX_NODE_TYPE], struct symbol *name);
@@ -60,7 +50,7 @@ static unsigned symhash(char *sym);
 /* list of symbols, for an argument list */
 struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
 
-
+////////////////////////////////////////////////////////////////////
 /* semantica */
 
 struct vardeclaration {

@@ -33,12 +33,12 @@ void astPrintBack(struct ast *ASTROOT, int tab){
 //////////////////////////////////////////////////////
 void codeGenerator(struct ast *ASTROOT, char** argv){
   MIPS_FILE = fopen(argv[2], "w+" );
-  fprintf(MIPS_FILE, ".globl __start\n");
 
   if (ASTROOT != NULL) {
     printf("[CODE GEN]ASTROOT Com estrutura\n");
     astPrintBack(ASTROOT,0);
 
+    printf("\n\n--[Code Gen Start]\n\n");
     codeGen(ASTROOT);
   } else {
     printf("[CODE GEN]ASTROOT = NULL\n");
@@ -46,26 +46,52 @@ void codeGenerator(struct ast *ASTROOT, char** argv){
   fclose( MIPS_FILE );
 }
 void codeGen(struct ast *ASTROOT){
+  printf(".globl __start\n");
+  fprintf(MIPS_FILE, ".globl __start\n");
+  printf(".data \n");
   fprintf(MIPS_FILE, ".data \n");
-  codeGenGlobalVariables(ASTROOT);
+
+  codeGenGlobalVariables(ASTROOT->childrens);
+
+  printf(".text\n");
   fprintf(MIPS_FILE, ".text\n");
-  codeGenFunction(ASTROOT);
+  //codeGenFunction(ASTROOT);
   codeGenStartMips(ASTROOT);
 }
 void codeGenStartMips(struct ast *ASTROOT){
+  printf("\n__start:\n");
   fprintf(MIPS_FILE, "\n__start:\n");
-  codeGenPushFunction(ASTROOT);
+
+  printf("  sw $fp, 0($sp)\n");
+  fprintf(MIPS_FILE, "  sw $fp, 0($sp)\n");
+
+  printf("  addiu $sp, $sp, -4\n");
+  //fprintf(MIPS_FILE, "  jal _f_main\n");
+
+  printf("  li $v0, 10\n");
+  fprintf(MIPS_FILE, "  li $v0, 10\n");
+
+  printf("  syscall\n");
+  fprintf(MIPS_FILE, "  syscall\n");
 }
 void codeGenGlobalVariables(struct ast *ASTROOT){
-  char const *tmp = "Nada";
-  codeGenSingleGlobalVariable(tmp);
-  tmp = "Dupla";
-  codeGenSingleGlobalVariable(tmp);
-  tmp = "Mais";
-  codeGenSingleGlobalVariable(tmp);
+  for(struct ast *walker = ASTROOT; walker != NULL; walker = walker->nextBrother){
+    if (strcmp(walker->nodetype,"decvar") == 0) {
+
+      codeGenSingleGlobalVariable(walker->childrens);
+    }
+  }
 }
-void codeGenSingleGlobalVariable(char const *varName) {
-  fprintf(MIPS_FILE, "  %s:\t.word\t1\n", varName);
+void codeGenSingleGlobalVariable(struct ast *variable) {
+  char *name = variable->identification->name;
+  if (variable->nextBrother != NULL) {
+    printf("  %s: \t .word \t %d \n", name,variable->dec.number);
+    fprintf(MIPS_FILE, "  %s: \t .word \t %d \n", variable->identification->name,variable->dec.number);
+  } else {
+    printf("  %s: \t .word \n", variable->identification->name);
+    fprintf(MIPS_FILE, "  %s: \t .word \n", variable->identification->name);
+  }
+
 }
 void codeGenPrintIntegerOnScreen() {
   fprintf(MIPS_FILE, "  li $v0, 1\n");

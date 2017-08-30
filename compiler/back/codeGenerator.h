@@ -8,7 +8,7 @@ void codeGenerator(struct ast *ASTROOT, char** argv);
 void codeGen(struct ast *ASTROOT);
 /* Code Gen Global Variables*/
 void codeGenGlobalVariables(struct ast *ASTROOT);
-void codeGenSingleGlobalVariable(char const *varName);
+void codeGenSingleGlobalVariable(struct ast *ASTROOT);
 
 /**/
 void codeGenPrintIntegerOnScreen();

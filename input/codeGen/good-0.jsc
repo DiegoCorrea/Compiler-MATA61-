@@ -1,4 +1,12 @@
+let a = 150152;
 let b;
+let c;
+let d;
+let e = 8;
+let f = 0;
+let g = 5;
+
+let essavariavelehgrandecomoaporra = 999999999;
 def main (){
 
 }
