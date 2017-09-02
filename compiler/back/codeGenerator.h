@@ -1,8 +1,12 @@
-#ifndef __CODEGENERATOR_H
-#define __CODEGENERATOR_H
-#include "../front/parser/tree.h"
+# ifndef __CODEGENERATOR_H
+# define __CODEGENERATOR_H
+# include "../front/parser/tree.h"
 
 /*          Pilha de Variaveis         */
+// type:
+//b -> fim da pilha
+//f -> frame pointer
+//s -> stack pointer
 struct registerStack {
   int offset;
   struct symbol *id;
@@ -34,17 +38,21 @@ void codeGenFunctions(struct ast *ASTROOT);
 void codeGenFunctionCreateLabel(struct ast *ASTROOT);
 struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack);
 
-void codeGenPushFunction(struct ast *ASTROOT);
-
 struct registerStack *codeGenFunctionLoadParameters(struct ast *, struct registerStack *);
 
-void codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack);
-void codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack);
-void codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack);
+struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack);
+struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack);
+struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack);
 
+void codeGenPushFunction(struct ast *ASTROOT);
 void codeGenPopFunction();
 /**/
 void codeGenSum();
+
+/**/
+void codeGenAssign(struct ast *tree, struct registerStack *stack);
+void codeGenExpr(struct ast *tree, struct registerStack *stack);
+/**/
 
 
 void prinStack(struct registerStack *stack);

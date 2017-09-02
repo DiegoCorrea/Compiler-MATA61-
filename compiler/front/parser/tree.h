@@ -1,8 +1,8 @@
-#ifndef __TREE_H
-#define __TREE_H
+# ifndef __TREE_H
+# define __TREE_H
 
-#define MAX_NODE_TYPE 63
-#define NHASH 9997
+# define MAX_NODE_TYPE 63
+# define NHASH 9997
 
 
 struct ast {

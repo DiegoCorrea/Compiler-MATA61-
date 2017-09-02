@@ -106,16 +106,16 @@ void codeGenFunctions(struct ast *ASTROOT){
       struct registerStack *blockStack = newVariableOnStack(NULL, 0, 'b');
       codeGenFunctionCreateLabel(id);
       blockStack = codeGenFunctionActivationRecord(paramsTree->childrens, blockStack);
-      //codeGenFunctionBlock(blockTree, blockStack);
-      //codeGenPopFunction();
-      prinStack(blockStack);
+      blockStack = codeGenFunctionBlock(blockTree, blockStack);
+      codeGenPopFunction();
+      //prinStack(blockStack);
     }
   }
   codeGenPrintFunction();
 }
 void codeGenFunctionCreateLabel(struct ast *func){
-  printf("_func_%s:\n", func->identification->name);
-  fprintf(MIPS_FILE, "_func_%s:\n", func->identification->name);
+  printf("\n_func_%s:\n", func->identification->name);
+  fprintf(MIPS_FILE, "\n_func_%s:\n", func->identification->name);
 }
 struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack){
   printf("  move $fp, $sp\n");
@@ -153,46 +153,170 @@ struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct r
   return blockStack;
 }
 ///////////////////// Block ////////////////////////////
-void codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack){
+struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack){
   int offset = 0;
+
   for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"decvar") == 0) {
-      struct registerStack *variable = newVariableOnStack(walker->childrens->identification, offset, 's');
-      printf("Variavel: %s offset: %d\n", variable->id->name, variable->offset);
+      struct ast *declaration = walker->childrens;
+      struct registerStack *variable = varStackPush(blockStack, newVariableOnStack(declaration->identification, offset, 's'));
+
+      if (declaration->nextBrother != NULL) {
+        codeGenExpr(declaration->nextBrother, blockStack);
+      } else {
+        printf("  addiu $sp, $sp, -4 #codeGenFunctionBlockVariable\n");
+        fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 #codeGenFunctionBlockVariable\n");
+      }
+
       offset += 4;
-      printf("  addiu $sp, $sp, -4\n");
-      fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
     }
   }
 }
-void codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack ){
-
+struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack ){
+  for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
+    if (strcmp(walker->nodetype,"funccall") == 0) {
+      struct ast *funccall = walker->childrens;
+      for (struct ast *arg = funccall->nextBrother->childrens; arg != NULL; arg = arg->nextBrother) {
+        //printf("aaaaaaaaaaaaaaa\n");
+        codeGenExpr(arg->nextBrother, blockStack);
+      }
+      fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
+    }
+  }
 }
-void codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack){
+struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack){
   codeGenFunctionBlockVariable(ASTBLOCK->childrens, blockStack);
-  //codeGenFunctionBlockStatements(ASTBLOCK, blockStack);
+  codeGenFunctionBlockStatements(ASTBLOCK->childrens, blockStack);
 }
 ////////////////// Fim do Block ///////////////////////
 void codeGenPopFunction(){
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 4\n");
+  fprintf(MIPS_FILE, "  lw $ra, 4($sp)\n");
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4\n");
+  fprintf(MIPS_FILE, "  lw $fp, 4($sp)\n");
   fprintf(MIPS_FILE, "  jr $ra\n");
 }
 void codeGenPrintFunction() {
-  fprintf(MIPS_FILE, "_func_print:\n");
-  printf("_func_print:\n");
+  fprintf(MIPS_FILE, "\n_func_print:\n");
+  printf("\n_func_print:\n");
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
   fprintf(MIPS_FILE, "  li $v0, 1\n");
   printf("  li $v0, 1\n");
   fprintf(MIPS_FILE, "  syscall\n");
   printf("  syscall\n");
-  printf("  j $ra\n");
-  fprintf(MIPS_FILE, "  j $ra\n");
+
+  fprintf(MIPS_FILE, "  li $v0, 11\n");
+  fprintf(MIPS_FILE, "  li $a0, 0x0a\n");
+  fprintf(MIPS_FILE, "  syscall\n");
+
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4\n");
+  fprintf(MIPS_FILE, "  lw $fp, 4($sp)\n");
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4\n");
+
+  printf("  jr $ra\n");
+  fprintf(MIPS_FILE, "  jr $ra\n");
+}
+////////////////////////////////////////////////////////
+/*              Expressions             */
+void codeGenSum(){
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
+  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+}
+void codeGenSub(){
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
+  fprintf(MIPS_FILE, "  sub 	$a0, $t0, $a0\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+}
+void codeGenMul(){
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
+  fprintf(MIPS_FILE, "  mul 	$a0, $t0, $a0\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+}
+void codeGenDiv(){
+  fprintf(MIPS_FILE, "  lw  $a0, 4($sp)\n");
+  fprintf(MIPS_FILE, "  lw  $t0, 8($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
+  fprintf(MIPS_FILE, "  div	$t0, $a0\n");
+  fprintf(MIPS_FILE, "  mfhi	$a0\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+}
+void codeGenNegate(){
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
+  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+}
+void codeGenSignalChange(){
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
+  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+}
+///////////////////////////////////////////////////////////////////
+/*              Assign            */
+void codeGenAssign(struct ast *tree, struct registerStack *stack) {
+  if (strcmp(tree->nodetype,"DEC") == 0) {
+    printf("  li $a0, %d\n", tree->dec.number);
+    fprintf(MIPS_FILE, "  li $a0, %d\n", tree->dec.number);
+  }
+}
+void codeGenExpr(struct ast *tree, struct registerStack *stack) {
+  if(tree != NULL){
+    struct ast *walker;
+    codeGenExpr(tree->childrens, stack);
+    codeGenExpr(tree->nextBrother, stack);
+    if (strcmp(tree->nodetype,"DEC") == 0) {
+      printf("  li $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+      fprintf(MIPS_FILE, "  li $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+
+      printf("  sw $a0, 0($sp) \t\t#codeGenExpr\n");
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr\n");
+
+      printf("  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
+      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
+    }
+    if (strcmp(tree->nodetype,"ID") == 0) {
+      printf("  lw $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+      fprintf(MIPS_FILE, "  lw $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+    }
+    if (strcmp(tree->nodetype,"+") == 0) {
+      codeGenSum();
+    } else if (strcmp(tree->nodetype,"-") == 0) {
+      codeGenSub();
+    } else if (strcmp(tree->nodetype,"*") == 0) {
+      codeGenMul();
+    } else if (strcmp(tree->nodetype,"/") == 0) {
+      codeGenDiv();
+    } else if (strcmp(tree->nodetype,"!") == 0) {
+      codeGenNegate();
+    } else if (strcmp(tree->nodetype,"-") == 0) {
+      codeGenSignalChange();
+    }
+  }
 }
 
-void codeGenSum(){
-  fprintf(MIPS_FILE, "  lw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  lw	$t0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  addi	$sp, $sp, -4\n");
-}
+
+
 /////////////////// Stack /////////////////////////////
 struct registerStack *newVariableOnStack(struct symbol *sym, int offset, char type) {
     struct registerStack *variable = (struct registerStack *)malloc(sizeof(struct registerStack));
@@ -220,6 +344,8 @@ void prinStack(struct registerStack *stack){
   for (; stack != NULL; stack = stack->bottom) {
     if (stack->type != 'b') {
       printf("id: %s... offset %d($%cp)\n", stack->id->name, stack->offset, stack->type);
+    } else {
+      printf("[Fim da pilha do block]\n");
     }
   }
 }

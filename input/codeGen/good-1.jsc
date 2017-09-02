@@ -1,4 +1,12 @@
 def main (){
-  let a;
-  let b;
+  let c = 1 + 2;
+  let a = 3 * 2;
+  let b = 8 / 4;
+  let d = 5 - 2;
+}
+
+def declara(){
+  let z;
+  let x = 5;
+  let y = 10;
 }
