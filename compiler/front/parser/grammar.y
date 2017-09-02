@@ -93,7 +93,7 @@ start:
     astAddChild(ROOT, $1);
 
     semanticCheck(ROOT, 0, NULL, NULL);
-    //astPrint(ROOT, 0);
+    astPrint(ROOT, 0);
   }
 ;
 program:
@@ -479,13 +479,12 @@ struct ast *newnum(char nodetype[MAX_NODE_TYPE], int number){
 struct ast *newref(char nodetype[MAX_NODE_TYPE], struct symbol *name){
   struct ast *no = (struct ast *)malloc(sizeof(struct ast));
   if(!no) {
-    //yyerror("out of space");
+    yyerror("out of space");
     exit(0);
   }
 
   strcpy(no->nodetype,nodetype);
   no->identification = name;
-  //printf("\n\n=====LEX: %s ===============\n\n",  no->identification->name);
   no->childrens = NULL;
   no->nextBrother = NULL;
   no->previousBrother = NULL;
@@ -497,28 +496,28 @@ void astPrint(struct ast *father, int tab){
 
   for(walker = father; walker != NULL; walker = walker->nextBrother){
     for(int i = 0; i < tab; i++){
-      printf("\t");
-      //fprintf(fl_output,"\t");
+      //printf("\t");
+      fprintf(fl_output,"\t");
     }
     if(strcmp(walker->nodetype,"DEC") == 0){
-      printf("[%d \n", walker->dec.number);
+      //printf("[%d \n", walker->dec.number);
       fprintf(fl_output,"[%d ", walker->dec.number);
     } else if(strcmp(walker->nodetype,"ID") == 0){
       char *name = walker->identification->name;
-      printf("[%s \n", name);
+      //printf("[%s \n", name);
       fprintf(fl_output,"[%s ", name);
     } else{
-      printf("[%s \n", walker->nodetype);
+      //printf("[%s \n", walker->nodetype);
       fprintf(fl_output,"[%s ", walker->nodetype);
     }
     if(walker->childrens != NULL)
       astPrint(walker->childrens,tab+1);
 
     for(int i = 0; i < tab; i++){
-      printf("\t");
-      //fprintf(fl_output,"\t");
+      //printf("\t");
+      fprintf(fl_output,"\t");
     }
-    printf("]\n");
+    //printf("]\n");
     fprintf(fl_output,"]");
   }
 }
@@ -565,7 +564,6 @@ struct symbol *lookup(char* sym) {
             sp->value = 0;
             sp->func = NULL;
             sp->syms = NULL;
-            //printf("\n\n=====LEX: %s ===============\n\n",  sp->name);
             return sp;
         }
         if(++sp >= symtab+NHASH) sp = symtab; /* try the next entry */

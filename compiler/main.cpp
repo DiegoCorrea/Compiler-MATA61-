@@ -1,4 +1,7 @@
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "./front/parser/tree.h"
 #include "./back/codeGenerator.h"
 
@@ -27,7 +30,15 @@ int main(int argc, char** argv){
 
 void front(int argc, char** argv){
   readFromFile(argc, argv);
-  fl_output = fopen(argv[2], "w+" );
+  char** rArray;
+  rArray = new char*[argc+1];
+  for(int i=0; i < argc; i++) {
+    int len = strlen(argv[i]) + 1;
+    rArray[i] = new char[len];
+    strcpy(rArray[i], argv[i]);
+  }
+  strcat(rArray[2], ".ast");
+  fl_output = fopen(rArray[2], "w+" );
 
   int parser_result = yyparse();
   if(parser_result == 0){

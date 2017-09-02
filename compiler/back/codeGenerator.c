@@ -177,8 +177,8 @@ struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struc
     if (strcmp(walker->nodetype,"funccall") == 0) {
       struct ast *funccall = walker->childrens;
       for (struct ast *arg = funccall->nextBrother->childrens; arg != NULL; arg = arg->nextBrother) {
-        //printf("aaaaaaaaaaaaaaa\n");
-        codeGenExpr(arg->nextBrother, blockStack);
+
+        codeGenExpr(arg, blockStack);
       }
       fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
     }
@@ -298,6 +298,12 @@ void codeGenExpr(struct ast *tree, struct registerStack *stack) {
     if (strcmp(tree->nodetype,"ID") == 0) {
       printf("  lw $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
       fprintf(MIPS_FILE, "  lw $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+
+      printf("  sw $a0, 0($sp) \t\t#codeGenExpr\n");
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr\n");
+
+      printf("  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
+      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
     }
     if (strcmp(tree->nodetype,"+") == 0) {
       codeGenSum();

@@ -6,6 +6,9 @@ _func_main:
   move $fp, $sp
   sw $ra, 0($sp)
   addiu $sp, $sp, -4
+  li $a0, 4 		#codeGenExpr
+  sw $a0, 0($sp) 		#codeGenExpr
+  addiu	$sp, $sp, -4 		#codeGenExpr
   jal _func_print
   lw $ra, 4($sp)
   addiu $sp, $sp, 4
