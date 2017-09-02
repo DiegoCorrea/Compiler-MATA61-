@@ -540,7 +540,7 @@ void astNodeBrothers(struct ast *leftBrother, struct ast *rightBrother){
         walkNode->nextBrother = rightBrother;
         rightBrother->previousBrother = walkNode;
     } else {
-        printf("\n\n----->>>astBrother: NULL\n\n");
+        //printf("\n\n----->>>astBrother: NULL\n\n");
     }
 }
 

@@ -56,7 +56,7 @@ void codeGen(struct ast *ASTROOT){
   printf(".text\n");
   fprintf(MIPS_FILE, ".text\n");
 
-  codeGenFunction(ASTROOT->childrens);
+  codeGenFunctions(ASTROOT->childrens);
 
   codeGenStartMips(ASTROOT);
 }
@@ -96,49 +96,130 @@ void codeGenSingleGlobalVariable(struct ast *variable) {
 }
 ////////////////////////////////////////////////////////////////
 
-void codeGenFunction(struct ast *ASTROOT){
+void codeGenFunctions(struct ast *ASTROOT){
   for(struct ast *walker = ASTROOT; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"decfunc") == 0) {
       struct ast *id = walker->childrens,
-       *params = walker->childrens->nextBrother,
-       *block= walker->childrens->nextBrother->nextBrother;
+       *paramsTree = walker->childrens->nextBrother,
+       *blockTree = walker->childrens->nextBrother->nextBrother;
+
+      struct registerStack *blockStack = newVariableOnStack(NULL, 0, 'b');
       codeGenFunctionCreateLabel(id);
-      //codeGenFunctionActivationRecord(params);
-      //codeGenFunctionBlock(block);
+      blockStack = codeGenFunctionActivationRecord(paramsTree->childrens, blockStack);
+      //codeGenFunctionBlock(blockTree, blockStack);
       //codeGenPopFunction();
+      prinStack(blockStack);
     }
   }
+  codeGenPrintFunction();
 }
 void codeGenFunctionCreateLabel(struct ast *func){
   printf("_func_%s:\n", func->identification->name);
   fprintf(MIPS_FILE, "_func_%s:\n", func->identification->name);
 }
-void codeGenFunctionActivationRecord(struct ast *ASTFUNCTION){
+struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack){
+  printf("  move $fp, $sp\n");
   fprintf(MIPS_FILE, "  move $fp, $sp\n");
-  //codeGenFunctionLoadParameters();
+
+  blockStack = codeGenFunctionLoadParameters(PARAMS, blockStack);
+
+  printf("  sw $ra, 0($sp)\n");
   fprintf(MIPS_FILE, "  sw $ra, 0($sp)\n");
+
+  printf("  addiu $sp, $sp, -4\n");
   fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
+
+  return blockStack;
 }
-void codeGenFunctionLoadParameters(struct ast *ASTROOT){
+struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct registerStack *blockStack){
+  if (PARAMS != NULL) {
+    struct ast *walker;
+    int offset = 4;
+    for(walker = PARAMS; walker->nextBrother != NULL; walker = walker->nextBrother, offset+=4);
+
+    for(; walker != NULL; walker = walker->previousBrother){
+
+      blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
+
+      printf("  sw %d($fp), 0($sp)\n", offset);
+      fprintf(MIPS_FILE, "  sw %d($fp), 0($sp)\n", offset);
+
+      printf("  addiu $sp, $sp, -4\n");
+      fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
+
+      offset -= 4;
+    }
+  }
+  return blockStack;
+}
+///////////////////// Block ////////////////////////////
+void codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack){
+  int offset = 0;
+  for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
+    if (strcmp(walker->nodetype,"decvar") == 0) {
+      struct registerStack *variable = newVariableOnStack(walker->childrens->identification, offset, 's');
+      printf("Variavel: %s offset: %d\n", variable->id->name, variable->offset);
+      offset += 4;
+      printf("  addiu $sp, $sp, -4\n");
+      fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
+    }
+  }
+}
+void codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack ){
 
 }
-void codeGenFunctionBlockVariable(struct ast *ASTBLOCK){
+void codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack){
+  codeGenFunctionBlockVariable(ASTBLOCK->childrens, blockStack);
+  //codeGenFunctionBlockStatements(ASTBLOCK, blockStack);
 }
-void codeGenFunctionBlock(struct ast *ASTBLOCK){
-  codeGenFunctionBlockVariable(ASTBLOCK);
-  codeGenFunctionBlockStatements(ASTBLOCK);
-}
+////////////////// Fim do Block ///////////////////////
 void codeGenPopFunction(){
   fprintf(MIPS_FILE, "  addiu	$sp, $sp, 4\n");
   fprintf(MIPS_FILE, "  jr $ra\n");
 }
-void codeGenPrintIntegerOnScreen() {
+void codeGenPrintFunction() {
+  fprintf(MIPS_FILE, "_func_print:\n");
+  printf("_func_print:\n");
   fprintf(MIPS_FILE, "  li $v0, 1\n");
+  printf("  li $v0, 1\n");
   fprintf(MIPS_FILE, "  syscall\n");
+  printf("  syscall\n");
+  printf("  j $ra\n");
+  fprintf(MIPS_FILE, "  j $ra\n");
 }
 
 void codeGenSum(){
   fprintf(MIPS_FILE, "  lw	$a0, 0($sp)\n");
   fprintf(MIPS_FILE, "  lw	$t0, 4($sp)\n");
   fprintf(MIPS_FILE, "  addi	$sp, $sp, -4\n");
+}
+/////////////////// Stack /////////////////////////////
+struct registerStack *newVariableOnStack(struct symbol *sym, int offset, char type) {
+    struct registerStack *variable = (struct registerStack *)malloc(sizeof(struct registerStack));
+    if(!variable) {
+      exit(0);
+    }
+
+    variable->id = sym;
+    variable->offset = offset;
+    variable->bottom = NULL;
+    variable->type = type;
+
+    return (struct registerStack *)variable;
+}
+struct registerStack *varStackPush(struct registerStack *stack, struct registerStack *new_var){
+  if (stack != NULL) {
+    new_var->bottom = stack;
+  }
+
+  return new_var;
+}
+
+void prinStack(struct registerStack *stack){
+  printf("[Pilha de Variavel]\n");
+  for (; stack != NULL; stack = stack->bottom) {
+    if (stack->type != 'b') {
+      printf("id: %s... offset %d($%cp)\n", stack->id->name, stack->offset, stack->type);
+    }
+  }
 }
