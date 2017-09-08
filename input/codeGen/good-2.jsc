@@ -1,9 +1,9 @@
 def main (){
- print(4);
+ print(4 + 4 * 4);
 }
 
 def pilhala(a, b, c, d){
-
+  print(10 * 2);
 }
 
 def outra(){

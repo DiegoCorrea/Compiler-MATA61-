@@ -1,13 +1,5 @@
 .globl __start
 .data 
-  a: 	 .word 	 150152 
-  b: 	 .word 
-  c: 	 .word 
-  d: 	 .word 
-  e: 	 .word 	 8 
-  f: 	 .word 	 0 
-  g: 	 .word 	 5 
-  essavariavelehgrandecomoaporra: 	 .word 	 9999999 
 .text
 
 __start:
@@ -24,39 +16,14 @@ _func_main: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
+  jal _func_declara
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
   addiu $sp, $sp, 4 		#POP Function
   lw $fp, 0($sp) 		#POP Function
   jr $ra 		#POP Function
 
-_func_somando: 		#Create Label
-  sw $fp, 0($sp) 		#Activation Record
-  move $fp, $sp 		#Activation Record
-  addiu $sp, $sp, -4 		#Activation Record
-  sw $ra, 0($sp) 		#Activation Record
-  move $fp, $sp 		#Activation Record
-  addiu $sp, $sp, -4 		#Activation Record
-  move $sp, $fp 		#POP Function
-  lw $ra, 0($sp) 		#POP Function
-  addiu $sp, $sp, 4 		#POP Function
-  lw $fp, 0($sp) 		#POP Function
-  jr $ra 		#POP Function
-
-_func_pulando: 		#Create Label
-  sw $fp, 0($sp) 		#Activation Record
-  move $fp, $sp 		#Activation Record
-  addiu $sp, $sp, -4 		#Activation Record
-  sw $ra, 0($sp) 		#Activation Record
-  move $fp, $sp 		#Activation Record
-  addiu $sp, $sp, -4 		#Activation Record
-  move $sp, $fp 		#POP Function
-  lw $ra, 0($sp) 		#POP Function
-  addiu $sp, $sp, 4 		#POP Function
-  lw $fp, 0($sp) 		#POP Function
-  jr $ra 		#POP Function
-
-_func_andando: 		#Create Label
+_func_declara: 		#Create Label
   sw $fp, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record

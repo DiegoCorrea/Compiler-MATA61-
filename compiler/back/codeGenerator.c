@@ -56,25 +56,28 @@ void codeGen(struct ast *ASTROOT){
   printf(".text\n");
   fprintf(MIPS_FILE, ".text\n");
 
+  codeGenStartMips(ASTROOT);
+
   codeGenFunctions(ASTROOT->childrens);
 
-  codeGenStartMips(ASTROOT);
 }
 void codeGenStartMips(struct ast *ASTROOT){
   printf("\n__start:\n");
   fprintf(MIPS_FILE, "\n__start:\n");
 
-  printf("  sw $fp, 0($sp)\n");
-  fprintf(MIPS_FILE, "  sw $fp, 0($sp)\n");
+  printf("  move $fp, $sp \t\t#Start Mips\n");
+  fprintf(MIPS_FILE, "  move $fp, $sp \t\t#Start Mips\n");
 
-  printf("  addiu $sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  jal _func_main\n");
+  printf("  addiu $sp, $sp, -4 \t\t#Start Mips\n");
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Start Mips\n");
 
-  printf("  li $v0, 10\n");
-  fprintf(MIPS_FILE, "  li $v0, 10\n");
+  fprintf(MIPS_FILE, "  jal _func_main \t\t#Start Mips\n");
 
-  printf("  syscall\n");
-  fprintf(MIPS_FILE, "  syscall\n");
+  printf("  li $v0, 10 \t\t#Start Mips\n");
+  fprintf(MIPS_FILE, "  li $v0, 10 \t\t#Start Mips\n");
+
+  printf("  syscall \t\t#Start Mips\n");
+  fprintf(MIPS_FILE, "  syscall \t\t#Start Mips\n");
 }
 void codeGenGlobalVariables(struct ast *ASTROOT){
   for(struct ast *walker = ASTROOT; walker != NULL; walker = walker->nextBrother){
@@ -114,20 +117,29 @@ void codeGenFunctions(struct ast *ASTROOT){
   codeGenPrintFunction();
 }
 void codeGenFunctionCreateLabel(struct ast *func){
-  printf("\n_func_%s:\n", func->identification->name);
-  fprintf(MIPS_FILE, "\n_func_%s:\n", func->identification->name);
+  printf("\n_func_%s: \t\t#Create Label\n", func->identification->name);
+  fprintf(MIPS_FILE, "\n_func_%s: \t\t#Create Label\n", func->identification->name);
 }
 struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack){
-  printf("  move $fp, $sp\n");
-  fprintf(MIPS_FILE, "  move $fp, $sp\n");
+  printf("  sw $fp, 0($sp) \t\t#Activation Record\n");
+  fprintf(MIPS_FILE, "  sw $fp, 0($sp) \t\t#Activation Record\n");
+
+  printf("  move $fp, $sp \t\t#Activation Record\n");
+  fprintf(MIPS_FILE, "  move $fp, $sp \t\t#Activation Record\n");
+
+  printf("  addiu $sp, $sp, -4 \t\t#Activation Record\n");
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Activation Record\n");
 
   blockStack = codeGenFunctionLoadParameters(PARAMS, blockStack);
 
-  printf("  sw $ra, 0($sp)\n");
-  fprintf(MIPS_FILE, "  sw $ra, 0($sp)\n");
+  printf("  sw $ra, 0($sp) \t\t#Activation Record\n");
+  fprintf(MIPS_FILE, "  sw $ra, 0($sp) \t\t#Activation Record\n");
 
-  printf("  addiu $sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
+  printf("  move $fp, $sp \t\t#Activation Record\n");
+  fprintf(MIPS_FILE, "  move $fp, $sp \t\t#Activation Record\n");
+
+  printf("  addiu $sp, $sp, -4 \t\t#Activation Record\n");
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Activation Record\n");
 
   return blockStack;
 }
@@ -142,7 +154,8 @@ struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct r
       blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
 
       printf("  sw %d($fp), 0($sp)\n", offset);
-      fprintf(MIPS_FILE, "  sw %d($fp), 0($sp)\n", offset);
+      fprintf(MIPS_FILE, "  lw $a0, %d($fp)\n", offset);
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp)\n", offset);
 
       printf("  addiu $sp, $sp, -4\n");
       fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
@@ -164,8 +177,8 @@ struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct 
       if (declaration->nextBrother != NULL) {
         codeGenExpr(declaration->nextBrother, blockStack);
       } else {
-        printf("  addiu $sp, $sp, -4 #codeGenFunctionBlockVariable\n");
-        fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 #codeGenFunctionBlockVariable\n");
+        printf("  addiu $sp, $sp, -4 \t\t#codeGenFunctionBlockVariable\n");
+        fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#codeGenFunctionBlockVariable\n");
       }
 
       offset += 4;
@@ -190,10 +203,13 @@ struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct register
 }
 ////////////////// Fim do Block ///////////////////////
 void codeGenPopFunction(){
-  fprintf(MIPS_FILE, "  lw $ra, 4($sp)\n");
-  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4\n");
-  fprintf(MIPS_FILE, "  lw $fp, 4($sp)\n");
-  fprintf(MIPS_FILE, "  jr $ra\n");
+  fprintf(MIPS_FILE, "  move $sp, $fp \t\t#POP Function\n");
+  fprintf(MIPS_FILE, "  lw $ra, 0($sp) \t\t#POP Function\n");
+
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4 \t\t#POP Function\n");
+
+  fprintf(MIPS_FILE, "  lw $fp, 0($sp) \t\t#POP Function\n");
+  fprintf(MIPS_FILE, "  jr $ra \t\t#POP Function\n");
 }
 void codeGenPrintFunction() {
   fprintf(MIPS_FILE, "\n_func_print:\n");
@@ -218,59 +234,53 @@ void codeGenPrintFunction() {
 ////////////////////////////////////////////////////////
 /*              Expressions             */
 void codeGenSum(){
-  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
-  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp) \t\t\t#codeGen [SUM]\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp) \t\t\t#codeGen [SUM]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8 \t\t\t#codeGen [SUM]\n");
+  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0 \t\t\t#codeGen [SUM]\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp) \t\t\t#codeGen [SUM]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t\t#codeGen [SUM]\n");
 }
 void codeGenSub(){
-  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
-  fprintf(MIPS_FILE, "  sub 	$a0, $t0, $a0\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp) \t\t\t#codeGen [SUB]\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp) \t\t\t#codeGen [SUB]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8 \t\t\t#codeGen [SUB]\n");
+  fprintf(MIPS_FILE, "  sub 	$a0, $t0, $a0 \t\t\t#codeGen [SUB]\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp) \t\t\t#codeGen [SUB]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t\t#codeGen [SUB]\n");
 }
 void codeGenMul(){
-  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
-  fprintf(MIPS_FILE, "  mul 	$a0, $t0, $a0\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp) \t\t\t#codeGen [MUL]\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp) \t\t\t#codeGen [MUL]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8 \t\t\t#codeGen [MUL]\n");
+  fprintf(MIPS_FILE, "  mul 	$a0, $t0, $a0 \t\t\t#codeGen [MUL]\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp) \t\t\t#codeGen [MUL]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t\t#codeGen [MUL]\n");
 }
 void codeGenDiv(){
-  fprintf(MIPS_FILE, "  lw  $a0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  lw  $t0, 8($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
-  fprintf(MIPS_FILE, "  div	$t0, $a0\n");
-  fprintf(MIPS_FILE, "  mfhi	$a0\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  lw  $a0, 4($sp) \t\t\t#codeGen [DIV]\n");
+  fprintf(MIPS_FILE, "  lw  $t0, 8($sp) \t\t\t#codeGen [DIV]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8 \t\t\t#codeGen [DIV]\n");
+  fprintf(MIPS_FILE, "  div	$t0, $a0 \t\t\t#codeGen [DIV]\n");
+  fprintf(MIPS_FILE, "  mfhi	$a0 \t\t\t#codeGen [DIV]\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp) \t\t\t#codeGen [DIV]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t\t#codeGen [DIV]\n");
 }
 void codeGenNegate(){
-  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
-  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp) \t\t\t#codeGen [NEGATE]\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp) \t\t\t#codeGen [NEGATE]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8 \t\t\t#codeGen [NEGATE]\n");
+  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0 \t\t\t#codeGen [NEGATE]\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp) \t\t\t#codeGen [NEGATE]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t\t#codeGen [NEGATE]\n");
 }
 void codeGenSignalChange(){
-  fprintf(MIPS_FILE, "  lw	$a0, 4($sp)\n");
-  fprintf(MIPS_FILE, "  lw	$t0, 8($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8\n");
-  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
-  fprintf(MIPS_FILE, "  sw	$a0, 0($sp)\n");
-  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4\n");
+  fprintf(MIPS_FILE, "  lw	$a0, 4($sp) \t\t\t#codeGen [SIGNAL CHANGE]\n");
+  fprintf(MIPS_FILE, "  lw	$t0, 8($sp) \t\t\t#codeGen [SIGNAL CHANGE]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 8 \t\t\t#codeGen [SIGNAL CHANGE]\n");
+  fprintf(MIPS_FILE, "  add 	$a0, $t0, $a0 \t\t\t#codeGen [SIGNAL CHANGE]\n");
+  fprintf(MIPS_FILE, "  sw	$a0, 0($sp) \t\t\t#codeGen [SIGNAL CHANGE]\n");
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t\t#codeGen [SIGNAL CHANGE]\n");
 }
 ///////////////////////////////////////////////////////////////////
 /*              Assign            */
@@ -286,24 +296,24 @@ void codeGenExpr(struct ast *tree, struct registerStack *stack) {
     codeGenExpr(tree->childrens, stack);
     codeGenExpr(tree->nextBrother, stack);
     if (strcmp(tree->nodetype,"DEC") == 0) {
-      printf("  li $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
-      fprintf(MIPS_FILE, "  li $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+      printf("  li $a0, %d \t\t\t#codeGenExpr [DEC]\n", tree->dec.number);
+      fprintf(MIPS_FILE, "  li $a0, %d \t\t\t#codeGenExpr [DEC]\n", tree->dec.number);
 
-      printf("  sw $a0, 0($sp) \t\t#codeGenExpr\n");
-      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr\n");
+      printf("  sw $a0, 0($sp) \t\t#codeGenExpr [DEC]\n");
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr [DEC]\n");
 
-      printf("  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
-      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
+      printf("  addiu	$sp, $sp, -4 \t\t#codeGenExpr [DEC]\n");
+      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr [DEC]\n");
     }
     if (strcmp(tree->nodetype,"ID") == 0) {
-      printf("  lw $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
-      fprintf(MIPS_FILE, "  lw $a0, %d \t\t#codeGenExpr\n", tree->dec.number);
+      printf("  lw $a0, %d \t\t#codeGenExpr [ID]\n", tree->dec.number);
+      fprintf(MIPS_FILE, "  lw $a0, %d \t\t#codeGenExpr [ID]\n", tree->dec.number);
 
-      printf("  sw $a0, 0($sp) \t\t#codeGenExpr\n");
-      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr\n");
+      printf("  sw $a0, 0($sp) \t\t#codeGenExpr [ID]\n");
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr [ID]\n");
 
-      printf("  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
-      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr\n");
+      printf("  addiu	$sp, $sp, -4 \t\t#codeGenExpr [ID]\n");
+      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr [ID]\n");
     }
     if (strcmp(tree->nodetype,"+") == 0) {
       codeGenSum();

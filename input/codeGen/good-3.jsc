@@ -1,0 +1,17 @@
+def main (){
+  let a;
+  let b = 4;
+  let c = 7;
+  let d = 13;
+  print(4);
+
+  pilhala(a, b, c, d);
+}
+
+def pilhala(a, b, c, d){
+  outra(a + 2, b + d, c * c);
+}
+
+def outra(a, b, c){
+  print((a * b)/c);
+}

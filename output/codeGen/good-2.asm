@@ -2,67 +2,132 @@
 .data 
 .text
 
-_func_main:
-  move $fp, $sp
-  sw $ra, 0($sp)
-  addiu $sp, $sp, -4
-  li $a0, 4 		#codeGenExpr
-  sw $a0, 0($sp) 		#codeGenExpr
-  addiu	$sp, $sp, -4 		#codeGenExpr
+__start:
+  move $fp, $sp 		#Start Mips
+  addiu $sp, $sp, -4 		#Start Mips
+  jal _func_main 		#Start Mips
+  li $v0, 10 		#Start Mips
+  syscall 		#Start Mips
+
+_func_main: 		#Create Label
+  sw $fp, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  sw $ra, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  li $a0, 4 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  li $a0, 4 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  lw	$a0, 4($sp) 			#codeGen [MUL]
+  lw	$t0, 8($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, 8 			#codeGen [MUL]
+  mul 	$a0, $t0, $a0 			#codeGen [MUL]
+  sw	$a0, 0($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, -4 			#codeGen [MUL]
+  li $a0, 4 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  lw	$a0, 4($sp) 			#codeGen [SUM]
+  lw	$t0, 8($sp) 			#codeGen [SUM]
+  addiu	$sp, $sp, 8 			#codeGen [SUM]
+  add 	$a0, $t0, $a0 			#codeGen [SUM]
+  sw	$a0, 0($sp) 			#codeGen [SUM]
+  addiu	$sp, $sp, -4 			#codeGen [SUM]
   jal _func_print
-  lw $ra, 4($sp)
-  addiu $sp, $sp, 4
-  lw $fp, 4($sp)
-  jr $ra
+  move $sp, $fp 		#POP Function
+  lw $ra, 0($sp) 		#POP Function
+  addiu $sp, $sp, 4 		#POP Function
+  lw $fp, 0($sp) 		#POP Function
+  jr $ra 		#POP Function
 
-_func_pilhala:
-  move $fp, $sp
-  sw 16($fp), 0($sp)
+_func_pilhala: 		#Create Label
+  sw $fp, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  lw $a0, 16($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 12($fp), 0($sp)
+  lw $a0, 12($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 8($fp), 0($sp)
+  lw $a0, 8($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 4($fp), 0($sp)
+  lw $a0, 4($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw $ra, 0($sp)
-  addiu $sp, $sp, -4
-  lw $ra, 4($sp)
-  addiu $sp, $sp, 4
-  lw $fp, 4($sp)
-  jr $ra
+  sw $ra, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  li $a0, 2 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  li $a0, 10 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  lw	$a0, 4($sp) 			#codeGen [MUL]
+  lw	$t0, 8($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, 8 			#codeGen [MUL]
+  mul 	$a0, $t0, $a0 			#codeGen [MUL]
+  sw	$a0, 0($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, -4 			#codeGen [MUL]
+  jal _func_print
+  move $sp, $fp 		#POP Function
+  lw $ra, 0($sp) 		#POP Function
+  addiu $sp, $sp, 4 		#POP Function
+  lw $fp, 0($sp) 		#POP Function
+  jr $ra 		#POP Function
 
-_func_outra:
-  move $fp, $sp
-  sw $ra, 0($sp)
-  addiu $sp, $sp, -4
-  lw $ra, 4($sp)
-  addiu $sp, $sp, 4
-  lw $fp, 4($sp)
-  jr $ra
+_func_outra: 		#Create Label
+  sw $fp, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  sw $ra, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  move $sp, $fp 		#POP Function
+  lw $ra, 0($sp) 		#POP Function
+  addiu $sp, $sp, 4 		#POP Function
+  lw $fp, 0($sp) 		#POP Function
+  jr $ra 		#POP Function
 
-_func_grandona:
-  move $fp, $sp
-  sw 28($fp), 0($sp)
+_func_grandona: 		#Create Label
+  sw $fp, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  lw $a0, 28($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 24($fp), 0($sp)
+  lw $a0, 24($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 20($fp), 0($sp)
+  lw $a0, 20($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 16($fp), 0($sp)
+  lw $a0, 16($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 12($fp), 0($sp)
+  lw $a0, 12($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 8($fp), 0($sp)
+  lw $a0, 8($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw 4($fp), 0($sp)
+  lw $a0, 4($fp)
+  sw $a0, 0($sp)
   addiu $sp, $sp, -4
-  sw $ra, 0($sp)
-  addiu $sp, $sp, -4
-  lw $ra, 4($sp)
-  addiu $sp, $sp, 4
-  lw $fp, 4($sp)
-  jr $ra
+  sw $ra, 0($sp) 		#Activation Record
+  move $fp, $sp 		#Activation Record
+  addiu $sp, $sp, -4 		#Activation Record
+  move $sp, $fp 		#POP Function
+  lw $ra, 0($sp) 		#POP Function
+  addiu $sp, $sp, 4 		#POP Function
+  lw $fp, 0($sp) 		#POP Function
+  jr $ra 		#POP Function
 
 _func_print:
   lw	$a0, 4($sp)
@@ -75,9 +140,3 @@ _func_print:
   lw $fp, 4($sp)
   addiu $sp, $sp, 4
   jr $ra
-
-__start:
-  sw $fp, 0($sp)
-  jal _func_main
-  li $v0, 10
-  syscall
