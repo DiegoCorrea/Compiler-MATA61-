@@ -129,12 +129,12 @@ decvar:
   }
 ;
 decvarassign:
-    %empty {
-      $$ = NULL;
-    }
-    | ASSIGN  expr {
-      $$ = $2;
-    }
+  %empty {
+    $$ = NULL;
+  }
+  | ASSIGN  expr {
+    $$ = $2;
+  }
 ;
 decfunc:
   DEF_T decfuncids {
@@ -169,21 +169,19 @@ block:
     struct ast *instantFather = newast("block");
 
     if($2 != NULL)
-        astAddChild(instantFather, $2);
-
+      astAddChild(instantFather, $2);
     $$ = instantFather;
   }
 ;
 blockstatements:
-     decvar blockstatements {
-        astNodeBrothers($1, $2);
-     }
-     | statement {
-
-     }
-     | %empty{
-        $$ = NULL;
-    }
+   decvar blockstatements {
+    astNodeBrothers($1, $2);
+   }
+   | statement {
+   }
+   | %empty{
+    $$ = NULL;
+  }
 ;
 paramlist:
   ID {
@@ -377,36 +375,36 @@ unop:
     }
 ;
 funccall:
-    ID LPARENT RPARENT {
-        struct ast *instantFather = newast("funccall");
-        astAddChild(instantFather, newref("ID", $1));
+  ID LPARENT RPARENT {
+    struct ast *instantFather = newast("funccall");
+    astAddChild(instantFather, newref("ID", $1));
 
-        struct ast *argument_list = newast("arglist");
-        astAddChild(instantFather, argument_list);
+    struct ast *argument_list = newast("arglist");
+    astAddChild(instantFather, argument_list);
 
-        $$ = instantFather;
-    }
-    | ID LPARENT arglist RPARENT {
-        struct ast *instantFather = newast("funccall");
+    $$ = instantFather;
+  }
+  | ID LPARENT arglist RPARENT {
+    struct ast *instantFather = newast("funccall");
 
-        astAddChild(instantFather, newref("ID", $1));
+    astAddChild(instantFather, newref("ID", $1));
 
-        struct ast *argument_list = newast("arglist");
-        astAddChild(argument_list, $3);
+    struct ast *argument_list = newast("arglist");
+    astAddChild(argument_list, $3);
 
-        astAddChild(instantFather, argument_list);
-        //astAddChild(instantFather, $3);
-        $$ = instantFather;
-    }
+    astAddChild(instantFather, argument_list);
+    //astAddChild(instantFather, $3);
+    $$ = instantFather;
+  }
 ;
 arglist:
-    expr {
-        //$$ = $1;
-    }
-    | expr COMMA arglist {
-        astNodeBrothers($1, $3);
-        //$$ = $1;
-    }
+  expr {
+    //$$ = $1;
+  }
+  | expr COMMA arglist {
+    astNodeBrothers($1, $3);
+    //$$ = $1;
+  }
 ;
 %%
 
@@ -498,19 +496,19 @@ void astPrint(struct ast *father, int tab){
       fprintf(fl_output,"\t");
     }
     if(strcmp(walker->nodetype,"DEC") == 0){
-      fprintf(fl_output,"[%d ", walker->dec.number);
+      fprintf(fl_output,"[%d \n", walker->dec.number);
     } else if(strcmp(walker->nodetype,"ID") == 0){
       char *name = walker->identification->name;
-      fprintf(fl_output,"[%s ", name);
+      fprintf(fl_output,"[%s \n", name);
     } else{
-      fprintf(fl_output,"[%s ", walker->nodetype);
+      fprintf(fl_output,"[%s \n", walker->nodetype);
     }
     if(walker->childrens != NULL)
       astPrint(walker->childrens,tab+1);
     for(int i = 0; i < tab; i++){
       fprintf(fl_output,"\t");
     }
-    fprintf(fl_output,"]");
+    fprintf(fl_output,"]\n");
   }
 }
 void astAddChildrens(struct ast **head_list, struct ast *newBrother){

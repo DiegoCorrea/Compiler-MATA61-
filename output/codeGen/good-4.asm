@@ -39,6 +39,43 @@ _func_main: 		#Create Label
   sw	$a0, 0($sp) 			#codeGen [MUL]
   addiu	$sp, $sp, -4 			#codeGen [MUL]
   jal _func_print
+  li $a0, 1 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  li $a0, 2 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  li $a0, 10 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  li $a0, 3 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  lw	$a0, 4($sp) 			#codeGen [MUL]
+  lw	$t0, 8($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, 8 			#codeGen [MUL]
+  mul 	$a0, $t0, $a0 			#codeGen [MUL]
+  sw	$a0, 0($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, -4 			#codeGen [MUL]
+  lw	$a0, 4($sp) 			#codeGen [SUM]
+  lw	$t0, 8($sp) 			#codeGen [SUM]
+  addiu	$sp, $sp, 8 			#codeGen [SUM]
+  add 	$a0, $t0, $a0 			#codeGen [SUM]
+  sw	$a0, 0($sp) 			#codeGen [SUM]
+  addiu	$sp, $sp, -4 			#codeGen [SUM]
+  li $a0, 10 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  li $a0, 3 			#codeGenExpr [DEC]
+  sw $a0, 0($sp) 		#codeGenExpr [DEC]
+  addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
+  lw	$a0, 4($sp) 			#codeGen [MUL]
+  lw	$t0, 8($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, 8 			#codeGen [MUL]
+  mul 	$a0, $t0, $a0 			#codeGen [MUL]
+  sw	$a0, 0($sp) 			#codeGen [MUL]
+  addiu	$sp, $sp, -4 			#codeGen [MUL]
+  jal _func_declara
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
   addiu $sp, $sp, 4 		#POP Function
@@ -58,6 +95,10 @@ _func_declara: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
+  lw $a0, 0 			#codeGenExpr [ID]
+  sw $a0, 0($sp) 		#codeGenExpr [ID]
+  addiu	$sp, $sp, -4 		#codeGenExpr [ID]
+  jal _func_print
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
   addiu $sp, $sp, 12 		#POP Function

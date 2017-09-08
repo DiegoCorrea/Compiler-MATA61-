@@ -2213,19 +2213,19 @@ void astPrint(struct ast *father, int tab){
       fprintf(fl_output,"\t");
     }
     if(strcmp(walker->nodetype,"DEC") == 0){
-      fprintf(fl_output,"[%d ", walker->dec.number);
+      fprintf(fl_output,"[%d \n", walker->dec.number);
     } else if(strcmp(walker->nodetype,"ID") == 0){
       char *name = walker->identification->name;
-      fprintf(fl_output,"[%s ", name);
+      fprintf(fl_output,"[%s \n", name);
     } else{
-      fprintf(fl_output,"[%s ", walker->nodetype);
+      fprintf(fl_output,"[%s \n", walker->nodetype);
     }
     if(walker->childrens != NULL)
       astPrint(walker->childrens,tab+1);
     for(int i = 0; i < tab; i++){
       fprintf(fl_output,"\t");
     }
-    fprintf(fl_output,"]");
+    fprintf(fl_output,"]\n");
   }
 }
 void astAddChildrens(struct ast **head_list, struct ast *newBrother){
