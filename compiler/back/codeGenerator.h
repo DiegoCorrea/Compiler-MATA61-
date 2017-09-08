@@ -36,9 +36,9 @@ void codeGenPrintFunction();
 /**/
 void codeGenFunctions(struct ast *ASTROOT);
 void codeGenFunctionCreateLabel(struct ast *ASTROOT);
-struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack);
+struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack, int qtdeParams);
 
-struct registerStack *codeGenFunctionLoadParameters(struct ast *, struct registerStack *);
+struct registerStack *codeGenFunctionLoadParameters(struct ast *, struct registerStack *, int qtdeParams);
 
 struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack);
 struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack);

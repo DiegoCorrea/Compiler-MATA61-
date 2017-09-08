@@ -75,6 +75,7 @@ _func_main: 		#Create Label
   sw	$a0, 0($sp) 			#codeGen [SUB]
   addiu	$sp, $sp, -4 			#codeGen [SUB]
   jal _func_declara
+  addiu $sp, $sp, 0 		#POP Arg List
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
   addiu $sp, $sp, 4 		#POP Function
@@ -108,7 +109,4 @@ _func_print:
   li $v0, 11
   li $a0, 0x0a
   syscall
-  addiu $sp, $sp, 4
-  lw $fp, 4($sp)
-  addiu $sp, $sp, 4
   jr $ra

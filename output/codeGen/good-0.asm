@@ -76,7 +76,4 @@ _func_print:
   li $v0, 11
   li $a0, 0x0a
   syscall
-  addiu $sp, $sp, 4
-  lw $fp, 4($sp)
-  addiu $sp, $sp, 4
   jr $ra

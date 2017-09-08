@@ -1,1 +1,0 @@
-[program [decfunc [main ][paramlist ][block [decvar [a ]][decvar [b ]][decvar [c ]][decvar [d ]][decvar [e ]][if [== [a ][b ]][block [if [< [b ][c ]][block [assign [e ][c ]][if [< [c ][d ]][block [assign [e ][d ]]]]][block [assign [e ][d ]][if [> [b ][d ]][block [assign [e ][b ]]]]]]][block [if [< [a ][d ]][block [assign [e ][- [d ]]]][block [assign [e ][- [a ]]]]]]]]]]

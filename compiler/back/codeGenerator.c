@@ -35,13 +35,13 @@ void codeGenerator(struct ast *ASTROOT, char** argv){
   MIPS_FILE = fopen(argv[2], "w+" );
 
   if (ASTROOT != NULL) {
-    printf("[CODE GEN]ASTROOT Com estrutura\n");
-    astPrintBack(ASTROOT,0);
+    //printf("[CODE GEN]ASTROOT Com estrutura\n");
+    //astPrintBack(ASTROOT,0);
 
-    printf("\n\n--[Code Gen Start]\n\n");
+    //printf("\n\n--[Code Gen Start]\n\n");
     codeGen(ASTROOT);
   } else {
-    printf("[CODE GEN]ASTROOT = NULL\n");
+    printf("[CODE GEN] ASTROOT = NULL\n");
   }
   fclose( MIPS_FILE );
 }
@@ -94,16 +94,15 @@ void codeGenFunctions(struct ast *ASTROOT){
   for(struct ast *walker = ASTROOT; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"decfunc") == 0) {
       struct ast *id = walker->childrens,
-       *paramsTree = walker->childrens->nextBrother,
+       *paramsList = walker->childrens->nextBrother,
        *blockTree = walker->childrens->nextBrother->nextBrother;
        int qtdeParams = 0;
-
-      for (struct ast *tmpCount = paramsTree->childrens; tmpCount != NULL; tmpCount = tmpCount->nextBrother, qtdeParams++);
+      for (struct ast *tmpCount = paramsList->childrens; tmpCount != NULL; tmpCount = tmpCount->nextBrother, qtdeParams++);
 
       struct registerStack *blockStack = newVariableOnStack(NULL, 0, 'b');
 
       codeGenFunctionCreateLabel(id);
-      blockStack = codeGenFunctionActivationRecord(paramsTree->childrens, blockStack);
+      blockStack = codeGenFunctionActivationRecord(paramsList->childrens, blockStack, qtdeParams);
       blockStack = codeGenFunctionBlock(blockTree, blockStack);
       codeGenPopFunction(qtdeParams);
       //prinStack(blockStack);
@@ -114,14 +113,14 @@ void codeGenFunctions(struct ast *ASTROOT){
 void codeGenFunctionCreateLabel(struct ast *func){
   fprintf(MIPS_FILE, "\n_func_%s: \t\t#Create Label\n", func->identification->name);
 }
-struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack){
+struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct registerStack *blockStack, int qtdeParams){
   fprintf(MIPS_FILE, "  sw $fp, 0($sp) \t\t#Activation Record\n");
 
   fprintf(MIPS_FILE, "  move $fp, $sp \t\t#Activation Record\n");
 
   fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Activation Record\n");
 
-  blockStack = codeGenFunctionLoadParameters(PARAMS, blockStack);
+  blockStack = codeGenFunctionLoadParameters(PARAMS, blockStack, qtdeParams);
 
   fprintf(MIPS_FILE, "  sw $ra, 0($sp) \t\t#Activation Record\n");
 
@@ -131,22 +130,17 @@ struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct
 
   return blockStack;
 }
-struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct registerStack *blockStack){
+struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct registerStack *blockStack, int qtdeParams){
   if (PARAMS != NULL) {
-    struct ast *walker;
-    int offset = 4;
-    for(walker = PARAMS; walker->nextBrother != NULL; walker = walker->nextBrother, offset+=4);
+    //struct ast *walker;
 
-    for(; walker != NULL; walker = walker->previousBrother){
+    for(int offset = 1; offset <= qtdeParams; offset++){
 
-      blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
-
-      fprintf(MIPS_FILE, "  lw $a0, %d($fp) \t\t#Load Parameters\n", offset);
-      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#Load Parameters\n", offset);
+      //blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
+      fprintf(MIPS_FILE, "  lw $a0, %d($fp) \t\t#Load Parameters\n", offset*4);
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#Load Parameters\n");
 
       fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Load Parameters\n");
-
-      offset -= 4;
     }
   }
   return blockStack;
@@ -174,10 +168,13 @@ struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struc
   for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"funccall") == 0) {
       struct ast *funccall = walker->childrens;
-      for (struct ast *args = funccall->nextBrother->childrens; args != NULL; args = args->nextBrother) {
-        codeGenExpr(args, blockStack);
+      int qtdeParams = 0;
+
+      for (struct ast *args = funccall->nextBrother->childrens; args != NULL; args = args->nextBrother, qtdeParams++) {
+        codeGenExpr(args->childrens, blockStack);
       }
       fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
+      fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeParams));
     }
   }
 }
@@ -204,10 +201,6 @@ void codeGenPrintFunction() {
   fprintf(MIPS_FILE, "  li $v0, 11\n");
   fprintf(MIPS_FILE, "  li $a0, 0x0a\n");
   fprintf(MIPS_FILE, "  syscall\n");
-
-  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4\n");
-  fprintf(MIPS_FILE, "  lw $fp, 4($sp)\n");
-  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4\n");
 
   fprintf(MIPS_FILE, "  jr $ra\n");
 }

@@ -5,6 +5,18 @@
 		[paramlist 
 		]
 		[block 
+			[decvar 
+				[a 
+				]
+				[4 
+				]
+			]
+			[decvar 
+				[b 
+				]
+				[5 
+				]
+			]
 			[funccall 
 				[declara 
 				]
@@ -67,16 +79,6 @@
 			]
 		]
 		[block 
-			[funccall 
-				[print 
-				]
-				[arglist 
-					[ARG 
-						[a 
-						]
-					]
-				]
-			]
 		]
 	]
 ]
