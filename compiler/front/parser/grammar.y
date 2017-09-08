@@ -393,17 +393,24 @@ funccall:
     astAddChild(argument_list, $3);
 
     astAddChild(instantFather, argument_list);
-    //astAddChild(instantFather, $3);
+
     $$ = instantFather;
   }
 ;
 arglist:
   expr {
-    //$$ = $1;
+    struct ast *instantFather = newast("ARG");
+
+    astAddChild(instantFather, $1);
+    $$ = instantFather;
   }
   | expr COMMA arglist {
-    astNodeBrothers($1, $3);
-    //$$ = $1;
+    struct ast *instantFather = newast("ARG");
+
+    astAddChild(instantFather, $1);
+
+    astNodeBrothers(instantFather, $3);
+    $$ = instantFather;
   }
 ;
 %%
@@ -500,7 +507,7 @@ void astPrint(struct ast *father, int tab){
     } else if(strcmp(walker->nodetype,"ID") == 0){
       char *name = walker->identification->name;
       fprintf(fl_output,"[%s \n", name);
-    } else{
+    } else {
       fprintf(fl_output,"[%s \n", walker->nodetype);
     }
     if(walker->childrens != NULL)
