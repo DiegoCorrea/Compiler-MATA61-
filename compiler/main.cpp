@@ -23,7 +23,7 @@ void back(struct ast *ASTROOT, char** argv);
 
 int main(int argc, char** argv){
   front(argc, argv);
-  printf("\n");
+  //printf("\n");
   back(ROOT, argv);
   return 0;
 }
@@ -42,19 +42,19 @@ void front(int argc, char** argv){
 
   int parser_result = yyparse();
   if(parser_result == 0){
-    printf("[FRONT] AST Gerada\n");
+    //printf("[FRONT] AST Gerada\n");
   } else{
-    printf("[FRONT] Entrada Invalida. Geração da AST abortada!\n");
+    //printf("[FRONT] Entrada Invalida. Geração da AST abortada!\n");
   }
-  printf("[FRONT] Total de linhas no arquivo: %d\n", yylineno);
+  //printf("[FRONT] Total de linhas no arquivo: %d\n", yylineno);
   fclose( fl_output );
 }
 
 void back(struct ast *ASTROOT, char** argv){
   if (ASTROOT != NULL) {
-    printf("[BACK]ASTROOT Com estrutura\n");
+    //printf("[BACK]ASTROOT Com estrutura\n");
     codeGenerator(ASTROOT, argv);
   } else {
-    printf("[BACK]ASTROOT = NULL\n");
+    //printf("[BACK]ASTROOT = NULL\n");
   }
 }
