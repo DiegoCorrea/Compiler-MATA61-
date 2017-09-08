@@ -105,12 +105,16 @@ void codeGenFunctions(struct ast *ASTROOT){
       struct ast *id = walker->childrens,
        *paramsTree = walker->childrens->nextBrother,
        *blockTree = walker->childrens->nextBrother->nextBrother;
+       int qtdeParams = 0;
+
+      for (struct ast *tmpCount = paramsTree->childrens; tmpCount != NULL; tmpCount = tmpCount->nextBrother, qtdeParams++);
 
       struct registerStack *blockStack = newVariableOnStack(NULL, 0, 'b');
+
       codeGenFunctionCreateLabel(id);
       blockStack = codeGenFunctionActivationRecord(paramsTree->childrens, blockStack);
       blockStack = codeGenFunctionBlock(blockTree, blockStack);
-      codeGenPopFunction();
+      codeGenPopFunction(qtdeParams);
       //prinStack(blockStack);
     }
   }
@@ -153,12 +157,12 @@ struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct r
 
       blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
 
-      printf("  sw %d($fp), 0($sp)\n", offset);
-      fprintf(MIPS_FILE, "  lw $a0, %d($fp)\n", offset);
-      fprintf(MIPS_FILE, "  sw $a0, 0($sp)\n", offset);
+      printf("  sw %d($fp), 0($sp) \t\t#Load Parameters\n", offset);
+      fprintf(MIPS_FILE, "  lw $a0, %d($fp) \t\t#Load Parameters\n", offset);
+      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#Load Parameters\n", offset);
 
-      printf("  addiu $sp, $sp, -4\n");
-      fprintf(MIPS_FILE, "  addiu $sp, $sp, -4\n");
+      printf("  addiu $sp, $sp, -4 \t\t#Load Parameters\n");
+      fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Load Parameters\n");
 
       offset -= 4;
     }
@@ -202,11 +206,11 @@ struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct register
   codeGenFunctionBlockStatements(ASTBLOCK->childrens, blockStack);
 }
 ////////////////// Fim do Block ///////////////////////
-void codeGenPopFunction(){
+void codeGenPopFunction(int qtdeParams){
   fprintf(MIPS_FILE, "  move $sp, $fp \t\t#POP Function\n");
   fprintf(MIPS_FILE, "  lw $ra, 0($sp) \t\t#POP Function\n");
 
-  fprintf(MIPS_FILE, "  addiu $sp, $sp, 4 \t\t#POP Function\n");
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Function\n", 4*(qtdeParams + 1));
 
   fprintf(MIPS_FILE, "  lw $fp, 0($sp) \t\t#POP Function\n");
   fprintf(MIPS_FILE, "  jr $ra \t\t#POP Function\n");

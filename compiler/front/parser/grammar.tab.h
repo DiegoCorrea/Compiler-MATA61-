@@ -89,11 +89,11 @@ union YYSTYPE
 {
 #line 20 "compiler/front/parser/grammar.y" /* yacc.c:1909  */
 
-    int itype;
-    struct ast *astNode;
+  int itype;
+  struct ast *astNode;
 
-    struct symbol *symbolValue;
-    struct symlist *symbolList;
+  struct symbol *symbolValue;
+  struct symlist *symbolList;
 
 #line 99 "grammar.tab.h" /* yacc.c:1909  */
 };

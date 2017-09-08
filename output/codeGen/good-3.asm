@@ -71,18 +71,18 @@ _func_pilhala: 		#Create Label
   sw $fp, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
-  lw $a0, 16($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
-  lw $a0, 12($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
-  lw $a0, 8($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
-  lw $a0, 4($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
+  lw $a0, 16($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
+  lw $a0, 12($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
+  lw $a0, 8($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
+  lw $a0, 4($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
@@ -161,7 +161,7 @@ _func_pilhala: 		#Create Label
   jal _func_outra
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
-  addiu $sp, $sp, 4 		#POP Function
+  addiu $sp, $sp, 20 		#POP Function
   lw $fp, 0($sp) 		#POP Function
   jr $ra 		#POP Function
 
@@ -169,15 +169,15 @@ _func_outra: 		#Create Label
   sw $fp, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
-  lw $a0, 12($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
-  lw $a0, 8($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
-  lw $a0, 4($fp)
-  sw $a0, 0($sp)
-  addiu $sp, $sp, -4
+  lw $a0, 12($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
+  lw $a0, 8($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
+  lw $a0, 4($fp) 		#Load Parameters
+  sw $a0, 0($sp) 		#Load Parameters
+  addiu $sp, $sp, -4 		#Load Parameters
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
@@ -206,7 +206,7 @@ _func_outra: 		#Create Label
   jal _func_print
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
-  addiu $sp, $sp, 4 		#POP Function
+  addiu $sp, $sp, 16 		#POP Function
   lw $fp, 0($sp) 		#POP Function
   jr $ra 		#POP Function
 

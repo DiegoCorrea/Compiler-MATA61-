@@ -1,1 +1,1 @@
-[program 	[decfunc 		[main 		]		[paramlist 		]		[block 			[funccall 				[declara 				]				[arglist 				]			]		]	]	[decfunc 		[declara 		]		[paramlist 		]		[block 		]	]]
+[program 	[decfunc 		[main 		]		[paramlist 		]		[block 			[funccall 				[declara 				]				[arglist 					[1 					]					[2 					]				]			]			[funccall 				[print 				]				[arglist 					[* 						[2 						]						[2 						]					]				]			]		]	]	[decfunc 		[declara 		]		[paramlist 			[a 			]			[b 			]		]		[block 		]	]]

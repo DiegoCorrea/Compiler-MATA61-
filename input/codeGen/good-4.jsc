@@ -1,7 +1,8 @@
 def main (){
-  declara();
+  declara(1,2);
+  print(2*2);
 }
 
-def declara(){
+def declara(a,b){
 
 }

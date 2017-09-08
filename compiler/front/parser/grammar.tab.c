@@ -161,11 +161,11 @@ union YYSTYPE
 {
 #line 20 "compiler/front/parser/grammar.y" /* yacc.c:355  */
 
-    int itype;
-    struct ast *astNode;
+  int itype;
+  struct ast *astNode;
 
-    struct symbol *symbolValue;
-    struct symlist *symbolList;
+  struct symbol *symbolValue;
+  struct symlist *symbolList;
 
 #line 171 "grammar.tab.c" /* yacc.c:355  */
 };
@@ -2248,62 +2248,62 @@ void astAddChildrens(struct ast **head_list, struct ast *newBrother){
     }
 }
 void astNodeBrothers(struct ast *leftBrother, struct ast *rightBrother){
-    struct ast *walkNode;
-    if(rightBrother != NULL){
-        for(walkNode = leftBrother; walkNode != NULL && walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
-        walkNode->nextBrother = rightBrother;
-        rightBrother->previousBrother = walkNode;
-    } else {
-        //printf("\n\n----->>>astBrother: NULL\n\n");
-    }
+  struct ast *walkNode;
+  if(rightBrother != NULL){
+    for(walkNode = leftBrother; walkNode != NULL && walkNode->nextBrother != NULL;walkNode = walkNode->nextBrother);
+    walkNode->nextBrother = rightBrother;
+    rightBrother->previousBrother = walkNode;
+  } else {
+    //printf("\n\n----->>>astBrother: NULL\n\n");
+  }
 }
 
 
 
 
 static unsigned symhash(char *sym){
-    unsigned int hash = 0;
-    unsigned c;
-    while(c = *sym++) hash = hash*9 ^ c;
+  unsigned int hash = 0;
+  unsigned c;
+  while(c = *sym++) hash = hash*9 ^ c;
 
-    return hash;
+  return hash;
 }
 struct symbol *lookup(char* sym) {
-    struct symbol *sp = &symtab[symhash(sym)%NHASH];
-    int scount = NHASH;
+  struct symbol *sp = &symtab[symhash(sym)%NHASH];
+  int scount = NHASH;
 
-    while(--scount >= 0) {
-        if(sp->name && !strcmp(sp->name, sym)) { return sp; }
-        if(!sp->name) {
-            sp->name = strdup(sym);
-            sp->value = 0;
-            sp->func = NULL;
-            sp->syms = NULL;
-            return sp;
-        }
-        if(++sp >= symtab+NHASH) sp = symtab; /* try the next entry */
+  while(--scount >= 0) {
+    if(sp->name && !strcmp(sp->name, sym)) { return sp; }
+    if(!sp->name) {
+      sp->name = strdup(sym);
+      sp->value = 0;
+      sp->func = NULL;
+      sp->syms = NULL;
+      return sp;
     }
+    if(++sp >= symtab+NHASH) sp = symtab; /* try the next entry */
+  }
 }
 struct vardeclaration *symStackPush(struct vardeclaration *var_stack, struct vardeclaration *var_node){
-    var_node->next = var_stack;
-    return var_node;
+  var_node->next = var_stack;
+  return var_node;
 }
 int onVarStack(struct vardeclaration *top_stack, struct symbol *sym){
-    struct vardeclaration *walkerStack;
+  struct vardeclaration *walkerStack;
 
-    for(walkerStack = top_stack; walkerStack != NULL && (strcmp(walkerStack->sym->name, sym->name) != 0); walkerStack = walkerStack->next);
-    if(walkerStack != NULL && (strcmp(walkerStack->sym->name, sym->name) == 0)){
-        return 0;
-    }
-    return 1;
+  for(walkerStack = top_stack; walkerStack != NULL && (strcmp(walkerStack->sym->name, sym->name) != 0); walkerStack = walkerStack->next);
+  if(walkerStack != NULL && (strcmp(walkerStack->sym->name, sym->name) == 0)){
+    return 0;
+  }
+  return 1;
 }
 void reservedWords(struct symbol *sym){
-    if(strcmp("print", sym->name) == 0){
-        exit(0);
-    }
-    if(strcmp("main", sym->name) == 0){
-        START_OK = 1;
-    }
+  if(strcmp("print", sym->name) == 0){
+    exit(0);
+  }
+  if(strcmp("main", sym->name) == 0){
+    START_OK = 1;
+  }
 }
 void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_stack, struct vardeclaration *func_stack){
     struct ast *walkerAST;
@@ -2356,11 +2356,11 @@ void semanticCheck(struct ast *father, int nivel, struct vardeclaration *var_sta
 
             //semanticCheck(help, nivel+1, var_stack, func_stack);
         }else if(strcmp(walkerAST->nodetype,"funccall") == 0){
-            if(onVarStack(func_stack, walkerAST->childrens->identification) == 0){
-                printf("\n[Semantico] %s: Na Pilha", walkerAST->identification->name);
-            } else {
-                exit(0);
-            }
+          if(onVarStack(func_stack, walkerAST->childrens->identification) == 0){
+            printf("\n[Semantico] %s: Na Pilha", walkerAST->identification->name);
+          } else {
+            exit(0);
+          }
         } else if(strcmp(walkerAST->nodetype,"ID") == 0){
             if(onVarStack(var_stack, walkerAST->identification) == 0){
                 printf("\n[Semantico] %s: Na Pilha", walkerAST->identification->name);

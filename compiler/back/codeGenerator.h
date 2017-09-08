@@ -45,7 +45,7 @@ struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct 
 struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack);
 
 void codeGenPushFunction(struct ast *ASTROOT);
-void codeGenPopFunction();
+void codeGenPopFunction(int qtdeParams);
 /**/
 void codeGenSum();
 
