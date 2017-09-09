@@ -89,8 +89,20 @@ _func_declara: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
-  addiu $sp, $sp, -4 		#codeGenFunctionBlockVariable
-  addiu $sp, $sp, -4 		#codeGenFunctionBlockVariable
+  lw $a0, 8($fp) 			#codeGenExpr [ID]
+  sw $a0, 0($sp) 		#codeGenExpr [ID]
+  addiu	$sp, $sp, -4 		#codeGenExpr [ID]
+  lw $a0, 4($fp) 			#codeGenExpr [ID]
+  sw $a0, 0($sp) 		#codeGenExpr [ID]
+  addiu	$sp, $sp, -4 		#codeGenExpr [ID]
+  lw	$a0, 4($sp) 			#codeGen [SUM]
+  lw	$t0, 8($sp) 			#codeGen [SUM]
+  addiu	$sp, $sp, 8 			#codeGen [SUM]
+  add 	$a0, $t0, $a0 			#codeGen [SUM]
+  sw	$a0, 0($sp) 			#codeGen [SUM]
+  addiu	$sp, $sp, -4 			#codeGen [SUM]
+  jal _func_print
+  addiu $sp, $sp, 4 		#POP Arg List
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
   addiu $sp, $sp, 12 		#POP Function

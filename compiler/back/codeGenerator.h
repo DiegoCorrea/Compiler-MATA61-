@@ -4,7 +4,7 @@
 
 /*          Pilha de Variaveis         */
 // type:
-//b -> fim da pilha
+//e -> fim da pilha
 //f -> frame pointer
 //s -> stack pointer
 struct registerStack {
@@ -17,7 +17,7 @@ struct registerStack {
 };
 struct registerStack *newVariableOnStack(struct symbol *sym, int offset, char type);
 struct registerStack *varStackPush(struct registerStack *stack, struct registerStack *new_var);
-
+struct registerStack *searchOnStack(struct registerStack *stack, struct ast *to_search);
 /////////////////////////////////////////////////////
 
 void astPrintBack(struct ast *ASTROOT, int tab);

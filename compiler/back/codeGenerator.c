@@ -156,7 +156,7 @@ struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct 
       if (declaration->nextBrother != NULL) {
         codeGenExpr(declaration->nextBrother, blockStack);
       } else {
-        fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#codeGenFunctionBlockVariable\n");
+        fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#Function Variable declaration\n");
       }
       offset++;
     }
@@ -167,20 +167,20 @@ struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struc
   for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"funccall") == 0) {
       struct ast *funccall = walker->childrens;
-      int qtdeParams = 0;
+      int qtdeArgs = 0;
 
-      for (struct ast *args = funccall->nextBrother->childrens; args != NULL; args = args->nextBrother, qtdeParams++) {
+      for(struct ast *args = funccall->nextBrother->childrens; args != NULL; args = args->nextBrother, qtdeArgs++) {
         codeGenExpr(args->childrens, blockStack);
       }
       fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
-      fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeParams));
+      fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeArgs));
     }
   }
   return blockStack;
 }
 struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack){
   blockStack = codeGenFunctionBlockVariable(ASTBLOCK->childrens, blockStack);
-  codeGenFunctionBlockStatements(ASTBLOCK->childrens, blockStack);
+  blockStack = codeGenFunctionBlockStatements(ASTBLOCK->childrens, blockStack);
 
   return blockStack;
 }
@@ -277,11 +277,18 @@ void codeGenExpr(struct ast *tree, struct registerStack *stack) {
       fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr [DEC]\n");
     }
     if (strcmp(tree->nodetype,"ID") == 0) {
-      fprintf(MIPS_FILE, "  lw $a0, %d \t\t\t#codeGenExpr [ID]\n", tree->dec.number);
+      struct registerStack *variable = searchOnStack(stack, tree);
+      if(variable->type != 'e'){
+        if(variable->type == 'f'){
+          fprintf(MIPS_FILE, "  lw $a0, %d($fp) \t\t\t#codeGenExpr [ID]\n", variable->offset*4);
+        }
+        else{
+          fprintf(MIPS_FILE, "  lw $a0, -%d($fp) \t\t\t#codeGenExpr [ID]\n", variable->offset*4);
+        }
+        fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr [ID]\n");
 
-      fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#codeGenExpr [ID]\n");
-
-      fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr [ID]\n");
+        fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr [ID]\n");
+      }
     }
     if (strcmp(tree->nodetype,"+") == 0) {
       codeGenSum();
@@ -319,22 +326,20 @@ struct registerStack *varStackPush(struct registerStack *stack, struct registerS
   if (stack != NULL) {
     new_var->bottom = stack;
   }
-
   return new_var;
 }
 struct registerStack *searchOnStack(struct registerStack *stack, struct ast *to_search){
-  struct registerStack *walker = NULL;
-
-  for (walker = stack; walker != NULL || walker->identification != to_search->identification ; walker = walker->bottom) {
-    /* code */
-  }
-
+  for (; stack != NULL && stack->id != to_search->identification ; stack = stack->bottom);
+  return stack;
 }
 void prinStack(struct registerStack *stack){
   printf("[Pilha de Variavel]\n");
   for (; stack != NULL; stack = stack->bottom) {
     if (stack->type != 'e') {
-      printf("id: %s... offset %d($%cp)\n", stack->id->name, stack->offset*4, stack->type);
+      if(stack->type == 'f')
+        printf("id: %s... offset %d($fp)\n", stack->id->name, stack->offset*4);
+      else
+        printf("id: %s... offset -%d($fp)\n", stack->id->name, stack->offset*4);
     } else {
       printf("[Fim da pilha do block]\n");
     }

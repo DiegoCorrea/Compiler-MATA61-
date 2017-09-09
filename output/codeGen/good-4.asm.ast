@@ -79,12 +79,18 @@
 			]
 		]
 		[block 
-			[decvar 
-				[c 
+			[funccall 
+				[print 
 				]
-			]
-			[decvar 
-				[d 
+				[arglist 
+					[ARG 
+						[+ 
+							[a 
+							]
+							[b 
+							]
+						]
+					]
 				]
 			]
 		]

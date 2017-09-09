@@ -16,7 +16,7 @@ _func_main: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
-  addiu $sp, $sp, -4 		#codeGenFunctionBlockVariable
+  addiu $sp, $sp, -4 		#Function Variable declaration
   li $a0, 4 			#codeGenExpr [DEC]
   sw $a0, 0($sp) 		#codeGenExpr [DEC]
   addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
@@ -31,16 +31,16 @@ _func_main: 		#Create Label
   addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
   jal _func_print
   addiu $sp, $sp, 4 		#POP Arg List
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, -4($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, -8($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, -12($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, -16($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
   jal _func_pilhala
@@ -73,7 +73,7 @@ _func_pilhala: 		#Create Label
   li $a0, 2 			#codeGenExpr [DEC]
   sw $a0, 0($sp) 		#codeGenExpr [DEC]
   addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 4($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
   lw	$a0, 4($sp) 			#codeGen [SUM]
@@ -82,10 +82,10 @@ _func_pilhala: 		#Create Label
   add 	$a0, $t0, $a0 			#codeGen [SUM]
   sw	$a0, 0($sp) 			#codeGen [SUM]
   addiu	$sp, $sp, -4 			#codeGen [SUM]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 16($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 8($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
   lw	$a0, 4($sp) 			#codeGen [SUM]
@@ -94,10 +94,10 @@ _func_pilhala: 		#Create Label
   add 	$a0, $t0, $a0 			#codeGen [SUM]
   sw	$a0, 0($sp) 			#codeGen [SUM]
   addiu	$sp, $sp, -4 			#codeGen [SUM]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 12($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 12($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
   lw	$a0, 4($sp) 			#codeGen [MUL]
@@ -130,13 +130,13 @@ _func_outra: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 8($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 4($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
-  lw $a0, 0 			#codeGenExpr [ID]
+  lw $a0, 12($fp) 			#codeGenExpr [ID]
   sw $a0, 0($sp) 		#codeGenExpr [ID]
   addiu	$sp, $sp, -4 		#codeGenExpr [ID]
   lw	$a0, 4($sp) 			#codeGen [MUL]

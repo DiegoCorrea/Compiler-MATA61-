@@ -89,7 +89,7 @@ _func_declara: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
-  addiu $sp, $sp, -4 		#codeGenFunctionBlockVariable
+  addiu $sp, $sp, -4 		#Function Variable declaration
   li $a0, 5 			#codeGenExpr [DEC]
   sw $a0, 0($sp) 		#codeGenExpr [DEC]
   addiu	$sp, $sp, -4 		#codeGenExpr [DEC]
