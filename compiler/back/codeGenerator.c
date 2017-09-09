@@ -99,13 +99,13 @@ void codeGenFunctions(struct ast *ASTROOT){
        int qtdeParams = 0;
       for (struct ast *tmpCount = paramsList->childrens; tmpCount != NULL; tmpCount = tmpCount->nextBrother, qtdeParams++);
 
-      struct registerStack *blockStack = newVariableOnStack(NULL, 0, 'b');
+      struct registerStack *blockStack = newVariableOnStack(NULL, 0, 'e');
 
       codeGenFunctionCreateLabel(id);
       blockStack = codeGenFunctionActivationRecord(paramsList->childrens, blockStack, qtdeParams);
       blockStack = codeGenFunctionBlock(blockTree, blockStack);
       codeGenPopFunction(qtdeParams);
-      //prinStack(blockStack);
+      prinStack(blockStack);
     }
   }
   codeGenPrintFunction();
@@ -132,11 +132,11 @@ struct registerStack *codeGenFunctionActivationRecord(struct ast *PARAMS, struct
 }
 struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct registerStack *blockStack, int qtdeParams){
   if (PARAMS != NULL) {
-    //struct ast *walker;
+    struct ast *walker= PARAMS;
 
-    for(int offset = 1; offset <= qtdeParams; offset++){
+    for(int offset = 1; offset <= qtdeParams && walker != NULL; offset++, walker = walker->nextBrother){
 
-      //blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
+      blockStack = varStackPush(blockStack, newVariableOnStack(walker->identification, offset, 'f'));
       fprintf(MIPS_FILE, "  lw $a0, %d($fp) \t\t#Load Parameters\n", offset*4);
       fprintf(MIPS_FILE, "  sw $a0, 0($sp) \t\t#Load Parameters\n");
 
@@ -147,24 +147,23 @@ struct registerStack *codeGenFunctionLoadParameters(struct ast *PARAMS, struct r
 }
 ///////////////////// Block ////////////////////////////
 struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct registerStack *blockStack){
-  int offset = 0;
-
+  int offset = 1;
   for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"decvar") == 0) {
       struct ast *declaration = walker->childrens;
-      struct registerStack *variable = varStackPush(blockStack, newVariableOnStack(declaration->identification, offset, 's'));
+      blockStack = varStackPush(blockStack, newVariableOnStack(declaration->identification, offset, 's'));
 
       if (declaration->nextBrother != NULL) {
         codeGenExpr(declaration->nextBrother, blockStack);
       } else {
         fprintf(MIPS_FILE, "  addiu $sp, $sp, -4 \t\t#codeGenFunctionBlockVariable\n");
       }
-
-      offset += 4;
+      offset++;
     }
   }
+  return blockStack;
 }
-struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack ){
+struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack ) {
   for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"funccall") == 0) {
       struct ast *funccall = walker->childrens;
@@ -177,10 +176,13 @@ struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struc
       fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeParams));
     }
   }
+  return blockStack;
 }
 struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct registerStack *blockStack){
-  codeGenFunctionBlockVariable(ASTBLOCK->childrens, blockStack);
+  blockStack = codeGenFunctionBlockVariable(ASTBLOCK->childrens, blockStack);
   codeGenFunctionBlockStatements(ASTBLOCK->childrens, blockStack);
+
+  return blockStack;
 }
 ////////////////// Fim do Block ///////////////////////
 void codeGenPopFunction(int qtdeParams){
@@ -324,8 +326,8 @@ struct registerStack *varStackPush(struct registerStack *stack, struct registerS
 void prinStack(struct registerStack *stack){
   printf("[Pilha de Variavel]\n");
   for (; stack != NULL; stack = stack->bottom) {
-    if (stack->type != 'b') {
-      printf("id: %s... offset %d($%cp)\n", stack->id->name, stack->offset, stack->type);
+    if (stack->type != 'e') {
+      printf("id: %s... offset %d($%cp)\n", stack->id->name, stack->offset*4, stack->type);
     } else {
       printf("[Fim da pilha do block]\n");
     }

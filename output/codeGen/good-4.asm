@@ -89,6 +89,8 @@ _func_declara: 		#Create Label
   sw $ra, 0($sp) 		#Activation Record
   move $fp, $sp 		#Activation Record
   addiu $sp, $sp, -4 		#Activation Record
+  addiu $sp, $sp, -4 		#codeGenFunctionBlockVariable
+  addiu $sp, $sp, -4 		#codeGenFunctionBlockVariable
   move $sp, $fp 		#POP Function
   lw $ra, 0($sp) 		#POP Function
   addiu $sp, $sp, 12 		#POP Function

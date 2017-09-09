@@ -7,5 +7,7 @@ def main (){
 }
 
 def declara(a,b){
+  let c;
+  let d;
 
 }
