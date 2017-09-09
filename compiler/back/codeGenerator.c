@@ -322,7 +322,14 @@ struct registerStack *varStackPush(struct registerStack *stack, struct registerS
 
   return new_var;
 }
+struct registerStack *searchOnStack(struct registerStack *stack, struct ast *to_search){
+  struct registerStack *walker = NULL;
 
+  for (walker = stack; walker != NULL || walker->identification != to_search->identification ; walker = walker->bottom) {
+    /* code */
+  }
+
+}
 void prinStack(struct registerStack *stack){
   printf("[Pilha de Variavel]\n");
   for (; stack != NULL; stack = stack->bottom) {
