@@ -163,22 +163,27 @@ struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct 
   }
   return blockStack;
 }
+void codeGenFunctionCall(struct ast *walker, struct registerStack *blockStack){
+  struct ast *funccall = walker->childrens;
+  int qtdeArgs = 0;
+
+  for(struct ast *args = funccall->nextBrother->childrens; args != NULL; args = args->nextBrother, qtdeArgs++) {
+    codeGenExpr(args->childrens, blockStack);
+  }
+  fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
+  fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeArgs));
+}
 struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack ) {
   for(struct ast *walker = ASTBLOCK; walker != NULL; walker = walker->nextBrother){
     if (strcmp(walker->nodetype,"funccall") == 0) {
-      struct ast *funccall = walker->childrens;
-      int qtdeArgs = 0;
-
-      for(struct ast *args = funccall->nextBrother->childrens; args != NULL; args = args->nextBrother, qtdeArgs++) {
-        codeGenExpr(args->childrens, blockStack);
-      }
-      fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
-      fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeArgs));
+      codeGenFunctionCall(walker,blockStack);
     }
     if (strcmp(walker->nodetype,"assign") == 0) {
       codeGenAssign(walker->childrens, blockStack);
     }
-
+    if (strcmp(walker->nodetype,"return") == 0) {
+      codeGenExpr(walker->nextBrother, blockStack);
+    }
   }
   return blockStack;
 }
