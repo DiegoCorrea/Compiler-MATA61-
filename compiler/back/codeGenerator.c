@@ -319,12 +319,11 @@ void codeGenExpr(struct ast *tree, struct registerStack *stack) {
       codeGenNegate();
     } else if (strcmp(tree->nodetype,"-") == 0) {
       codeGenSignalChange();
+    } else if (strcmp(tree->nodetype,"funccall") == 0) {
+      codeGenFunctionCall(tree->childrens->nextBrother, stack);
     }
   }
 }
-
-
-
 /////////////////// Stack /////////////////////////////
 struct registerStack *newVariableOnStack(struct symbol *sym, int offset, char type) {
     struct registerStack *variable = (struct registerStack *)malloc(sizeof(struct registerStack));
