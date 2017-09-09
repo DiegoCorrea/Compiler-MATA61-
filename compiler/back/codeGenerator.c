@@ -175,6 +175,10 @@ struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struc
       fprintf(MIPS_FILE, "  jal _func_%s\n",funccall->identification->name);
       fprintf(MIPS_FILE, "  addiu $sp, $sp, %d \t\t#POP Arg List\n", 4*(qtdeArgs));
     }
+    if (strcmp(walker->nodetype,"assign") == 0) {
+      codeGenAssign(walker->childrens, blockStack);
+    }
+
   }
   return blockStack;
 }
@@ -260,9 +264,17 @@ void codeGenSignalChange(){
 ///////////////////////////////////////////////////////////////////
 /*              Assign            */
 void codeGenAssign(struct ast *tree, struct registerStack *stack) {
-  if (strcmp(tree->nodetype,"DEC") == 0) {
-    fprintf(MIPS_FILE, "  li $a0, %d\n", tree->dec.number);
+  struct registerStack *variable = searchOnStack(stack, tree);
+  codeGenExpr(tree->nextBrother, stack);
+  if(variable->type != 'e'){
+    if(variable->type == 'f'){
+      fprintf(MIPS_FILE, "  sw $a0, %d($fp) \t\t\t#Assign\n", variable->offset*4);
+    }
+    else{
+      fprintf(MIPS_FILE, "  sw $a0, -%d($fp) \t\t\t#Assign\n", variable->offset*4);
+    }
   }
+  fprintf(MIPS_FILE, "  addiu	$sp, $sp, 4 \t\t#Assign\n");
 }
 void codeGenExpr(struct ast *tree, struct registerStack *stack) {
   if(tree != NULL){
