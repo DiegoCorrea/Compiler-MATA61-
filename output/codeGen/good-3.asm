@@ -1,8 +1,7 @@
-.globl __start
 .data 
 .text
 
-__start:
+main:
   move $fp, $sp 		#Start Mips
   addiu $sp, $sp, -4 		#Start Mips
   jal _func_main 		#Start Mips

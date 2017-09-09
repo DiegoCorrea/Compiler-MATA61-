@@ -1,4 +1,3 @@
-.globl __start
 .data 
   a: 	 .word 	 150152 
   b: 	 .word 
@@ -10,7 +9,7 @@
   essavariavelehgrandecomoaporra: 	 .word 	 9999999 
 .text
 
-__start:
+main:
   move $fp, $sp 		#Start Mips
   addiu $sp, $sp, -4 		#Start Mips
   jal _func_main 		#Start Mips

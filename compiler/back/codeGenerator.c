@@ -46,7 +46,7 @@ void codeGenerator(struct ast *ASTROOT, char** argv){
   fclose( MIPS_FILE );
 }
 void codeGen(struct ast *ASTROOT){
-  fprintf(MIPS_FILE, ".globl __start\n");
+  //fprintf(MIPS_FILE, ".globl main\n");
 
   fprintf(MIPS_FILE, ".data \n");
 
@@ -60,7 +60,7 @@ void codeGen(struct ast *ASTROOT){
 
 }
 void codeGenStartMips(struct ast *ASTROOT){
-  fprintf(MIPS_FILE, "\n__start:\n");
+  fprintf(MIPS_FILE, "\nmain:\n");
 
   fprintf(MIPS_FILE, "  move $fp, $sp \t\t#Start Mips\n");
 
