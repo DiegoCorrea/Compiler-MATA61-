@@ -31,13 +31,13 @@ int main(int argc, char** argv){
 void front(int argc, char** argv){
   readFromFile(argc, argv);
   char** rArray;
-  rArray = new char*[argc+1];
+  rArray = new char*[argc+4];
   for(int i=0; i < argc; i++) {
     int len = strlen(argv[i]) + 1;
     rArray[i] = new char[len];
     strcpy(rArray[i], argv[i]);
   }
-  strcat(rArray[2], ".ast");
+  strcat(rArray[2], ".ast\0");
   fl_output = fopen(rArray[2], "w+" );
 
   int parser_result = yyparse();

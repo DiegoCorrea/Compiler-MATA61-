@@ -1,0 +1,30 @@
+[program 
+	[decfunc 
+		[main 
+		]
+		[paramlist 
+		]
+		[block 
+			[if 
+				[> 
+					[4 
+					]
+					[2 
+					]
+				]
+				[block 
+					[funccall 
+						[print 
+						]
+						[arglist 
+							[ARG 
+								[4 
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	]
+]

@@ -45,9 +45,15 @@ struct registerStack *codeGenFunctionBlockVariable(struct ast *ASTBLOCK, struct 
 struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struct registerStack *blockStack);
 
 void codeGenFunctionCall(struct ast *, struct registerStack *);
+void codeGenIF(struct ast *, struct registerStack *);
 void codeGenPopFunction(int qtdeParams);
 /**/
 void codeGenSum();
+void codeGenSub();
+void codeGenMul();
+void codeGenDiv();
+void codeGenNegate();
+void codeGenSignalChange();
 
 /**/
 void codeGenAssign(struct ast *tree, struct registerStack *stack);

@@ -105,7 +105,7 @@ void codeGenFunctions(struct ast *ASTROOT){
       blockStack = codeGenFunctionActivationRecord(paramsList->childrens, blockStack, qtdeParams);
       blockStack = codeGenFunctionBlock(blockTree, blockStack);
       codeGenPopFunction(qtdeParams);
-      prinStack(blockStack);
+      //prinStack(blockStack);
     }
   }
   codeGenPrintFunction();
@@ -184,6 +184,9 @@ struct registerStack *codeGenFunctionBlockStatements(struct ast *ASTBLOCK, struc
     if (strcmp(walker->nodetype,"return") == 0) {
       codeGenExpr(walker->nextBrother, blockStack);
     }
+    if (strcmp(walker->nodetype,"if") == 0) {
+      codeGenIF(walker,blockStack);
+    }
   }
   return blockStack;
 }
@@ -192,6 +195,9 @@ struct registerStack *codeGenFunctionBlock(struct ast *ASTBLOCK, struct register
   blockStack = codeGenFunctionBlockStatements(ASTBLOCK->childrens, blockStack);
 
   return blockStack;
+}
+void codeGenIF(struct ast *ASTIF, struct registerStack *blockStack){
+
 }
 ////////////////// Fim do Block ///////////////////////
 void codeGenPopFunction(int qtdeParams){
@@ -307,36 +313,46 @@ void codeGenExpr(struct ast *tree, struct registerStack *stack) {
         fprintf(MIPS_FILE, "  addiu	$sp, $sp, -4 \t\t#codeGenExpr [ID]\n");
       }
     }
-    if (strcmp(tree->nodetype,"+") == 0) {
-      codeGenSum();
-    } else if (strcmp(tree->nodetype,"-") == 0) {
-      codeGenSub();
-    } else if (strcmp(tree->nodetype,"*") == 0) {
+    if (strcmp(tree->nodetype,"*") == 0) {
       codeGenMul();
     } else if (strcmp(tree->nodetype,"/") == 0) {
       codeGenDiv();
     } else if (strcmp(tree->nodetype,"!") == 0) {
       codeGenNegate();
+    } else if (strcmp(tree->nodetype,"+") == 0) {
+      codeGenSum();
+    } else if (strcmp(tree->nodetype,"-") == 0) {
+      codeGenSub();
     } else if (strcmp(tree->nodetype,"-") == 0) {
       codeGenSignalChange();
     } else if (strcmp(tree->nodetype,"funccall") == 0) {
-      codeGenFunctionCall(tree->childrens->nextBrother, stack);
+      codeGenFunctionCall(tree->childrens, stack);
+    } else if (strcmp(tree->nodetype,">") == 0) {
+      codeGenExpr(tree->childrens, stack);
+    } else if (strcmp(tree->nodetype,">=") == 0) {
+      codeGenExpr(tree->childrens, stack);
+    } else if (strcmp(tree->nodetype,"<") == 0) {
+      codeGenExpr(tree->childrens, stack);
+    } else if (strcmp(tree->nodetype,"<=") == 0) {
+      codeGenExpr(tree->childrens, stack);
+    } else if (strcmp(tree->nodetype,"==") == 0) {
+      codeGenExpr(tree->childrens, stack);
     }
   }
 }
 /////////////////// Stack /////////////////////////////
 struct registerStack *newVariableOnStack(struct symbol *sym, int offset, char type) {
-    struct registerStack *variable = (struct registerStack *)malloc(sizeof(struct registerStack));
-    if(!variable) {
-      exit(0);
-    }
+  struct registerStack *variable = (struct registerStack *)malloc(sizeof(struct registerStack));
+  if(!variable) {
+    exit(0);
+  }
 
-    variable->id = sym;
-    variable->offset = offset;
-    variable->bottom = NULL;
-    variable->type = type;
+  variable->id = sym;
+  variable->offset = offset;
+  variable->bottom = NULL;
+  variable->type = type;
 
-    return (struct registerStack *)variable;
+  return (struct registerStack *)variable;
 }
 struct registerStack *varStackPush(struct registerStack *stack, struct registerStack *new_var){
   if (stack != NULL) {

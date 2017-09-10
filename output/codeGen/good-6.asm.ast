@@ -100,10 +100,14 @@
 			[assign 
 				[c 
 				]
-				[* 
-					[a 
+				[+ 
+					[* 
+						[a 
+						]
+						[b 
+						]
 					]
-					[b 
+					[10 
 					]
 				]
 			]
@@ -117,32 +121,14 @@
 					]
 				]
 			]
-			[funccall 
-				[print 
-				]
-				[arglist 
-					[ARG 
-						[funccall 
-							[maisuma 
-							]
-							[arglist 
-								[ARG 
-									[c 
-									]
-								]
-								[ARG 
-									[a 
-									]
-								]
-								[ARG 
-									[b 
-									]
-								]
-							]
-						]
-					]
-				]
-			]
+		]
+	]
+	[decfunc 
+		[o 
+		]
+		[paramlist 
+		]
+		[block 
 		]
 	]
 	[decfunc 
@@ -169,10 +155,6 @@
 					]
 					[v 
 					]
-				]
-			]
-			[return 
-				[m 
 				]
 			]
 		]
